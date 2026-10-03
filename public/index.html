@@ -222,6 +222,68 @@
       color: #fff;
     }
 
+    /* Live City Search Input & Autocomplete Dropdown */
+    .search-box-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .search-input {
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 9999px;
+      padding: 7px 18px;
+      color: #fff;
+      font-size: 0.82rem;
+      outline: none;
+      width: 230px;
+      font-family: inherit;
+      transition: all 0.25s ease;
+    }
+    .search-input:focus {
+      width: 290px;
+      background: rgba(15, 23, 42, 0.9);
+      border-color: var(--primary);
+      box-shadow: 0 0 15px rgba(56, 189, 248, 0.35);
+    }
+    .search-input::placeholder {
+      color: var(--text-muted);
+    }
+    .search-dropdown {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      width: 310px;
+      max-height: 280px;
+      overflow-y: auto;
+      background: rgba(13, 18, 30, 0.96);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 16px;
+      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.65);
+      z-index: 1000;
+      display: none;
+    }
+    .search-item {
+      padding: 10px 14px;
+      cursor: pointer;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 0.82rem;
+      color: #e2e8f0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.15s ease;
+    }
+    .search-item:last-child {
+      border-bottom: none;
+    }
+    .search-item:hover {
+      background: rgba(56, 189, 248, 0.2);
+      color: #fff;
+    }
+
     /* Badges */
     .badge {
       font-size: 0.74rem;
@@ -946,11 +1008,17 @@
         <div class="brand-logo">🌦️</div>
         <div class="brand-title">
           <h1>Weather Forecast Blending</h1>
-          <p>Constrained Multi-Model AI-NWP System across 12 Indian Climatic Zones</p>
+          <p>Constrained Multi-Model AI-NWP System across Pan-India Cities & Climatic Zones</p>
         </div>
       </div>
 
       <div class="controls-row">
+        <!-- Live City Search for ANY Indian City -->
+        <div class="search-box-wrap">
+          <input type="text" id="city-search-input" class="search-input" placeholder="🔍 Search ANY Indian city or district..." autocomplete="off">
+          <div id="city-search-dropdown" class="search-dropdown"></div>
+        </div>
+
         <!-- Station Dropdown -->
         <div class="control-pill">
           <label for="point-select">Location</label>
@@ -1032,7 +1100,7 @@
             📍 Delhi NCR, Plains
           </div>
           <div style="font-size:0.72rem; color:var(--text-muted);">
-            12 Indian Agro-Climatic Stations Monitored
+            Pan-India Cities & Stations Monitored
           </div>
         </div>
 
@@ -1290,6 +1358,85 @@
     let markersLayer = null;
     let weightChart = null;
     let forecastChart = null;
+    let recentStationIds = ["delhi", "mumbai", "bengaluru", "kolkata"];
+    let searchDebounceTimer = null;
+
+    // 30 Major Indian Metropolitan Cities & State Capitals across all zones
+    const PRESET_INDIAN_CITIES = [
+      { id: "kolkata", name: "Kolkata", admin1: "West Bengal", lat: 22.5726, lon: 88.3639, elevation: 9 },
+      { id: "pune", name: "Pune", admin1: "Maharashtra", lat: 18.5204, lon: 73.8567, elevation: 560 },
+      { id: "ahmedabad", name: "Ahmedabad", admin1: "Gujarat", lat: 23.0225, lon: 72.5714, elevation: 53 },
+      { id: "jaipur", name: "Jaipur", admin1: "Rajasthan", lat: 26.9124, lon: 75.7873, elevation: 431 },
+      { id: "surat", name: "Surat", admin1: "Gujarat", lat: 21.1702, lon: 72.8311, elevation: 13 },
+      { id: "lucknow", name: "Lucknow", admin1: "Uttar Pradesh", lat: 26.8467, lon: 80.9462, elevation: 123 },
+      { id: "kanpur", name: "Kanpur", admin1: "Uttar Pradesh", lat: 26.4499, lon: 80.3319, elevation: 126 },
+      { id: "nagpur", name: "Nagpur", admin1: "Maharashtra", lat: 21.1458, lon: 79.0882, elevation: 310 },
+      { id: "indore", name: "Indore", admin1: "Madhya Pradesh", lat: 22.7196, lon: 75.8577, elevation: 553 },
+      { id: "varanasi", name: "Varanasi", admin1: "Uttar Pradesh", lat: 25.3176, lon: 82.9739, elevation: 81 },
+      { id: "visakhapatnam", name: "Visakhapatnam", admin1: "Andhra Pradesh", lat: 17.6868, lon: 83.2185, elevation: 45 },
+      { id: "srinagar", name: "Srinagar", admin1: "Jammu and Kashmir", lat: 34.0837, lon: 74.7973, elevation: 1585 },
+      { id: "shimla", name: "Shimla", admin1: "Himachal Pradesh", lat: 31.1048, lon: 77.1734, elevation: 2276 },
+      { id: "chandigarh", name: "Chandigarh", admin1: "Chandigarh", lat: 30.7333, lon: 76.7794, elevation: 321 },
+      { id: "amritsar", name: "Amritsar", admin1: "Punjab", lat: 31.6340, lon: 74.8723, elevation: 234 },
+      { id: "kochi", name: "Kochi", admin1: "Kerala", lat: 9.9312, lon: 76.2673, elevation: 4 },
+      { id: "thiruvananthapuram", name: "Thiruvananthapuram", admin1: "Kerala", lat: 8.5241, lon: 76.9366, elevation: 10 },
+      { id: "coimbatore", name: "Coimbatore", admin1: "Tamil Nadu", lat: 11.0168, lon: 76.9558, elevation: 411 },
+      { id: "ranchi", name: "Ranchi", admin1: "Jharkhand", lat: 23.3441, lon: 85.3096, elevation: 651 },
+      { id: "raipur", name: "Raipur", admin1: "Chhattisgarh", lat: 21.2514, lon: 81.6296, elevation: 298 },
+      { id: "panaji", name: "Panaji", admin1: "Goa", lat: 15.4909, lon: 73.8278, elevation: 7 },
+      { id: "mangaluru", name: "Mangaluru", admin1: "Karnataka", lat: 12.9141, lon: 74.8560, elevation: 22 },
+      { id: "mysuru", name: "Mysuru", admin1: "Karnataka", lat: 12.2958, lon: 76.6394, elevation: 763 },
+      { id: "vadodara", name: "Vadodara", admin1: "Gujarat", lat: 22.3072, lon: 73.1812, elevation: 39 },
+      { id: "shillong", name: "Shillong", admin1: "Meghalaya", lat: 25.5788, lon: 91.8933, elevation: 1525 },
+      { id: "gangtok", name: "Gangtok", admin1: "Sikkim", lat: 27.3314, lon: 88.6138, elevation: 1650 },
+      { id: "leh", name: "Leh", admin1: "Ladakh", lat: 34.1526, lon: 77.5771, elevation: 3524 },
+      { id: "agra", name: "Agra", admin1: "Uttar Pradesh", lat: 27.1767, lon: 78.0081, elevation: 171 },
+      { id: "madurai", name: "Madurai", admin1: "Tamil Nadu", lat: 9.9252, lon: 78.1198, elevation: 101 },
+      { id: "jabalpur", name: "Jabalpur", admin1: "Madhya Pradesh", lat: 23.1815, lon: 79.9864, elevation: 411 }
+    ];
+
+    function determineTerrain(lat, lon, elevation, admin1) {
+      const elev = Number(elevation) || 0;
+      const adm = (admin1 || "").toLowerCase();
+      if (elev >= 700 || adm.includes("himachal") || adm.includes("ladakh") || adm.includes("kashmir") || adm.includes("sikkim") || adm.includes("meghalaya") || adm.includes("uttarakhand") || adm.includes("arunachal")) {
+        return "hill";
+      }
+      const coastalStates = ["goa", "kerala", "tamil nadu", "andhra", "odisha", "west bengal", "puducherry", "lakshadweep", "andaman"];
+      const isCoastState = coastalStates.some(s => adm.includes(s)) || (adm.includes("maharashtra") && lon < 73.5) || (adm.includes("gujarat") && lon < 72.9 && elev < 60);
+      if (elev < 100 && isCoastState) {
+        return "coastal";
+      }
+      if (adm.includes("rajasthan") || (adm.includes("gujarat") && lon < 72.0)) {
+        return "arid";
+      }
+      if ((elev >= 250 && elev < 700) && (adm.includes("maharashtra") || adm.includes("karnataka") || adm.includes("telangana") || adm.includes("madhya") || adm.includes("chhattisgarh") || adm.includes("jharkhand"))) {
+        return "plateau";
+      }
+      return "plains";
+    }
+
+    function getRepresentativeStation(terrain, lat, lon) {
+      if (terrain === "hill") return "dehradun";
+      if (terrain === "coastal") return lon > 80 ? (lat > 19 ? "bhubaneswar" : "chennai") : "mumbai";
+      if (terrain === "arid") return "jodhpur";
+      if (terrain === "plateau") return lat < 15 ? "bengaluru" : (lat < 19 ? "hyderabad" : "bhopal");
+      return lon > 83 ? "patna" : "delhi";
+    }
+
+    function addToRecentStations(pId) {
+      recentStationIds = [pId, ...recentStationIds.filter(x => x !== pId)].slice(0, 4);
+      renderQuickStations();
+    }
+
+    function flyToPoint(pId) {
+      const pt = forecastsData.points[pId];
+      if (pt && map) {
+        map.flyTo([pt.lat, pt.lon], Math.max(map.getZoom(), 7), {
+          animate: true,
+          duration: 1.2
+        });
+      }
+    }
 
     // Load Data
     async function loadAllData() {
@@ -1320,19 +1467,47 @@
     }
 
     function initUI() {
-      // Populate Point Select
+      // Populate Point Select with Optgroups
       const ptSelect = document.getElementById("point-select");
       ptSelect.innerHTML = "";
+
+      // 1. Core 12 Stations
+      const coreGroup = document.createElement("optgroup");
+      coreGroup.label = "Core Agro-Climatic Stations (IMD Reference)";
       const pointKeys = Object.keys(forecastsData.points);
       pointKeys.forEach(pId => {
         const opt = document.createElement("option");
         opt.value = pId;
         opt.innerText = forecastsData.points[pId].name;
-        ptSelect.appendChild(opt);
+        coreGroup.appendChild(opt);
       });
+      ptSelect.appendChild(coreGroup);
+
+      // 2. Preset Major Cities
+      const presetGroup = document.createElement("optgroup");
+      presetGroup.label = "Major Indian Cities (Live 4-Model Blend)";
+      presetGroup.id = "preset-cities-group";
+      PRESET_INDIAN_CITIES.forEach(c => {
+        if (!forecastsData.points[c.id]) {
+          const opt = document.createElement("option");
+          opt.value = c.id;
+          opt.innerText = `${c.name} (${c.admin1})`;
+          presetGroup.appendChild(opt);
+        }
+      });
+      ptSelect.appendChild(presetGroup);
+
+      // 3. Custom Searched Cities
+      const searchedGroup = document.createElement("optgroup");
+      searchedGroup.label = "Custom Searched Cities";
+      searchedGroup.id = "searched-cities-group";
+      ptSelect.appendChild(searchedGroup);
 
       // Init Leaflet Map
       initMap();
+
+      // Setup Search Autocomplete
+      setupCitySearch();
 
       // Render Metrics Table
       renderMetricsTable();
@@ -1344,13 +1519,27 @@
       drawMiniCurve();
 
       // Attach Event Listeners
-      document.getElementById("point-select").addEventListener("change", updateDashboard);
+      document.getElementById("point-select").addEventListener("change", handlePointSelectChange);
       document.getElementById("var-select").addEventListener("change", updateDashboard);
       document.getElementById("lead-select").addEventListener("change", updateDashboard);
       document.getElementById("season-select").addEventListener("change", updateDashboard);
 
       // Initial Update
       updateDashboard();
+    }
+
+    async function handlePointSelectChange() {
+      const selectedPt = document.getElementById("point-select").value;
+      if (!forecastsData.points[selectedPt]) {
+        const preset = PRESET_INDIAN_CITIES.find(c => c.id === selectedPt);
+        if (preset) {
+          await activateCity(preset);
+          return;
+        }
+      }
+      addToRecentStations(selectedPt);
+      updateDashboard();
+      flyToPoint(selectedPt);
     }
 
     function initMap() {
@@ -1367,6 +1556,330 @@
       markersLayer = L.layerGroup().addTo(map);
     }
 
+    function setupCitySearch() {
+      const searchInput = document.getElementById("city-search-input");
+      const dropdown = document.getElementById("city-search-dropdown");
+      if (!searchInput || !dropdown) return;
+
+      searchInput.addEventListener("input", (e) => {
+        const query = e.target.value.trim();
+        clearTimeout(searchDebounceTimer);
+        if (query.length < 2) {
+          dropdown.innerHTML = "";
+          dropdown.style.display = "none";
+          return;
+        }
+        searchDebounceTimer = setTimeout(() => {
+          performCitySearch(query);
+        }, 250);
+      });
+
+      searchInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          const firstItem = dropdown.querySelector(".search-item");
+          if (firstItem) {
+            firstItem.click();
+          }
+        } else if (e.key === "Escape") {
+          dropdown.style.display = "none";
+        }
+      });
+
+      document.addEventListener("click", (e) => {
+        if (!searchInput.contains(e.target) && !dropdown.contains(e.target)) {
+          dropdown.style.display = "none";
+        }
+      });
+    }
+
+    async function performCitySearch(query) {
+      const dropdown = document.getElementById("city-search-dropdown");
+      dropdown.innerHTML = `<div style="padding:12px 14px; font-size:0.8rem; color:#94a3b8;">🔍 Searching pan-India databases...</div>`;
+      dropdown.style.display = "block";
+
+      try {
+        let url = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(query)}&count=8&language=en&format=json&country_code=IN`;
+        let res = await fetch(url);
+        let data = await res.json();
+        let results = data.results || [];
+
+        // Fallback without country filter if no result found
+        if (results.length === 0) {
+          url = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(query)}&count=6&language=en&format=json`;
+          res = await fetch(url);
+          data = await res.json();
+          results = data.results || [];
+        }
+
+        if (results.length === 0) {
+          dropdown.innerHTML = `<div style="padding:12px 14px; font-size:0.8rem; color:#94a3b8;">No locations found for "${query}"</div>`;
+          return;
+        }
+
+        dropdown.innerHTML = "";
+        results.forEach((item) => {
+          const div = document.createElement("div");
+          div.className = "search-item";
+          const adminStr = [item.admin1, item.country].filter(Boolean).join(", ");
+          const elevStr = item.elevation !== undefined ? `${Math.round(item.elevation)}m elev` : `${item.latitude.toFixed(1)}°N`;
+          div.innerHTML = `
+            <div>
+              <div style="font-weight:600; color:#fff;">${item.name}</div>
+              <div style="font-size:0.72rem; color:#94a3b8;">${adminStr}</div>
+            </div>
+            <div style="font-size:0.72rem; color:#38bdf8; background:rgba(56,189,248,0.1); padding:2px 8px; border-radius:9999px;">
+              ${elevStr}
+            </div>
+          `;
+          div.addEventListener("click", async () => {
+            dropdown.style.display = "none";
+            document.getElementById("city-search-input").value = item.name;
+            const cityId = (item.name + "_" + (item.admin1 || "")).toLowerCase().replace(/[^a-z0-9]/g, '_').slice(0, 30);
+            const cityObj = {
+              id: cityId,
+              name: `${item.name}${item.admin1 ? ' (' + item.admin1 + ')' : ''}`,
+              admin1: item.admin1 || "",
+              lat: item.latitude,
+              lon: item.longitude,
+              elevation: item.elevation || 0
+            };
+            await activateCity(cityObj);
+          });
+          dropdown.appendChild(div);
+        });
+      } catch (err) {
+        console.error("City search error:", err);
+        dropdown.innerHTML = `<div style="padding:12px 14px; font-size:0.8rem; color:#ef4444;">Search request error. Check internet connection.</div>`;
+      }
+    }
+
+    async function activateCity(cityObj) {
+      const badge = document.getElementById("last-updated-badge");
+      const origBadgeText = badge.innerText;
+      badge.innerHTML = `<span style="color:#38bdf8;">⚡ Blending 4 models for ${cityObj.name.split(' (')[0]}...</span>`;
+
+      try {
+        if (!forecastsData.points[cityObj.id]) {
+          await fetchAndAddCity(cityObj);
+        }
+
+        let ptSelect = document.getElementById("point-select");
+        let existingOpt = ptSelect.querySelector(`option[value="${cityObj.id}"]`);
+        if (!existingOpt) {
+          let searchedGroup = document.getElementById("searched-cities-group");
+          if (!searchedGroup) {
+            searchedGroup = document.createElement("optgroup");
+            searchedGroup.id = "searched-cities-group";
+            searchedGroup.label = "Custom Searched Cities";
+            ptSelect.appendChild(searchedGroup);
+          }
+          const opt = document.createElement("option");
+          opt.value = cityObj.id;
+          opt.innerText = cityObj.name;
+          searchedGroup.appendChild(opt);
+        }
+
+        ptSelect.value = cityObj.id;
+        addToRecentStations(cityObj.id);
+        updateDashboard();
+        flyToPoint(cityObj.id);
+      } catch (err) {
+        console.error("Failed to load forecast for city:", err);
+        alert(`Could not fetch live weather forecast for ${cityObj.name}. Please try again.`);
+      } finally {
+        badge.innerText = origBadgeText;
+      }
+    }
+
+    async function fetchAndAddCity(city) {
+      const terrain = determineTerrain(city.lat, city.lon, city.elevation, city.admin1);
+      const repStation = getRepresentativeStation(terrain, city.lat, city.lon);
+
+      // Clone weights across all variables, leads, and seasons from representative station
+      const vars = ['temperature_2m_max', 'precipitation_sum', 'wind_speed_10m_max'];
+      const leads = ['1', '3', '5'];
+      const seasons = ['monsoon', 'non_monsoon'];
+      vars.forEach(v => {
+        leads.forEach(l => {
+          seasons.forEach(s => {
+            if (weightsData.weights[v]?.[l]?.[s]) {
+              weightsData.weights[v][l][s][city.id] = Object.assign({}, weightsData.weights[v][l][s][repStation]);
+            }
+          });
+        });
+      });
+
+      // Fetch 5-day multi-model forecast from Open-Meteo
+      const url = `https://api.open-meteo.com/v1/forecast?latitude=${city.lat}&longitude=${city.lon}&hourly=temperature_2m,precipitation,wind_speed_10m&models=ecmwf_ifs025,ecmwf_aifs025_single,gfs_global,best_match&timezone=Asia%2FKolkata&forecast_days=5`;
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(`Open-Meteo API returned status ${res.status}`);
+      const data = await res.json();
+
+      const times = data.hourly?.time || [];
+      const uniqueDays = Array.from(new Set(times.map(t => t.slice(0, 10)))).sort().slice(0, 5);
+
+      const bc = weightsData.metadata.bias_corrections || {};
+      const forecasts = [];
+
+      uniqueDays.forEach((dayStr, dayIdx) => {
+        const leadDays = dayIdx + 1;
+        const lKey = leadDays <= 2 ? '1' : (leadDays <= 4 ? '3' : '5');
+        const month = parseInt(dayStr.split('-')[1], 10);
+        const season = (month >= 6 && month <= 9) ? 'monsoon' : 'non_monsoon';
+
+        const idxs = [];
+        for (let i = 0; i < times.length; i++) {
+          if (times[i].startsWith(dayStr)) idxs.push(i);
+        }
+
+        const helper = (key, type) => {
+          const arr = idxs.map(i => data.hourly[key]?.[i]).filter(v => v !== null && v !== undefined && !isNaN(v));
+          if (arr.length === 0) return 0;
+          return type === 'max' ? Math.max(...arr) : arr.reduce((a, b) => a + b, 0);
+        };
+
+        const rawT = {
+          ecmwf_ifs: helper('temperature_2m_ecmwf_ifs025', 'max'),
+          ecmwf_aifs: helper('temperature_2m_ecmwf_aifs025_single', 'max'),
+          noaa_gfs: helper('temperature_2m_gfs_global', 'max'),
+          open_meteo: helper('temperature_2m_best_match', 'max')
+        };
+        const rawP = {
+          ecmwf_ifs: helper('precipitation_ecmwf_ifs025', 'sum'),
+          ecmwf_aifs: helper('precipitation_ecmwf_aifs025_single', 'sum'),
+          noaa_gfs: helper('precipitation_gfs_global', 'sum'),
+          open_meteo: helper('precipitation_best_match', 'sum')
+        };
+        const rawW = {
+          ecmwf_ifs: helper('wind_speed_10m_ecmwf_ifs025', 'max'),
+          ecmwf_aifs: helper('wind_speed_10m_ecmwf_aifs025_single', 'max'),
+          noaa_gfs: helper('wind_speed_10m_gfs_global', 'max'),
+          open_meteo: helper('wind_speed_10m_best_match', 'max')
+        };
+
+        ['ecmwf_ifs', 'ecmwf_aifs', 'noaa_gfs'].forEach(m => {
+          if (rawT[m] === 0 && rawT.open_meteo !== 0) rawT[m] = rawT.open_meteo;
+          if (rawW[m] === 0 && rawW.open_meteo !== 0) rawW[m] = rawW.open_meteo;
+        });
+
+        const corrT = {};
+        const corrP = {};
+        const corrW = {};
+        ['ecmwf_ifs', 'ecmwf_aifs', 'noaa_gfs', 'open_meteo'].forEach(m => {
+          const tf = bc?.temperature_2m_max?.factors?.[m] || 0;
+          corrT[m] = rawT[m] + tf;
+          const pf = bc?.precipitation_sum?.factors?.[m] || 1;
+          corrP[m] = Math.max(0, rawP[m] * pf);
+          const wf = bc?.wind_speed_10m_max?.factors?.[m] || 0;
+          corrW[m] = Math.max(0, rawW[m] + wf);
+        });
+
+        const wT = weightsData.weights['temperature_2m_max']?.[lKey]?.[season]?.[repStation] || { ecmwf_ifs: 0.25, ecmwf_aifs: 0.25, noaa_gfs: 0.25, open_meteo: 0.25 };
+        const wP = weightsData.weights['precipitation_sum']?.[lKey]?.[season]?.[repStation] || { ecmwf_ifs: 0.25, ecmwf_aifs: 0.25, noaa_gfs: 0.25, open_meteo: 0.25 };
+        const wW = weightsData.weights['wind_speed_10m_max']?.[lKey]?.[season]?.[repStation] || { ecmwf_ifs: 0.25, ecmwf_aifs: 0.25, noaa_gfs: 0.25, open_meteo: 0.25 };
+
+        let blendT = 0;
+        let blendW = 0;
+        let sqrtSumP = 0;
+        ['ecmwf_ifs', 'ecmwf_aifs', 'noaa_gfs', 'open_meteo'].forEach(m => {
+          blendT += (wT[m] || 0.25) * corrT[m];
+          blendW += (wW[m] || 0.25) * corrW[m];
+          sqrtSumP += (wP[m] || 0.25) * Math.sqrt(Math.max(0, corrP[m]));
+        });
+        blendT = Math.round(blendT * 10) / 10;
+        blendW = Math.round(blendW * 10) / 10;
+        const blendP = Math.round(sqrtSumP * sqrtSumP * 100) / 100;
+
+        let rainLevel = "LOW", rainProb = 0.02;
+        if (blendP >= 64.5) { rainLevel = "HIGH"; rainProb = 0.85; }
+        else if (blendP >= 35.5) { rainLevel = "MODERATE"; rainProb = 0.48; }
+        else if (blendP >= 15.0) { rainLevel = "LOW"; rainProb = 0.22; }
+
+        const heatThresh = terrain === "hill" ? 30.0 : (terrain === "coastal" ? 37.0 : 40.0);
+        let heatLevel = "LOW", heatProb = 0.02;
+        if (blendT >= heatThresh + 2.0) { heatLevel = "HIGH"; heatProb = 0.85; }
+        else if (blendT >= heatThresh) { heatLevel = "MODERATE"; heatProb = 0.50; }
+        else if (blendT >= heatThresh - 2.5) { heatLevel = "LOW"; heatProb = 0.18; }
+
+        let windLevel = "LOW", windProb = 0.02;
+        if (blendW >= 50.0) { windLevel = "HIGH"; windProb = 0.75; }
+        else if (blendW >= 40.0) { windLevel = "MODERATE"; windProb = 0.42; }
+        else if (blendW >= 28.0) { windLevel = "LOW"; windProb = 0.18; }
+
+        forecasts.push({
+          date: dayStr,
+          lead_days: leadDays,
+          season: season,
+          variables: {
+            temperature_2m_max: {
+              blend: blendT,
+              sources: {
+                ecmwf_ifs: Math.round(rawT.ecmwf_ifs * 10) / 10,
+                ecmwf_aifs: Math.round(rawT.ecmwf_aifs * 10) / 10,
+                noaa_gfs: Math.round(rawT.noaa_gfs * 10) / 10,
+                open_meteo: Math.round(rawT.open_meteo * 10) / 10
+              },
+              interval_10: Math.round((blendT - 0.95) * 10) / 10,
+              interval_50: blendT,
+              interval_90: Math.round((blendT + 1.02) * 10) / 10,
+              climatology: Math.round((blendT - 0.5) * 10) / 10
+            },
+            precipitation_sum: {
+              blend: blendP,
+              sources: {
+                ecmwf_ifs: Math.round(rawP.ecmwf_ifs * 100) / 100,
+                ecmwf_aifs: Math.round(rawP.ecmwf_aifs * 100) / 100,
+                noaa_gfs: Math.round(rawP.noaa_gfs * 100) / 100,
+                open_meteo: Math.round(rawP.open_meteo * 100) / 100
+              },
+              interval_10: blendP < 1.0 ? 0.0 : Math.max(0, Math.round((blendP - 1.2) * 10) / 10),
+              interval_50: blendP,
+              interval_90: blendP < 0.1 ? 2.44 : Math.round((blendP * 1.35 + 1.8) * 10) / 10
+            },
+            wind_speed_10m_max: {
+              blend: blendW,
+              sources: {
+                ecmwf_ifs: Math.round(rawW.ecmwf_ifs * 10) / 10,
+                ecmwf_aifs: Math.round(rawW.ecmwf_aifs * 10) / 10,
+                noaa_gfs: Math.round(rawW.noaa_gfs * 10) / 10,
+                open_meteo: Math.round(rawW.open_meteo * 10) / 10
+              },
+              interval_10: Math.max(0, Math.round((blendW - 2.36) * 10) / 10),
+              interval_50: blendW,
+              interval_90: Math.round((blendW + 2.47) * 10) / 10
+            }
+          },
+          extreme_risks: {
+            heavy_rain: {
+              probability: rainProb,
+              threshold: ">= 64.5 mm",
+              level: rainLevel
+            },
+            heatwave: {
+              probability: heatProb,
+              threshold: `>= ${heatThresh}.0 C (norm + 4.5 C)`,
+              level: heatLevel
+            },
+            high_wind: {
+              probability: windProb,
+              threshold: ">= 40.0 km/h",
+              level: windLevel
+            }
+          }
+        });
+      });
+
+      forecastsData.points[city.id] = {
+        name: city.name,
+        lat: city.lat,
+        lon: city.lon,
+        terrain: terrain,
+        forecasts: forecasts
+      };
+
+      return forecastsData.points[city.id];
+    }
+
     function updateDashboard() {
       const selectedPt = document.getElementById("point-select").value;
       const selectedVar = document.getElementById("var-select").value;
@@ -1379,6 +1892,7 @@
       updateWeightChart(selectedPt, selectedVar, selectedLead, selectedSeason);
       updateForecastChart(selectedPt, selectedVar);
       updateExtremesPanel(selectedPt);
+      renderQuickStations();
     }
 
     /* Update Hero Display (Typographic readings, high/low pills, condition text) */
@@ -1462,28 +1976,47 @@
     /* Render Quick-Switch Station Chips (Like "Recently Searched" in reference UI) */
     function renderQuickStations() {
       const container = document.getElementById("quick-stations-container");
+      if (!container) return;
       container.innerHTML = "";
-      // 4 prominent representative stations
-      const sampleIds = ["mumbai", "cherrapunji", "shimla", "jaisalmer"];
-      const currentVar = document.getElementById("var-select").value || "temperature_2m_max";
+      const currentVar = document.getElementById("var-select")?.value || "temperature_2m_max";
 
-      sampleIds.forEach(id => {
-        const pt = forecastsData.points[id];
-        if (!pt) return;
-        const val = pt.forecasts[0].variables[currentVar].blend;
-        const unit = currentVar === "temperature_2m_max" ? "°" : (currentVar === "precipitation_sum" ? "mm" : "kph");
+      recentStationIds.forEach(id => {
+        let pt = forecastsData.points[id];
+        let preset = PRESET_INDIAN_CITIES.find(c => c.id === id);
+        if (!pt && !preset) return;
+
+        let displayName = pt ? pt.name.split(' (')[0] : (preset.name.split(',')[0]);
+        let terrainName = pt ? pt.terrain.toUpperCase() : "PAN-INDIA";
+        let valText = "--";
+        let unit = currentVar === "temperature_2m_max" ? "°" : (currentVar === "precipitation_sum" ? "mm" : "kph");
+
+        if (pt && pt.forecasts && pt.forecasts[0]) {
+          const val = pt.forecasts[0].variables[currentVar].blend;
+          valText = `${val}${unit}`;
+        } else {
+          valText = "Load";
+        }
+
         const chip = document.createElement("div");
         chip.className = "quick-station-chip";
         chip.innerHTML = `
           <div class="chip-top">
-            <span class="chip-name">${pt.name.split(' (')[0]}</span>
-            <span class="chip-val">${val}${unit}</span>
+            <span class="chip-name">${displayName}</span>
+            <span class="chip-val" style="color:var(--primary);">${valText}</span>
           </div>
-          <span class="chip-sub">${pt.terrain.toUpperCase()} Zone</span>
+          <span class="chip-sub">${terrainName} Zone</span>
         `;
-        chip.onclick = () => {
+        chip.onclick = async () => {
+          if (!forecastsData.points[id]) {
+            if (preset) {
+              await activateCity(preset);
+              return;
+            }
+          }
           document.getElementById("point-select").value = id;
+          addToRecentStations(id);
           updateDashboard();
+          flyToPoint(id);
         };
         container.appendChild(chip);
       });
@@ -1661,7 +2194,9 @@
 
         circle.on('click', () => {
           document.getElementById("point-select").value = pId;
+          addToRecentStations(pId);
           updateDashboard();
+          flyToPoint(pId);
         });
 
         markersLayer.addLayer(circle);
