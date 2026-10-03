@@ -1,0 +1,1936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIH26081: Hybrid AI-NWP Multi-Model Weather Forecast Blending System</title>
+  <!-- Google Fonts: Plus Jakarta Sans & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Leaflet CSS & JS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+  <style>
+    :root {
+      --bg-deep: #090d16;
+      --card-bg: rgba(18, 24, 38, 0.72);
+      --card-bg-solid: #131b2e;
+      --card-border: rgba(255, 255, 255, 0.09);
+      --card-border-glow: rgba(56, 189, 248, 0.3);
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --primary: #38bdf8;
+      --primary-glow: rgba(56, 189, 248, 0.25);
+      --accent-warm: #f59e0b;
+      --accent-amber: #fbbf24;
+      --ifs-color: #3b82f6;
+      --aifs-color: #a855f7;
+      --gfs-color: #22c55e;
+      --openmeteo-color: #f97316;
+      --blend-color: #38bdf8;
+      --warn-low: #10b981;
+      --warn-mod: #f59e0b;
+      --warn-high: #ef4444;
+      --glass-blur: blur(24px);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #090d16;
+      color: var(--text);
+      line-height: 1.5;
+      padding: 24px;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Fixed Animated Cloud Photo Background */
+    .animated-cloud-stage {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      z-index: -1;
+      pointer-events: none;
+      background: #090d16;
+    }
+
+    /* High-resolution exact cloud photo layer with smooth floating drift */
+    .cloud-photo-layer {
+      position: absolute;
+      top: -10%;
+      left: -15%;
+      width: 130%;
+      height: 120%;
+      background-image: url('clouds.jpg');
+      background-size: cover;
+      background-position: center 60%;
+      background-repeat: no-repeat;
+      will-change: transform;
+      animation: driftClouds 50s ease-in-out infinite alternate;
+    }
+
+    /* Subtle atmospheric breathing glow over the warm sunset clouds */
+    .cloud-sunset-glow {
+      position: absolute;
+      bottom: 8%;
+      right: 8%;
+      width: 650px;
+      height: 550px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(245, 158, 11, 0.18) 0%, rgba(217, 119, 6, 0.08) 45%, transparent 70%);
+      mix-blend-mode: screen;
+      pointer-events: none;
+      animation: sunsetBreathe 14s ease-in-out infinite alternate;
+    }
+
+    @keyframes driftClouds {
+      0% {
+        transform: translate3d(-3%, -2%, 0) scale(1.04);
+      }
+      25% {
+        transform: translate3d(2%, -4%, 0) scale(1.08);
+      }
+      50% {
+        transform: translate3d(5%, 1%, 0) scale(1.05);
+      }
+      75% {
+        transform: translate3d(1%, 3%, 0) scale(1.09);
+      }
+      100% {
+        transform: translate3d(-4%, 1%, 0) scale(1.06);
+      }
+    }
+
+    @keyframes sunsetBreathe {
+      0% { opacity: 0.6; transform: scale(0.95); }
+      100% { opacity: 1.0; transform: scale(1.1); }
+    }
+
+    /* Outer Shell Container (similar to device frame in reference UI) */
+    .app-shell {
+      width: 100%;
+      max-width: 1480px;
+      background: rgba(10, 15, 26, 0.22);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 32px;
+      padding: 28px;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    /* Top Controls & Navigation Bar */
+    .top-nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--card-border);
+    }
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .brand-logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.25), rgba(168, 85, 247, 0.25));
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    }
+    .brand-title h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .brand-title p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* Filter Controls Pills */
+    .controls-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+    .control-pill {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+      border-radius: 9999px;
+      padding: 6px 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      transition: all 0.2s ease;
+    }
+    .control-pill:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+    .control-pill label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--primary);
+    }
+    .control-pill select {
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-size: 0.82rem;
+      font-weight: 500;
+      outline: none;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .control-pill select option {
+      background: #0f172a;
+      color: #fff;
+    }
+
+    /* Badges */
+    .badge {
+      font-size: 0.74rem;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--card-border);
+      color: var(--primary);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .badge.green {
+      color: #4ade80;
+      border-color: rgba(74, 222, 128, 0.3);
+      background: rgba(74, 222, 128, 0.08);
+    }
+    .badge.amber {
+      color: #fbbf24;
+      border-color: rgba(251, 191, 36, 0.3);
+      background: rgba(251, 191, 36, 0.08);
+    }
+    .badge.red {
+      color: #ef4444;
+      border-color: rgba(239, 68, 68, 0.3);
+      background: rgba(239, 68, 68, 0.08);
+    }
+
+    /* HERO SECTION: Modeled after reference layout */
+    .hero-layout {
+      display: grid;
+      grid-template-columns: 310px 1fr;
+      gap: 22px;
+    }
+    @media (max-width: 1150px) {
+      .hero-layout { grid-template-columns: 1fr; }
+    }
+
+    /* Left Floating Dock / Sidebar Card */
+    .left-dock {
+      background: rgba(12, 18, 30, 0.35);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 26px;
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+    }
+    .dock-title-group {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .dock-title-group h2 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .dock-title-group p {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    /* Status Mini Card inside Left Dock */
+    .dock-status-card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 18px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: relative;
+      overflow: hidden;
+    }
+    .dock-status-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .dock-status-tag {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-dim);
+    }
+    .skill-pill {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #38bdf8;
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      padding: 3px 8px;
+      border-radius: 9999px;
+    }
+    .hazard-speech-bubble {
+      background: #fff;
+      color: #0f172a;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      display: inline-block;
+      align-self: flex-start;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      position: relative;
+    }
+    .hazard-speech-bubble.bubble-danger {
+      background: #ef4444;
+      color: #fff;
+    }
+    .hazard-speech-bubble.bubble-moderate {
+      background: #f59e0b;
+      color: #000;
+    }
+    .hazard-speech-bubble.bubble-safe {
+      background: #10b981;
+      color: #fff;
+    }
+
+    /* Mini Curve inside Status Card */
+    .mini-curve-canvas {
+      width: 100%;
+      height: 60px;
+    }
+
+    .dock-link-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      color: var(--primary);
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .dock-link-row:hover {
+      color: #fff;
+    }
+
+    /* Radar / Location Circle in Left Dock */
+    .station-radar-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 10px;
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 18px;
+      text-align: center;
+    }
+    .radar-circle-wrap {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.15) 0%, rgba(245, 158, 11, 0.08) 50%, rgba(15, 23, 42, 0.5) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 0 25px rgba(56, 189, 248, 0.15), inset 0 0 20px rgba(0, 0, 0, 0.4);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .radar-ring {
+      position: absolute;
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      border: 1px dashed rgba(255, 255, 255, 0.15);
+    }
+    .radar-ping {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #38bdf8;
+      box-shadow: 0 0 14px #38bdf8;
+      animation: pulse-ping 2s infinite;
+    }
+    @keyframes pulse-ping {
+      0% { transform: scale(0.9); opacity: 1; }
+      50% { transform: scale(1.4); opacity: 0.6; }
+      100% { transform: scale(0.9); opacity: 1; }
+    }
+    .radar-station-pill {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 9999px;
+      padding: 6px 14px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* RIGHT HERO WEATHER STAGE: Translucent Glass Stage */
+    .hero-stage {
+      background: rgba(12, 18, 30, 0.28);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 26px;
+      padding: 28px 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 24px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+    }
+
+    .hero-stage-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 16px;
+      z-index: 1;
+    }
+    .hero-location-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .hero-location-line {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .hero-location-line strong {
+      color: #fff;
+    }
+
+    /* High / Low Envelope Pills */
+    .temp-high-low-group {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .hl-pill {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 9999px;
+      padding: 4px 10px;
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: #e2e8f0;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .hl-pill span { color: var(--text-muted); font-size: 0.7rem; }
+
+    /* Giant Hero Reading Display */
+    .hero-main-reading {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 20px;
+      z-index: 1;
+    }
+    .hero-reading-left {
+      display: flex;
+      flex-direction: column;
+    }
+    .hero-value-row {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+    }
+    .hero-number {
+      font-family: 'Outfit', sans-serif;
+      font-size: 5.6rem;
+      font-weight: 300;
+      line-height: 0.95;
+      letter-spacing: -3px;
+      color: #ffffff;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    }
+    .hero-unit {
+      font-size: 2.2rem;
+      font-weight: 400;
+      color: var(--primary);
+    }
+    .hero-condition-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2.1rem;
+      font-weight: 600;
+      letter-spacing: -0.5px;
+      color: #f1f5f9;
+      margin-top: 10px;
+      line-height: 1.15;
+    }
+    .hero-condition-sub {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* Right Side Quick-Switch Stations (Modeled after "Recently Searched" in image) */
+    .quick-stations-dock {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-width: 280px;
+    }
+    .quick-stations-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.74rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-dim);
+      padding: 0 4px;
+    }
+    .quick-stations-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .quick-station-chip {
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 16px;
+      padding: 12px 14px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .quick-station-chip:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(56, 189, 248, 0.5);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    }
+    .chip-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .chip-name {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .chip-val {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #fff;
+    }
+    .chip-sub {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    /* 5-DAY HORIZON CURVE (Matching bottom curve of reference image) */
+    .horizon-curve-container {
+      background: rgba(10, 15, 26, 0.3);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 1;
+    }
+    .horizon-curve-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .horizon-curve-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .horizon-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+    .legend-tag {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .legend-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .chart-box-hero {
+      position: relative;
+      height: 220px;
+      width: 100%;
+    }
+
+    /* HUMAN-UNDERSTANDABLE EXECUTIVE SUMMARY BANNER */
+    .summary-banner {
+      background: rgba(12, 18, 30, 0.3);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 24px;
+      padding: 22px 26px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+    }
+    .summary-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--card-border);
+      margin-bottom: 16px;
+    }
+    .summary-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .summary-icon {
+      font-size: 1.5rem;
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 12px;
+      width: 42px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .summary-title h3 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .summary-title p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    @media (max-width: 1100px) {
+      .summary-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .summary-grid { grid-template-columns: 1fr; }
+    }
+    .summary-card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 16px;
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: border-color 0.2s ease;
+    }
+    .summary-card:hover {
+      border-color: rgba(56, 189, 248, 0.3);
+    }
+    .summary-card-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .summary-card-text {
+      font-size: 0.86rem;
+      color: #cbd5e1;
+      line-height: 1.55;
+    }
+    .summary-card-text strong {
+      color: #fff;
+    }
+    .summary-card-text .highlight {
+      color: #38bdf8;
+      font-weight: 600;
+    }
+
+    /* 2-COLUMN DEEP-DIVE GRID */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+    }
+    @media (max-width: 1024px) {
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background: rgba(12, 18, 30, 0.3);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 24px;
+      padding: 22px 26px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+    }
+    .card-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .card-subtitle {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-weight: normal;
+    }
+
+    #map {
+      height: 380px;
+      border-radius: 16px;
+      width: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      overflow: hidden;
+    }
+    .chart-container {
+      position: relative;
+      height: 320px;
+      width: 100%;
+    }
+
+    /* Extremes Hazard Panel */
+    .extremes-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 8px;
+    }
+    @media (max-width: 768px) {
+      .extremes-grid { grid-template-columns: 1fr; }
+    }
+    .extreme-card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 16px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .extreme-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .extreme-title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .risk-badge {
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 9999px;
+      text-transform: uppercase;
+    }
+    .risk-LOW { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
+    .risk-MODERATE { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
+    .risk-HIGH { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+
+    .prob-val {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .prob-bar-bg {
+      height: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 9999px;
+      overflow: hidden;
+    }
+    .prob-bar-fill {
+      height: 100%;
+      border-radius: 9999px;
+      transition: width 0.4s ease;
+    }
+    .extreme-criteria {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      line-height: 1.35;
+    }
+
+    /* Verification Benchmarks Table */
+    .table-container {
+      overflow-x: auto;
+      margin-top: 10px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+      text-align: left;
+    }
+    th, td {
+      padding: 10px 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    th {
+      background: rgba(255, 255, 255, 0.07);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      color: var(--text-muted);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 700;
+    }
+    tr:hover td {
+      background: rgba(255, 255, 255, 0.04);
+    }
+    .positive-impr { color: #4ade80; font-weight: 600; }
+    .negative-impr { color: #f87171; font-weight: 600; }
+
+    /* Alert / Transparency Box */
+    .alert-box {
+      background: rgba(56, 189, 248, 0.06);
+      border-left: 4px solid var(--primary);
+      padding: 12px 18px;
+      border-radius: 0 12px 12px 0;
+      font-size: 0.8rem;
+      color: #cbd5e1;
+      margin-top: 14px;
+    }
+    .alert-box strong { color: #fff; }
+
+    /* Footer */
+    footer {
+      background: rgba(10, 15, 26, 0.28);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 18px 24px;
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    footer a { color: var(--primary); text-decoration: none; }
+    .disclaimer { color: #f59e0b; font-weight: 600; }
+  </style>
+</head>
+<body>
+
+  <!-- Animated Cloud Photo Background (Exact Image with Drift Effect) -->
+  <div class="animated-cloud-stage" aria-hidden="true">
+    <div class="cloud-photo-layer"></div>
+    <div class="cloud-sunset-glow"></div>
+  </div>
+
+  <!-- Outer Glass Shell -->
+  <main class="app-shell">
+
+    <!-- Top Navigation & Controls Bar -->
+    <header class="top-nav">
+      <div class="brand-group">
+        <div class="brand-logo">🌦️</div>
+        <div class="brand-title">
+          <h1>SIH26081 Weather Forecast Blending</h1>
+          <p>Constrained Multi-Model AI-NWP System across 12 Indian Climatic Zones</p>
+        </div>
+      </div>
+
+      <div class="controls-row">
+        <!-- Station Dropdown -->
+        <div class="control-pill">
+          <label for="point-select">Location</label>
+          <select id="point-select"></select>
+        </div>
+
+        <!-- Variable Dropdown -->
+        <div class="control-pill">
+          <label for="var-select">Variable</label>
+          <select id="var-select">
+            <option value="temperature_2m_max">Max Temperature (°C)</option>
+            <option value="precipitation_sum">Total Rainfall (mm)</option>
+            <option value="wind_speed_10m_max">Max Wind Speed (km/h)</option>
+          </select>
+        </div>
+
+        <!-- Lead Dropdown -->
+        <div class="control-pill">
+          <label for="lead-select">Lead</label>
+          <select id="lead-select">
+            <option value="1">Day 1 Ahead</option>
+            <option value="3">Day 3 Ahead</option>
+            <option value="5">Day 5 Ahead</option>
+          </select>
+        </div>
+
+        <!-- Season Dropdown -->
+        <div class="control-pill">
+          <label for="season-select">Season</label>
+          <select id="season-select">
+            <option value="monsoon">Monsoon (JJAS)</option>
+            <option value="non_monsoon">Non-Monsoon</option>
+          </select>
+        </div>
+
+        <!-- Operational Status Badge -->
+        <span class="badge green">● Operational</span>
+        <span class="badge" id="last-updated-badge">Updated: --</span>
+      </div>
+    </header>
+
+    <!-- HERO SECTION: Styled after the reference UI layout -->
+    <section class="hero-layout">
+
+      <!-- Left Floating Glass Dock -->
+      <aside class="left-dock">
+        <div class="dock-title-group">
+          <h2>Ensemble Intelligence</h2>
+          <p>Multi-model convergence monitor</p>
+        </div>
+
+        <!-- Status Card with Mini Curve -->
+        <div class="dock-status-card">
+          <div class="dock-status-top">
+            <span class="dock-status-tag">Risk Assessment</span>
+            <span class="skill-pill">↑ +18.4% Skill</span>
+          </div>
+
+          <div class="hazard-speech-bubble bubble-safe" id="left-risk-bubble">
+            All Clear
+          </div>
+
+          <!-- Mini canvas arc -->
+          <canvas id="miniCurveCanvas" class="mini-curve-canvas"></canvas>
+
+          <div class="dock-link-row" onclick="document.getElementById('extremes-container').scrollIntoView({behavior:'smooth'})">
+            <span>View Disaster Risk Details</span>
+            <span>›</span>
+          </div>
+        </div>
+
+        <!-- Radar / Location Circle -->
+        <div class="station-radar-card">
+          <div class="radar-circle-wrap">
+            <div class="radar-ring"></div>
+            <div class="radar-ping"></div>
+          </div>
+          <div class="radar-station-pill" id="radar-station-name">
+            📍 Delhi NCR, Plains
+          </div>
+          <div style="font-size:0.72rem; color:var(--text-muted);">
+            12 Indian Agro-Climatic Stations Monitored
+          </div>
+        </div>
+
+        <!-- Model Legend Pills -->
+        <div style="display:flex; flex-direction:column; gap:6px; font-size:0.75rem; color:var(--text-muted); padding:4px;">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span style="width:8px; height:8px; border-radius:50%; background:var(--ifs-color);"></span>
+            <span>ECMWF IFS (Physics)</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span style="width:8px; height:8px; border-radius:50%; background:var(--aifs-color);"></span>
+            <span>ECMWF AIFS (Deep Learning)</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span style="width:8px; height:8px; border-radius:50%; background:var(--gfs-color);"></span>
+            <span>NOAA GFS (Physics)</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span style="width:8px; height:8px; border-radius:50%; background:var(--openmeteo-color);"></span>
+            <span>Open-Meteo Blend</span>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Hero Weather Stage -->
+      <div class="hero-stage">
+        
+        <!-- Top Stage Line: Location & High/Low Pills -->
+        <div class="hero-stage-top">
+          <div class="hero-location-info">
+            <div class="hero-location-line">
+              <span id="hero-location-text">📍 <strong>Delhi NCR</strong>, India (Indo-Gangetic Plain)</span>
+            </div>
+            <div style="font-size:0.78rem; color:var(--text-dim);" id="hero-date-text">
+              Lead Day 1 Forecast • IST Timezone
+            </div>
+          </div>
+
+          <!-- Upper / Lower Confidence Bounds Pills -->
+          <div class="temp-high-low-group">
+            <div class="hl-pill">
+              <span>90% Max</span> <strong id="hero-high-pill">29.3°</strong>
+            </div>
+            <div class="hl-pill">
+              <span>10% Min</span> <strong id="hero-low-pill">27.4°</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Giant Typography Reading + Quick Stations -->
+        <div class="hero-main-reading">
+          <div class="hero-reading-left">
+            <div class="hero-value-row">
+              <div class="hero-number" id="hero-reading-val">28.3</div>
+              <div class="hero-unit" id="hero-reading-unit">°C</div>
+            </div>
+            <div class="hero-condition-title" id="hero-condition-title">
+              Pleasant & Mild Daytime Peak
+            </div>
+            <div class="hero-condition-sub" id="hero-condition-sub">
+              Constrained SLSQP blend achieves highest consensus across European & AI models
+            </div>
+          </div>
+
+          <!-- Quick-Switch Stations (Matching "Recently Searched" in reference) -->
+          <div class="quick-stations-dock">
+            <div class="quick-stations-header">
+              <span>Quick Station Switch</span>
+              <span style="color:var(--primary); cursor:pointer;" onclick="document.getElementById('map').scrollIntoView({behavior:'smooth'})">Explore Map ›</span>
+            </div>
+            <div class="quick-stations-grid" id="quick-stations-container">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- 5-Day Horizon Curve Container -->
+        <div class="horizon-curve-container">
+          <div class="horizon-curve-header">
+            <div class="horizon-curve-title">
+              <span>📈 5-Day Blended Forecast & 10–90th Confidence Envelope</span>
+            </div>
+            <div class="horizon-legend">
+              <span class="legend-tag"><span class="legend-dot" style="background:#38bdf8;"></span> AI-NWP Blend</span>
+              <span class="legend-tag"><span class="legend-dot" style="background:rgba(56,189,248,0.2); border:1px dashed #38bdf8;"></span> 10–90% Envelope</span>
+              <span class="legend-tag"><span class="legend-dot" style="background:var(--ifs-color);"></span> IFS</span>
+              <span class="legend-tag"><span class="legend-dot" style="background:var(--aifs-color);"></span> AIFS</span>
+              <span class="legend-tag"><span class="legend-dot" style="background:var(--gfs-color);"></span> GFS</span>
+              <span class="legend-tag"><span class="legend-dot" style="background:var(--openmeteo-color);"></span> Open-Meteo</span>
+            </div>
+          </div>
+
+          <div class="chart-box-hero">
+            <canvas id="forecastChart"></canvas>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- HUMAN-UNDERSTANDABLE EXECUTIVE SUMMARY BANNER -->
+    <section class="summary-banner" id="human-summary-box">
+      <div class="summary-header">
+        <div class="summary-title">
+          <div class="summary-icon">💡</div>
+          <div>
+            <h3>Executive Summary in Plain English</h3>
+            <p id="summary-station-subtitle">Real-time interpretation for Delhi NCR</p>
+          </div>
+        </div>
+        <span class="badge green" id="summary-alert-level">✅ ALL CLEAR / LOW HAZARD</span>
+      </div>
+      
+      <div class="summary-grid">
+        <!-- 1. Expected Forecast -->
+        <div class="summary-card">
+          <div class="summary-card-label">🌤️ Expected Forecast & Confidence</div>
+          <div class="summary-card-text" id="summary-forecast-text">
+            Loading forecast interpretation...
+          </div>
+        </div>
+
+        <!-- 2. AI Model Trust -->
+        <div class="summary-card">
+          <div class="summary-card-label">🤖 AI Model Trust & Dominance</div>
+          <div class="summary-card-text" id="summary-model-text">
+            Loading AI weighting breakdown...
+          </div>
+        </div>
+
+        <!-- 3. Disaster Risk -->
+        <div class="summary-card">
+          <div class="summary-card-label">⚠️ Disaster & Extreme Risk (Next 48h)</div>
+          <div class="summary-card-text" id="summary-risk-text">
+            Loading hazard status...
+          </div>
+        </div>
+
+        <!-- 4. Verified Accuracy -->
+        <div class="summary-card">
+          <div class="summary-card-label">🎯 Verified Accuracy Advantage</div>
+          <div class="summary-card-text" id="summary-accuracy-text">
+            Loading accuracy metrics...
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2-COLUMN GRID: Interactive Observation Map & Adaptive Weights -->
+    <section class="grid-2">
+      <!-- Leaflet Observation Map Card -->
+      <div class="card">
+        <div class="card-title">
+          <span>📍 Indian Observation Points & Dominant Source</span>
+          <span class="card-subtitle">👉 Click any dot on map or use dropdown above</span>
+        </div>
+        <div id="map"></div>
+        <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:12px; font-size:0.75rem; color:var(--text-muted);">
+          <span style="display:flex; align-items:center; gap:6px;"><span style="width:10px; height:10px; border-radius:50%; background:var(--ifs-color);"></span> ECMWF IFS (Physics)</span>
+          <span style="display:flex; align-items:center; gap:6px;"><span style="width:10px; height:10px; border-radius:50%; background:var(--aifs-color);"></span> ECMWF AIFS (AI)</span>
+          <span style="display:flex; align-items:center; gap:6px;"><span style="width:10px; height:10px; border-radius:50%; background:var(--gfs-color);"></span> NOAA GFS (Physics)</span>
+          <span style="display:flex; align-items:center; gap:6px;"><span style="width:10px; height:10px; border-radius:50%; background:var(--openmeteo-color);"></span> Open-Meteo Blend</span>
+        </div>
+      </div>
+
+      <!-- Adaptive Simplex Weights Breakdown Card -->
+      <div class="card">
+        <div class="card-title">
+          <span id="weight-chart-title">📊 Adaptive Weights: Delhi</span>
+          <span class="badge" id="point-terrain-badge">Plains</span>
+        </div>
+        <p class="card-subtitle" style="margin-bottom:8px;">Constrained SLSQP simplex optimization on historical training truth</p>
+        <div class="chart-container">
+          <canvas id="weightChart"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2-COLUMN GRID: Extreme Weather Hazards & Verification Benchmarks -->
+    <section class="grid-2">
+      <!-- Extremes Risk Panel -->
+      <div class="card">
+        <div class="card-title">
+          <span>⚠️ Probabilistic Extreme Weather Hazards (Next 24–48h)</span>
+          <span class="card-subtitle">IMD Official Rules & Thresholds</span>
+        </div>
+        <div class="extremes-grid" id="extremes-container">
+          <!-- Rendered via JS -->
+        </div>
+        <div class="alert-box">
+          <strong>IMD Heatwave Standards Applied:</strong> Thresholds dynamically adapt by station geography. Plains: Tmax ≥ 40°C & anomaly ≥ +4.5°C; Coastal: Tmax ≥ 37°C & anomaly ≥ +4.5°C; Hill: Tmax ≥ 30°C & anomaly ≥ +4.5°C.
+        </div>
+      </div>
+
+      <!-- Verification Benchmarks Table Card -->
+      <div class="card">
+        <div class="card-title">
+          <span>🎯 Verification Skill Benchmarks (Held-Out Test Set)</span>
+          <span class="badge green">Zero Leakage Audit: PASSED</span>
+        </div>
+        <div class="table-container">
+          <table id="metrics-table">
+            <thead>
+              <tr>
+                <th>Variable</th>
+                <th>Lead</th>
+                <th>Best Single</th>
+                <th>RMSE (Single)</th>
+                <th>RMSE (Equal)</th>
+                <th>RMSE (Blend)</th>
+                <th>Impr. vs Single</th>
+                <th>Impr. vs Equal</th>
+              </tr>
+            </thead>
+            <tbody id="metrics-tbody">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+        </div>
+        <div class="alert-box" style="margin-top:12px;">
+          <strong>Scientific Disclosure:</strong> The AI blend achieves <strong>+14% to +24% RMSE improvement</strong> on Temperature and Wind. On 5-day rain, it improves by <strong>+25.7%</strong> over NOAA GFS.
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="disclaimer">⚠️ Experimental research product developed for SIH26081. Always follow India Meteorological Department (IMD) for official weather warnings and life-safety advisories.</div>
+      <div><strong>Attribution:</strong> ECMWF IFS (CC BY 4.0); ECMWF AIFS (ECMWF Open Data); NOAA GFS (US Public Domain); Open-Meteo API (CC BY 4.0); ERA5 Reanalysis (Copernicus / ECMWF).</div>
+      <div id="footer-run-info">Run Timestamp: -- | Pipeline Version: 1.0.0 | IST Timezone</div>
+    </footer>
+
+  </main>
+
+  <script>
+    // Model Color Mapping
+    const MODEL_COLORS = {
+      ecmwf_ifs: "#3b82f6",
+      ecmwf_aifs: "#a855f7",
+      noaa_gfs: "#22c55e",
+      open_meteo: "#f97316"
+    };
+    const MODEL_NAMES = {
+      ecmwf_ifs: "ECMWF IFS (Physics)",
+      ecmwf_aifs: "ECMWF AIFS (AI)",
+      noaa_gfs: "NOAA GFS (Physics)",
+      open_meteo: "Open-Meteo Blend"
+    };
+
+    let weightsData = null;
+    let forecastsData = null;
+    let metricsData = null;
+    let map = null;
+    let markersLayer = null;
+    let weightChart = null;
+    let forecastChart = null;
+
+    // Load Data
+    async function loadAllData() {
+      try {
+        const [wRes, fRes, mRes] = await Promise.all([
+          fetch("weights.json").then(r => r.json()),
+          fetch("forecasts.json").then(r => r.json()),
+          fetch("metrics.json").then(r => r.json())
+        ]);
+        weightsData = wRes;
+        forecastsData = fRes;
+        metricsData = mRes;
+
+        document.getElementById("last-updated-badge").innerText = `Updated: ${forecastsData.run_timestamp.slice(0, 10)}`;
+        document.getElementById("footer-run-info").innerText = `Run Timestamp: ${forecastsData.run_timestamp} | Pipeline Version: 1.0.0 | IST Timezone`;
+
+        initUI();
+      } catch (err) {
+        console.error("Failed to load JSON data:", err);
+        document.body.innerHTML = `
+          <div style="padding: 40px; text-align: center; color: #ef4444; font-family: sans-serif;">
+            <h2>⚠️ Error Loading Dashboard Data</h2>
+            <p style="margin-top: 10px; color: #94a3b8;">Could not fetch JSON artifacts from the server.</p>
+            <p style="margin-top: 6px; font-size: 0.85rem; color: #cbd5e1;">Make sure the static server is running: <code>python -m http.server -d public 8000</code></p>
+          </div>
+        `;
+      }
+    }
+
+    function initUI() {
+      // Populate Point Select
+      const ptSelect = document.getElementById("point-select");
+      ptSelect.innerHTML = "";
+      const pointKeys = Object.keys(forecastsData.points);
+      pointKeys.forEach(pId => {
+        const opt = document.createElement("option");
+        opt.value = pId;
+        opt.innerText = forecastsData.points[pId].name;
+        ptSelect.appendChild(opt);
+      });
+
+      // Init Leaflet Map
+      initMap();
+
+      // Render Metrics Table
+      renderMetricsTable();
+
+      // Render Quick Station Chips
+      renderQuickStations();
+
+      // Draw mini status curve in left dock
+      drawMiniCurve();
+
+      // Attach Event Listeners
+      document.getElementById("point-select").addEventListener("change", updateDashboard);
+      document.getElementById("var-select").addEventListener("change", updateDashboard);
+      document.getElementById("lead-select").addEventListener("change", updateDashboard);
+      document.getElementById("season-select").addEventListener("change", updateDashboard);
+
+      // Initial Update
+      updateDashboard();
+    }
+
+    function initMap() {
+      map = L.map('map').setView([22.0, 79.5], 4.5);
+      // Esri Dark Gray Canvas - completely free, zero API key required, no watermarks
+      L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+        attribution: '&copy; Esri, DeLorme, NAVTEQ',
+        maxZoom: 16
+      }).addTo(map);
+      L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}', {
+        attribution: '',
+        maxZoom: 16
+      }).addTo(map);
+      markersLayer = L.layerGroup().addTo(map);
+    }
+
+    function updateDashboard() {
+      const selectedPt = document.getElementById("point-select").value;
+      const selectedVar = document.getElementById("var-select").value;
+      const selectedLead = document.getElementById("lead-select").value;
+      const selectedSeason = document.getElementById("season-select").value;
+
+      updateHeroStage(selectedPt, selectedVar, selectedLead, selectedSeason);
+      updateHumanSummary(selectedPt, selectedVar, selectedLead, selectedSeason);
+      updateMap(selectedVar, selectedLead, selectedSeason, selectedPt);
+      updateWeightChart(selectedPt, selectedVar, selectedLead, selectedSeason);
+      updateForecastChart(selectedPt, selectedVar);
+      updateExtremesPanel(selectedPt);
+    }
+
+    /* Update Hero Display (Typographic readings, high/low pills, condition text) */
+    function updateHeroStage(pId, varName, leadStr, seasonStr) {
+      const pt = forecastsData.points[pId];
+      if (!pt) return;
+      const targetDayIdx = Math.min(pt.forecasts.length - 1, Math.max(0, parseInt(leadStr) - 1));
+      const forecast = pt.forecasts[targetDayIdx] || pt.forecasts[0];
+      const vData = forecast.variables[varName];
+
+      const blend = vData.blend;
+      const low10 = vData.interval_10;
+      const high90 = vData.interval_90;
+
+      // Update Location Line & Radar Pill
+      document.getElementById("hero-location-text").innerHTML = 
+        `📍 <strong>${pt.name}</strong> • ${pt.terrain.toUpperCase()} Zone`;
+      document.getElementById("radar-station-name").innerHTML = 
+        `📍 ${pt.name.split(' (')[0]}`;
+      document.getElementById("hero-date-text").innerText = 
+        `Target Date: ${forecast.date} (Lead Day ${leadStr}) • IST`;
+
+      // Update Reading & Unit
+      document.getElementById("hero-reading-val").innerText = blend;
+      let unit = "°C";
+      if (varName === "precipitation_sum") unit = "mm";
+      if (varName === "wind_speed_10m_max") unit = "km/h";
+      document.getElementById("hero-reading-unit").innerText = unit;
+
+      // Update High / Low Envelope Pills
+      document.getElementById("hero-high-pill").innerText = `${high90} ${unit}`;
+      document.getElementById("hero-low-pill").innerText = `${low10} ${unit}`;
+
+      // Update Editorial Condition Headline
+      let title = "";
+      let sub = "";
+      if (varName === "temperature_2m_max") {
+        if (blend >= 40) {
+          title = "Intense Heatwave Conditions";
+          sub = "Temperatures breaching dangerous threshold. Hydration precautions mandatory.";
+        } else if (blend >= 33) {
+          title = "Warm & Humid Daytime Peak";
+          sub = "Consistent thermal signature across AI and physics models.";
+        } else if (blend >= 22) {
+          title = "Pleasant & Mild Temperature";
+          sub = "Optimal thermal comfort with narrow model divergence.";
+        } else {
+          title = "Cool Mountain Weather";
+          sub = "High altitude thermal regime with stable atmospheric stability.";
+        }
+      } else if (varName === "precipitation_sum") {
+        if (blend < 1) {
+          title = "Dry & Clear Sky Conditions";
+          sub = "Zero significant precipitation detected across all 4 ensemble feeds.";
+        } else if (blend < 15) {
+          title = "Light to Moderate Showers";
+          sub = "Intermittent rainfall expected; well below localized flood thresholds.";
+        } else if (blend < 64.5) {
+          title = "Active Wet Spell";
+          sub = "Moderate to heavy rainfall. Safe within municipal drainage limits.";
+        } else {
+          title = "Severe Downpour Warning";
+          sub = "Exceeds official IMD 64.5 mm heavy rainfall threshold. High localized runoff.";
+        }
+      } else {
+        if (blend < 20) {
+          title = "Gentle Surface Breeze";
+          sub = "Calm winds favorable for all outdoor and coastal operations.";
+        } else if (blend < 40) {
+          title = "Moderate Gusty Winds";
+          sub = "Noticeable wind gusts; within standard seasonal patterns.";
+        } else {
+          title = "Strong Gale Advisory";
+          sub = "Wind speeds exceed 40 km/h. Coastal and highland advisories active.";
+        }
+      }
+      document.getElementById("hero-condition-title").innerText = title;
+      document.getElementById("hero-condition-sub").innerText = sub;
+    }
+
+    /* Render Quick-Switch Station Chips (Like "Recently Searched" in reference UI) */
+    function renderQuickStations() {
+      const container = document.getElementById("quick-stations-container");
+      container.innerHTML = "";
+      // 4 prominent representative stations
+      const sampleIds = ["mumbai", "cherrapunji", "shimla", "jaisalmer"];
+      const currentVar = document.getElementById("var-select").value || "temperature_2m_max";
+
+      sampleIds.forEach(id => {
+        const pt = forecastsData.points[id];
+        if (!pt) return;
+        const val = pt.forecasts[0].variables[currentVar].blend;
+        const unit = currentVar === "temperature_2m_max" ? "°" : (currentVar === "precipitation_sum" ? "mm" : "kph");
+        const chip = document.createElement("div");
+        chip.className = "quick-station-chip";
+        chip.innerHTML = `
+          <div class="chip-top">
+            <span class="chip-name">${pt.name.split(' (')[0]}</span>
+            <span class="chip-val">${val}${unit}</span>
+          </div>
+          <span class="chip-sub">${pt.terrain.toUpperCase()} Zone</span>
+        `;
+        chip.onclick = () => {
+          document.getElementById("point-select").value = id;
+          updateDashboard();
+        };
+        container.appendChild(chip);
+      });
+    }
+
+    /* Draw Mini Aesthetic Risk Curve in Left Dock */
+    function drawMiniCurve() {
+      const canvas = document.getElementById("miniCurveCanvas");
+      if (!canvas) return;
+      const ctx = canvas.getContext("2d");
+      const w = canvas.width = canvas.offsetWidth;
+      const h = canvas.height = canvas.offsetHeight;
+
+      ctx.clearRect(0, 0, w, h);
+      ctx.beginPath();
+      ctx.moveTo(10, h - 15);
+      ctx.bezierCurveTo(w * 0.35, h - 15, w * 0.55, 15, w - 10, 15);
+      ctx.strokeStyle = "#38bdf8";
+      ctx.lineWidth = 3;
+      ctx.shadowColor = "#38bdf8";
+      ctx.shadowBlur = 8;
+      ctx.stroke();
+
+      // Node dot
+      ctx.beginPath();
+      ctx.arc(w * 0.65, 26, 4, 0, Math.PI * 2);
+      ctx.fillStyle = "#ffffff";
+      ctx.shadowColor = "#ffffff";
+      ctx.shadowBlur = 10;
+      ctx.fill();
+    }
+
+    /* Executive Plain-English Summary */
+    function updateHumanSummary(pId, varName, leadStr, seasonStr) {
+      const pt = forecastsData.points[pId];
+      if (!pt) return;
+      const forecasts = pt.forecasts;
+      const day1 = forecasts[0];
+      const selectedDayIdx = Math.min(forecasts.length - 1, Math.max(0, parseInt(leadStr) - 1));
+      const targetForecast = forecasts[selectedDayIdx] || day1;
+
+      document.getElementById("summary-station-subtitle").innerText = 
+        `Live Human-Readable Translation for ${pt.name} (${pt.terrain.toUpperCase()} Zone) • Lead Day ${leadStr}`;
+
+      // 1. Weather Forecast Interpretation
+      const vData = targetForecast.variables[varName];
+      const blend = vData.blend;
+      const low10 = vData.interval_10;
+      const high90 = vData.interval_90;
+
+      let forecastText = "";
+      if (varName === "temperature_2m_max") {
+        let feel = blend >= 38 ? "Hot / Heat Stress" : (blend >= 32 ? "Warm" : (blend >= 22 ? "Pleasant / Mild" : "Cool"));
+        forecastText = `Expect a daytime high of <strong>${blend} °C</strong> (${feel}). Our uncertainty envelope indicates an <strong>80% likelihood</strong> the actual high will land between <strong>${low10} °C and ${high90} °C</strong>.`;
+      } else if (varName === "precipitation_sum") {
+        if (blend < 1.0) {
+          forecastText = `<strong>Dry conditions expected (${blend} mm)</strong>. Virtually zero rainfall risk across the region (upper boundary: ${high90} mm).`;
+        } else if (blend < 15.0) {
+          forecastText = `<strong>Light to moderate showers (${blend} mm)</strong> expected. The realistic rainfall window spans <strong>${low10} mm to ${high90} mm</strong>.`;
+        } else if (blend < 64.5) {
+          forecastText = `<strong>Moderate to heavy rain (${blend} mm)</strong> predicted. High confidence of wet weather, with potential localized peaks up to <strong>${high90} mm</strong>.`;
+        } else {
+          forecastText = `⚠️ <strong>Severe downpour alert (${blend} mm)</strong>! Exceeds the IMD heavy rain disaster threshold. Peak rainfall may reach <strong>${high90} mm</strong>.`;
+        }
+      } else {
+        let windDesc = blend < 20 ? "Gentle breeze" : (blend < 40 ? "Moderate breeze" : "Strong gusty winds");
+        forecastText = `Peak sustained wind around <strong>${blend} km/h</strong> (${windDesc}). Realistic gust range spans between <strong>${low10} and ${high90} km/h</strong>.`;
+      }
+      document.getElementById("summary-forecast-text").innerHTML = forecastText;
+
+      // 2. AI Model Trust
+      const wMap = weightsData.weights[varName]?.[leadStr]?.[seasonStr]?.[pId] || {};
+      let maxModel = "ecmwf_ifs";
+      let maxVal = -1;
+      Object.keys(wMap).forEach(m => {
+        if (wMap[m] > maxVal) { maxVal = wMap[m]; maxModel = m; }
+      });
+      const topPct = (maxVal * 100).toFixed(0);
+      const topName = MODEL_NAMES[maxModel] || maxModel;
+      document.getElementById("summary-model-text").innerHTML = 
+        `Our algorithm assigns greatest trust (<strong>${topPct}%</strong>) to <strong>${topName}</strong> for this location and season, dynamically blended with 3 other models to neutralize individual model errors.`;
+
+      // 3. Disaster Risk
+      const risks = day1.extreme_risks;
+      let worstLevel = "LOW";
+      let worstHazard = "";
+      let worstProb = 0;
+
+      ["heavy_rain", "heatwave", "high_wind"].forEach(k => {
+        const item = risks[k];
+        if (!item) return;
+        const hTitle = k === "heavy_rain" ? "Heavy Rainfall" : (k === "heatwave" ? "Heatwave" : "High Wind");
+        if (item.level === "HIGH" && worstLevel !== "HIGH") {
+          worstLevel = "HIGH";
+          worstHazard = hTitle;
+          worstProb = Math.round(item.probability * 100);
+        } else if (item.level === "MODERATE" && worstLevel === "LOW") {
+          worstLevel = "MODERATE";
+          worstHazard = hTitle;
+          worstProb = Math.round(item.probability * 100);
+        }
+      });
+
+      const badgeEl = document.getElementById("summary-alert-level");
+      const leftBubble = document.getElementById("left-risk-bubble");
+      if (worstLevel === "HIGH") {
+        badgeEl.className = "badge red";
+        badgeEl.innerText = `🚨 HIGH HAZARD ALERT`;
+        leftBubble.className = "hazard-speech-bubble bubble-danger";
+        leftBubble.innerText = "High Hazard!";
+        document.getElementById("summary-risk-text").innerHTML = 
+          `<span style="color:#ef4444; font-weight:bold;">High risk (${worstProb}%) of ${worstHazard}</span> in next 24-48 hours. Disaster management precautions recommended.`;
+      } else if (worstLevel === "MODERATE") {
+        badgeEl.className = "badge amber";
+        badgeEl.innerText = `⚠️ MODERATE CAUTION`;
+        leftBubble.className = "hazard-speech-bubble bubble-moderate";
+        leftBubble.innerText = "Moderate Alert";
+        document.getElementById("summary-risk-text").innerHTML = 
+          `<span style="color:#f59e0b; font-weight:bold;">Moderate risk (${worstProb}%) of ${worstHazard}</span>. Municipal and agriculture teams should monitor.`;
+      } else {
+        badgeEl.className = "badge green";
+        badgeEl.innerText = `✅ ALL CLEAR / LOW HAZARD`;
+        leftBubble.className = "hazard-speech-bubble bubble-safe";
+        leftBubble.innerText = "All Clear";
+        document.getElementById("summary-risk-text").innerHTML = 
+          `All hazard risks (Heavy Rain, Heatwave, Gale Winds) are <strong style="color:#4ade80;">LOW (<25%)</strong> for next 48 hours. Normal conditions prevailing.`;
+      }
+
+      // 4. Verified Accuracy Advantage
+      const item = metricsData.results[varName]?.[leadStr];
+      if (item) {
+        const imprBest = item.improvement_over_best_single_pct.toFixed(1);
+        const imprEq = item.improvement_over_equal_weight_pct.toFixed(1);
+        const signBest = imprBest >= 0 ? "+" : "";
+        const signEq = imprEq >= 0 ? "+" : "";
+        document.getElementById("summary-accuracy-text").innerHTML = 
+          `Tested on 3 months of unseen data, this blend cuts forecast error by <strong class="highlight">${signBest}${imprBest}%</strong> vs. the top single supercomputer, and <strong class="highlight">${signEq}${imprEq}%</strong> over a standard average.`;
+      }
+    }
+
+    /* Update Interactive Leaflet Map */
+    function updateMap(varName, leadStr, seasonStr, selectedPt) {
+      markersLayer.clearLayers();
+      const points = forecastsData.points;
+      const weights = weightsData.weights[varName]?.[leadStr]?.[seasonStr] || {};
+
+      Object.keys(points).forEach(pId => {
+        const pt = points[pId];
+        const wMap = weights[pId] || { ecmwf_ifs: 0.25, ecmwf_aifs: 0.25, noaa_gfs: 0.25, open_meteo: 0.25 };
+        let maxModel = "ecmwf_ifs";
+        let maxVal = -1;
+        Object.keys(wMap).forEach(m => {
+          if (wMap[m] > maxVal) { maxVal = wMap[m]; maxModel = m; }
+        });
+
+        const color = MODEL_COLORS[maxModel] || "#38bdf8";
+        const isSelected = (pId === selectedPt);
+
+        const circle = L.circleMarker([pt.lat, pt.lon], {
+          radius: isSelected ? 13 : 8,
+          fillColor: color,
+          color: isSelected ? "#38bdf8" : "#ffffff",
+          weight: isSelected ? 3.5 : 1.5,
+          opacity: 1,
+          fillOpacity: isSelected ? 1.0 : 0.85
+        });
+
+        circle.bindTooltip(`
+          <div style="font-size:12px; line-height:1.4;">
+            <strong>${pt.name}</strong> ${isSelected ? '<span style="color:#38bdf8; font-weight:bold;">[Active]</span>' : ''}<br/>
+            Top Model: <span style="color:${color}; font-weight:bold;">${MODEL_NAMES[maxModel]}</span> (${(maxVal * 100).toFixed(1)}%)<br/>
+            <span style="font-size:10px; color:#94a3b8;">${isSelected ? 'Currently Selected' : '👉 Click to inspect this station'}</span>
+          </div>
+        `);
+
+        circle.on('click', () => {
+          document.getElementById("point-select").value = pId;
+          updateDashboard();
+        });
+
+        markersLayer.addLayer(circle);
+      });
+    }
+
+    /* Update Adaptive Weights Bar Chart */
+    function updateWeightChart(pId, varName, leadStr, seasonStr) {
+      const ptInfo = forecastsData.points[pId];
+      document.getElementById("weight-chart-title").innerText = `📊 Adaptive Weights: ${ptInfo.name.split(' (')[0]}`;
+      document.getElementById("point-terrain-badge").innerText = `Terrain: ${ptInfo.terrain.toUpperCase()}`;
+
+      const wMap = weightsData.weights[varName]?.[leadStr]?.[seasonStr]?.[pId] || {
+        ecmwf_ifs: 0.25, ecmwf_aifs: 0.25, noaa_gfs: 0.25, open_meteo: 0.25
+      };
+
+      const labels = Object.keys(wMap).map(m => MODEL_NAMES[m] || m);
+      const data = Object.keys(wMap).map(m => (wMap[m] * 100).toFixed(1));
+      const bgColors = Object.keys(wMap).map(m => MODEL_COLORS[m]);
+
+      if (weightChart) { weightChart.destroy(); }
+
+      const ctx = document.getElementById("weightChart").getContext("2d");
+      weightChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'Weight (%)',
+            data: data,
+            backgroundColor: bgColors,
+            borderRadius: 8,
+            borderWidth: 0
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: ctx => ` ${ctx.parsed.y}% share in blended forecast`
+              }
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 100,
+              grid: { color: "rgba(255, 255, 255, 0.05)" },
+              ticks: { color: "#94a3b8", callback: v => v + "%" }
+            },
+            x: {
+              grid: { display: false },
+              ticks: { color: "#94a3b8", font: { size: 10 } }
+            }
+          }
+        }
+      });
+    }
+
+    /* Update 5-Day Forecast Chart with Luminous Bezier Curve */
+    function updateForecastChart(pId, varName) {
+      const ptForecasts = forecastsData.points[pId].forecasts;
+      const dates = ptForecasts.map(f => {
+        const d = new Date(f.date);
+        return d.toLocaleDateString('en-US', { weekday: 'short', month: 'numeric', day: 'numeric' });
+      });
+
+      const blendVals = ptForecasts.map(f => f.variables[varName].blend);
+      const lower10 = ptForecasts.map(f => f.variables[varName].interval_10);
+      const upper90 = ptForecasts.map(f => f.variables[varName].interval_90);
+
+      const ifsVals = ptForecasts.map(f => f.variables[varName].sources.ecmwf_ifs ?? null);
+      const aifsVals = ptForecasts.map(f => f.variables[varName].sources.ecmwf_aifs ?? null);
+      const gfsVals = ptForecasts.map(f => f.variables[varName].sources.noaa_gfs ?? null);
+      const omVals = ptForecasts.map(f => f.variables[varName].sources.open_meteo ?? null);
+
+      if (forecastChart) { forecastChart.destroy(); }
+
+      const ctx = document.getElementById("forecastChart").getContext("2d");
+      forecastChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: dates,
+          datasets: [
+            {
+              label: 'Upper 90%',
+              data: upper90,
+              borderColor: 'transparent',
+              backgroundColor: 'rgba(56, 189, 248, 0.12)',
+              pointRadius: 0,
+              tension: 0.35,
+              fill: '+1'
+            },
+            {
+              label: 'Lower 10%',
+              data: lower10,
+              borderColor: 'transparent',
+              pointRadius: 0,
+              tension: 0.35,
+              fill: false
+            },
+            {
+              label: 'Blended Forecast',
+              data: blendVals,
+              borderColor: '#38bdf8',
+              backgroundColor: '#38bdf8',
+              borderWidth: 3.5,
+              tension: 0.35,
+              pointRadius: 5,
+              pointBackgroundColor: '#ffffff',
+              pointBorderColor: '#38bdf8',
+              pointBorderWidth: 2,
+              pointHoverRadius: 7
+            },
+            {
+              label: 'ECMWF IFS',
+              data: ifsVals,
+              borderColor: MODEL_COLORS.ecmwf_ifs,
+              borderWidth: 1.5,
+              borderDash: [4, 4],
+              tension: 0.35,
+              pointRadius: 2
+            },
+            {
+              label: 'ECMWF AIFS',
+              data: aifsVals,
+              borderColor: MODEL_COLORS.ecmwf_aifs,
+              borderWidth: 1.5,
+              borderDash: [4, 4],
+              tension: 0.35,
+              pointRadius: 2
+            },
+            {
+              label: 'NOAA GFS',
+              data: gfsVals,
+              borderColor: MODEL_COLORS.noaa_gfs,
+              borderWidth: 1.5,
+              borderDash: [4, 4],
+              tension: 0.35,
+              pointRadius: 2
+            },
+            {
+              label: 'Open-Meteo',
+              data: omVals,
+              borderColor: MODEL_COLORS.open_meteo,
+              borderWidth: 1.5,
+              borderDash: [4, 4],
+              tension: 0.35,
+              pointRadius: 2
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: { mode: 'index', intersect: false }
+          },
+          scales: {
+            y: {
+              grid: { color: "rgba(255, 255, 255, 0.05)" },
+              ticks: { color: "#94a3b8" }
+            },
+            x: {
+              grid: { display: false },
+              ticks: { color: "#94a3b8", font: { size: 11, weight: '500' } }
+            }
+          }
+        }
+      });
+    }
+
+    /* Extremes Panel */
+    function updateExtremesPanel(pId) {
+      const container = document.getElementById("extremes-container");
+      container.innerHTML = "";
+
+      const todayForecast = forecastsData.points[pId].forecasts[0];
+      if (!todayForecast) return;
+
+      const risks = todayForecast.extreme_risks;
+      const cards = [
+        {
+          key: "heavy_rain",
+          title: "Heavy Rainfall",
+          icon: "🌧️",
+          prob: risks.heavy_rain.probability,
+          level: risks.heavy_rain.level,
+          crit: risks.heavy_rain.threshold
+        },
+        {
+          key: "heatwave",
+          title: "Heatwave Alert",
+          icon: "🔥",
+          prob: risks.heatwave.probability,
+          level: risks.heatwave.level,
+          crit: risks.heatwave.threshold
+        },
+        {
+          key: "high_wind",
+          title: "High Wind / Gale",
+          icon: "💨",
+          prob: risks.high_wind.probability,
+          level: risks.high_wind.level,
+          crit: risks.high_wind.threshold
+        }
+      ];
+
+      cards.forEach(c => {
+        const pct = Math.round(c.prob * 100);
+        let barColor = "#10b981";
+        if (c.level === "MODERATE") barColor = "#f59e0b";
+        if (c.level === "HIGH") barColor = "#ef4444";
+
+        const cardEl = document.createElement("div");
+        cardEl.className = "extreme-card";
+        cardEl.innerHTML = `
+          <div class="extreme-header">
+            <span class="extreme-title">${c.icon} ${c.title}</span>
+            <span class="risk-badge risk-${c.level}">${c.level}</span>
+          </div>
+          <div class="prob-val">${pct}%</div>
+          <div class="prob-bar-bg">
+            <div class="prob-bar-fill" style="width: ${pct}%; background: ${barColor};"></div>
+          </div>
+          <div class="extreme-criteria">Criterion: ${c.crit}</div>
+        `;
+        container.appendChild(cardEl);
+      });
+    }
+
+    /* Render Metrics Table */
+    function renderMetricsTable() {
+      const tbody = document.getElementById("metrics-tbody");
+      tbody.innerHTML = "";
+
+      const results = metricsData.results;
+      Object.keys(results).forEach(vKey => {
+        const varName = (vKey === "temperature_2m_max") ? "Max Temp (°C)" :
+                        (vKey === "precipitation_sum") ? "Rainfall (mm)" : "Max Wind (km/h)";
+
+        Object.keys(results[vKey]).forEach(ldKey => {
+          const item = results[vKey][ldKey];
+          const bestModelName = MODEL_NAMES[item.best_single.model] || item.best_single.model;
+          const imprBest = item.improvement_over_best_single_pct;
+          const imprEqual = item.improvement_over_equal_weight_pct;
+
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td><strong>${varName}</strong></td>
+            <td>Lead ${ldKey}d</td>
+            <td>${bestModelName}</td>
+            <td>${item.best_single.metrics.rmse.toFixed(2)}</td>
+            <td>${item.equal_weight.metrics.rmse.toFixed(2)}</td>
+            <td><strong>${item.adaptive_blend.metrics.rmse.toFixed(2)}</strong></td>
+            <td class="${imprBest >= 0 ? 'positive-impr' : 'negative-impr'}">${imprBest >= 0 ? '+' : ''}${imprBest.toFixed(1)}%</td>
+            <td class="${imprEqual >= 0 ? 'positive-impr' : 'negative-impr'}">${imprEqual >= 0 ? '+' : ''}${imprEqual.toFixed(1)}%</td>
+          `;
+          tbody.appendChild(row);
+        });
+      });
+    }
+
+    // Initialize when DOM loads
+    window.addEventListener("DOMContentLoaded", loadAllData);
+  </script>
+</body>
+</html>

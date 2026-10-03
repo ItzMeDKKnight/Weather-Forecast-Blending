@@ -1,0 +1,1403 @@
+{
+  "metadata": {
+    "train_end": "2026-06-15",
+    "models": [
+      "ecmwf_ifs",
+      "ecmwf_aifs",
+      "noaa_gfs",
+      "open_meteo"
+    ],
+    "bias_corrections": {
+      "temperature_2m_max": {
+        "type": "additive",
+        "factors": {
+          "ecmwf_ifs": 0.006940203562340961,
+          "ecmwf_aifs": 0.8071501272264631,
+          "noaa_gfs": -1.741444020356234,
+          "open_meteo": -0.13838422391857508
+        }
+      },
+      "precipitation_sum": {
+        "type": "multiplicative",
+        "factors": {
+          "ecmwf_ifs": 0.9739999415337479,
+          "ecmwf_aifs": 0.8568015963424588,
+          "noaa_gfs": 1.5176852563737735,
+          "open_meteo": 0.9407082845355391
+        }
+      },
+      "wind_speed_10m_max": {
+        "type": "additive",
+        "factors": {
+          "ecmwf_ifs": 0.45913958175862934,
+          "ecmwf_aifs": 2.121227009322247,
+          "noaa_gfs": -5.0,
+          "open_meteo": 1.365299823633157
+        }
+      }
+    },
+    "use_bias_correction": {
+      "temperature_2m_max": true,
+      "precipitation_sum": false,
+      "wind_speed_10m_max": true
+    }
+  },
+  "weights": {
+    "temperature_2m_max": {
+      "1": {
+        "monsoon": {
+          "dehradun": {
+            "ecmwf_ifs": 0.2493,
+            "ecmwf_aifs": 0.4509,
+            "noaa_gfs": 0.0058,
+            "open_meteo": 0.2941
+          },
+          "delhi": {
+            "ecmwf_ifs": 0.4156,
+            "ecmwf_aifs": 0.4983,
+            "noaa_gfs": 0.0861,
+            "open_meteo": 0.0
+          },
+          "patna": {
+            "ecmwf_ifs": 0.3212,
+            "ecmwf_aifs": 0.5147,
+            "noaa_gfs": 0.0,
+            "open_meteo": 0.164
+          },
+          "bhopal": {
+            "ecmwf_ifs": 0.3665,
+            "ecmwf_aifs": 0.5826,
+            "noaa_gfs": 0.0509,
+            "open_meteo": 0.0
+          },
+          "mahabaleshwar": {
+            "ecmwf_ifs": 0.4856,
+            "ecmwf_aifs": 0.0552,
+            "noaa_gfs": 0.3989,
+            "open_meteo": 0.0603
+          },
+          "chennai": {
+            "ecmwf_ifs": 0.3114,
+            "ecmwf_aifs": 0.0,
+            "noaa_gfs": 0.1723,
+            "open_meteo": 0.5163
+          },
+          "bhubaneswar": {
+            "ecmwf_ifs": 0.4175,
+            "ecmwf_aifs": 0.4811,
+            "noaa_gfs": 0.0,
+            "open_meteo": 0.1014
+          },
+          "guwahati": {
+            "ecmwf_ifs": 0.3988,
+            "ecmwf_aifs": 0.4402,
+            "noaa_gfs": 0.0333,
+            "open_meteo": 0.1277
+          },
+          "jodhpur": {
+            "ecmwf_ifs": 0.6401,
+            "ecmwf_aifs": 0.3175,
+            "noaa_gfs": 0.0424,
+            "open_meteo": 0.0
+          },
+          "hyderabad": {
+            "ecmwf_ifs": 0.1842,
+            "ecmwf_aifs": 0.6295,
+            "noaa_gfs": 0.1074,
+            "open_meteo": 0.0789
+          },
+          "mumbai": {
+            "ecmwf_ifs": 0.1167,
+            "ecmwf_aifs": 0.4181,
+            "noaa_gfs": 0.0832,
+            "open_meteo": 0.382
+          },
+          "bengaluru": {
+            "ecmwf_ifs": 0.1486,
+            "ecmwf_aifs": 0.6209,
+            "noaa_gfs": 0.0677,
+            "open_meteo": 0.1628
+          }
+        },
+        "non_monsoon": {
+          "dehradun": {
+            "ecmwf_ifs": 0.4083,
+            "ecmwf_aifs": 0.2372,
+            "noaa_gfs": 0.0903,
+            "open_meteo": 0.2642
+          },
+          "delhi": {
+            "ecmwf_ifs": 0.3332,
+            "ecmwf_aifs": 0.3855,
+            "noaa_gfs": 0.1252,
+            "open_meteo": 0.1562
+          },
+          "patna": {
+            "ecmwf_ifs": 0.3837,
+            "ecmwf_aifs": 0.3932,
+            "noaa_gfs": 0.0124,
+            "open_meteo": 0.2107
+          },
+          "bhopal": {
+            "ecmwf_ifs": 0.522,
+            "ecmwf_aifs": 0.2118,
+            "noaa_gfs": 0.0,
+            "open_meteo": 0.2662
+          },
+          "mahabaleshwar": {
+            "ecmwf_ifs": 0.6139,
+            "ecmwf_aifs": 0.0249,
+            "noaa_gfs": 0.0375,
+            "open_meteo": 0.3238
+          },
+          "chennai": {
+            "ecmwf_ifs": 0.2459,
+            "ecmwf_aifs": 0.2063,
+            "noaa_gfs": 0.102,
+            "open_meteo": 0.4457
+          },
+          "bhubaneswar": {
+            "ecmwf_ifs": 0.477,
+            "ecmwf_aifs": 0.3175,
+            "noaa_gfs": 0.0907,
+            "open_meteo": 0.1149
+          },
+          "guwahati": {
+            "ecmwf_ifs": 0.1892,
+            "ecmwf_aifs": 0.4906,
+            "noaa_gfs": 0.0836,
+            "open_meteo": 0.2365
+          },
+          "jodhpur": {
+            "ecmwf_ifs": 0.6645,
+            "ecmwf_aifs": 0.2088,
+            "noaa_gfs": 0.0144,
+            "open_meteo": 0.1123
+          },
+          "hyderabad": {
+            "ecmwf_ifs": 0.494,
+            "ecmwf_aifs": 0.3023,
+            "noaa_gfs": 0.046,
+            "open_meteo": 0.1577
+          },
+          "mumbai": {
+            "ecmwf_ifs": 0.2937,
+            "ecmwf_aifs": 0.2401,
+            "noaa_gfs": 0.1128,
+            "open_meteo": 0.3534
+          },
+          "bengaluru": {
+            "ecmwf_ifs": 0.563,
+            "ecmwf_aifs": 0.2617,
+            "noaa_gfs": 0.1753,
+            "open_meteo": 0.0
+          }
+        }
+      },
+      "3": {
+        "monsoon": {
+          "dehradun": {
+            "ecmwf_ifs": 0.3607,
+            "ecmwf_aifs": 0.373,
+            "noaa_gfs": 0.0,
+            "open_meteo": 0.2662
+          },
+          "delhi": {
+            "ecmwf_ifs": 0.239,
+            "ecmwf_aifs": 0.6488,
+            "noaa_gfs": 0.1122,
+            "open_meteo": 0.0
+          },
+          "patna": {
+            "ecmwf_ifs": 0.2136,
+            "ecmwf_aifs": 0.6778,
+            "noaa_gfs": 0.0,
+            "open_meteo": 0.1087
+          },
+          "bhopal": {
+            "ecmwf_ifs": 0.1805,
+            "ecmwf_aifs": 0.751,
+            "noaa_gfs": 0.0685,
+            "open_meteo": 0.0
+          },
+          "mahabaleshwar": {
+            "ecmwf_ifs": 0.7229,
+            "ecmwf_aifs": 0.0,
+            "noaa_gfs": 0.2471,
+            "open_meteo": 0.03
+          },
+          "chennai": {
+            "ecmwf_ifs": 0.0,
+            "ecmwf_aifs": 0.3264,
+            "noaa_gfs": 0.3438,
+            "open_meteo": 0.3298
+          },
+          "bhubaneswar": {
+            "ecmwf_ifs": 0.3912,
+            "ecmwf_aifs": 0.4467,
+            "noaa_gfs": 0.0668,
+            "open_meteo": 0.0953
+          },
+          "guwahati": {
+            "ecmwf_ifs": 0.2553,
+            "ecmwf_aifs": 0.6989,
+            "noaa_gfs": 0.0458,
+            "open_meteo": 0.0
+          },
+          "jodhpur": {
+            "ecmwf_ifs": 0.3442,
+            "ecmwf_aifs": 0.5433,
+            "noaa_gfs": 0.1125,
+            "open_meteo": 0.0
+          },
+          "hyderabad": {
+            "ecmwf_ifs": 0.1796,
+            "ecmwf_aifs": 0.6764,
+            "noaa_gfs": 0.1152,
+            "open_meteo": 0.0287
+          },
+          "mumbai": {
+            "ecmwf_ifs": 0.1235,
+            "ecmwf_aifs": 0.4546,
+            "noaa_gfs": 0.0703,
+            "open_meteo": 0.3516
+          },
+          "bengaluru": {
+            "ecmwf_ifs": 0.1319,
+            "ecmwf_aifs": 0.7116,
+            "noaa_gfs": 0.1565,
+            "open_meteo": 0.0
+          }
+        },
+        "non_monsoon": {
+          "dehradun": {
+            "ecmwf_ifs": 0.3439,
+            "ecmwf_aifs": 0.3766,
+            "noaa_gfs": 0.0727,
+            "open_meteo": 0.2068
+          },
+          "delhi": {
+            "ecmwf_ifs": 0.3417,
+            "ecmwf_aifs": 0.488,
+            "noaa_gfs": 0.0692,
+            "open_meteo": 0.1011
+          },
+          "patna": {
+            "ecmwf_ifs": 0.0685,
+            "ecmwf_aifs": 0.5942,
+            "noaa_gfs": 0.0222,
+            "open_meteo": 0.3152
+          },
+          "bhopal": {
+            "ecmwf_ifs": 0.4985,
+            "ecmwf_aifs": 0.3093,
+            "noaa_gfs": 0.0632,
+            "open_meteo": 0.129
+          },
+          "mahabaleshwar": {
+            "ecmwf_ifs": 0.6816,
+            "ecmwf_aifs": 0.0088,
+            "noaa_gfs": 0.1042,
+            "open_meteo": 0.2053
+          },
+          "chennai": {
+            "ecmwf_ifs": 0.0253,
+            "ecmwf_aifs": 0.4507,
+            "noaa_gfs": 0.1603,
+            "open_meteo": 0.3637
+          },
+          "bhubaneswar": {
+            "ecmwf_ifs": 0.1159,
+            "ecmwf_aifs": 0.5755,
+            "noaa_gfs": 0.1892,
+            "open_meteo": 0.1194
+          },
+          "guwahati": {
+            "ecmwf_ifs": 0.2378,
+            "ecmwf_aifs": 0.541,
+            "noaa_gfs": 0.0873,
+            "open_meteo": 0.134
+          },
+          "jodhpur": {
+            "ecmwf_ifs": 0.4425,
+            "ecmwf_aifs": 0.3773,
+            "noaa_gfs": 0.0056,
+            "open_meteo": 0.1746
+          },
+          "hyderabad": {
+            "ecmwf_ifs": 0.2182,
+            "ecmwf_aifs": 0.4975,
+            "noaa_gfs": 0.1009,
+            "open_meteo": 0.1834
+          },
+          "mumbai": {
+            "ecmwf_ifs": 0.3133,
+            "ecmwf_aifs": 0.3052,
+            "noaa_gfs": 0.1027,
+            "open_meteo": 0.2788
+          },
+          "bengaluru": {
+            "ecmwf_ifs": 0.3586,
+            "ecmwf_aifs": 0.4491,
+            "noaa_gfs": 0.1923,
+            "open_meteo": 0.0
+          }
+        }
+      },
+      "5": {
+        "monsoon": {
+          "dehradun": {
+            "ecmwf_ifs": 0.2869,
+            "ecmwf_aifs": 0.5266,
+            "noaa_gfs": 0.0,
+            "open_meteo": 0.1865
+          },
+          "delhi": {
+            "ecmwf_ifs": 0.2695,
+            "ecmwf_aifs": 0.6369,
+            "noaa_gfs": 0.0936,
+            "open_meteo": 0.0
+          },
+          "patna": {
+            "ecmwf_ifs": 0.2337,
+            "ecmwf_aifs": 0.7246,
+            "noaa_gfs": 0.0,
+            "open_meteo": 0.0417
+          },
+          "bhopal": {
+            "ecmwf_ifs": 0.0937,
+            "ecmwf_aifs": 0.7636,
+            "noaa_gfs": 0.1394,
+            "open_meteo": 0.0033
+          },
+          "mahabaleshwar": {
+            "ecmwf_ifs": 0.1731,
+            "ecmwf_aifs": 0.3156,
+            "noaa_gfs": 0.5113,
+            "open_meteo": 0.0
+          },
+          "chennai": {
+            "ecmwf_ifs": 0.1545,
+            "ecmwf_aifs": 0.2595,
+            "noaa_gfs": 0.2486,
+            "open_meteo": 0.3373
+          },
+          "bhubaneswar": {
+            "ecmwf_ifs": 0.3327,
+            "ecmwf_aifs": 0.4964,
+            "noaa_gfs": 0.0249,
+            "open_meteo": 0.146
+          },
+          "guwahati": {
+            "ecmwf_ifs": 0.0627,
+            "ecmwf_aifs": 0.6909,
+            "noaa_gfs": 0.0732,
+            "open_meteo": 0.1732
+          },
+          "jodhpur": {
+            "ecmwf_ifs": 0.326,
+            "ecmwf_aifs": 0.674,
+            "noaa_gfs": 0.0,
+            "open_meteo": 0.0
+          },
+          "hyderabad": {
+            "ecmwf_ifs": 0.1159,
+            "ecmwf_aifs": 0.643,
+            "noaa_gfs": 0.1061,
+            "open_meteo": 0.135
+          },
+          "mumbai": {
+            "ecmwf_ifs": 0.2829,
+            "ecmwf_aifs": 0.3909,
+            "noaa_gfs": 0.0421,
+            "open_meteo": 0.2842
+          },
+          "bengaluru": {
+            "ecmwf_ifs": 0.2294,
+            "ecmwf_aifs": 0.5089,
+            "noaa_gfs": 0.1238,
+            "open_meteo": 0.1379
+          }
+        },
+        "non_monsoon": {
+          "dehradun": {
+            "ecmwf_ifs": 0.364,
+            "ecmwf_aifs": 0.4661,
+            "noaa_gfs": 0.0689,
+            "open_meteo": 0.101
+          },
+          "delhi": {
+            "ecmwf_ifs": 0.3049,
+            "ecmwf_aifs": 0.5435,
+            "noaa_gfs": 0.0,
+            "open_meteo": 0.1516
+          },
+          "patna": {
+            "ecmwf_ifs": 0.0615,
+            "ecmwf_aifs": 0.6206,
+            "noaa_gfs": 0.0,
+            "open_meteo": 0.3179
+          },
+          "bhopal": {
+            "ecmwf_ifs": 0.3375,
+            "ecmwf_aifs": 0.4264,
+            "noaa_gfs": 0.118,
+            "open_meteo": 0.1181
+          },
+          "mahabaleshwar": {
+            "ecmwf_ifs": 0.7048,
+            "ecmwf_aifs": 0.0,
+            "noaa_gfs": 0.1557,
+            "open_meteo": 0.1395
+          },
+          "chennai": {
+            "ecmwf_ifs": 0.0,
+            "ecmwf_aifs": 0.5268,
+            "noaa_gfs": 0.1584,
+            "open_meteo": 0.3149
+          },
+          "bhubaneswar": {
+            "ecmwf_ifs": 0.1632,
+            "ecmwf_aifs": 0.5946,
+            "noaa_gfs": 0.1865,
+            "open_meteo": 0.0557
+          },
+          "guwahati": {
+            "ecmwf_ifs": 0.1978,
+            "ecmwf_aifs": 0.5915,
+            "noaa_gfs": 0.0797,
+            "open_meteo": 0.1311
+          },
+          "jodhpur": {
+            "ecmwf_ifs": 0.3608,
+            "ecmwf_aifs": 0.482,
+            "noaa_gfs": 0.0169,
+            "open_meteo": 0.1403
+          },
+          "hyderabad": {
+            "ecmwf_ifs": 0.1423,
+            "ecmwf_aifs": 0.6277,
+            "noaa_gfs": 0.0712,
+            "open_meteo": 0.1588
+          },
+          "mumbai": {
+            "ecmwf_ifs": 0.3124,
+            "ecmwf_aifs": 0.4058,
+            "noaa_gfs": 0.1196,
+            "open_meteo": 0.1622
+          },
+          "bengaluru": {
+            "ecmwf_ifs": 0.3176,
+            "ecmwf_aifs": 0.4759,
+            "noaa_gfs": 0.2065,
+            "open_meteo": 0.0
+          }
+        }
+      }
+    },
+    "precipitation_sum": {
+      "1": {
+        "monsoon": {
+          "dehradun": {
+            "ecmwf_ifs": 0.4497,
+            "ecmwf_aifs": 0.1432,
+            "noaa_gfs": 0.1603,
+            "open_meteo": 0.2467
+          },
+          "delhi": {
+            "ecmwf_ifs": 0.2578,
+            "ecmwf_aifs": 0.5862,
+            "noaa_gfs": 0.1524,
+            "open_meteo": 0.0036
+          },
+          "patna": {
+            "ecmwf_ifs": 0.2092,
+            "ecmwf_aifs": 0.5016,
+            "noaa_gfs": 0.2738,
+            "open_meteo": 0.0154
+          },
+          "bhopal": {
+            "ecmwf_ifs": 0.2624,
+            "ecmwf_aifs": 0.6484,
+            "noaa_gfs": 0.0521,
+            "open_meteo": 0.0372
+          },
+          "mahabaleshwar": {
+            "ecmwf_ifs": 0.0,
+            "ecmwf_aifs": 0.9994,
+            "noaa_gfs": 0.0006,
+            "open_meteo": 0.0
+          },
+          "chennai": {
+            "ecmwf_ifs": 0.0845,
+            "ecmwf_aifs": 0.8353,
+            "noaa_gfs": 0.0,
+            "open_meteo": 0.0803
+          },
+          "bhubaneswar": {
+            "ecmwf_ifs": 0.1406,
+            "ecmwf_aifs": 0.5739,
+            "noaa_gfs": 0.1157,
+            "open_meteo": 0.1698
+          },
+          "guwahati": {
+            "ecmwf_ifs": 0.0112,
+            "ecmwf_aifs": 0.7315,
+            "noaa_gfs": 0.2446,
+            "open_meteo": 0.0128
+          },
+          "jodhpur": {
+            "ecmwf_ifs": 0.2118,
+            "ecmwf_aifs": 0.5053,
+            "noaa_gfs": 0.0896,
+            "open_meteo": 0.1933
+          },
+          "hyderabad": {
+            "ecmwf_ifs": 0.2768,
+            "ecmwf_aifs": 0.4446,
+            "noaa_gfs": 0.1313,
+            "open_meteo": 0.1473
+          },
+          "mumbai": {
+            "ecmwf_ifs": 0.2369,
+            "ecmwf_aifs": 0.6732,
+            "noaa_gfs": 0.0848,
+            "open_meteo": 0.0052
+          },
+          "bengaluru": {
+            "ecmwf_ifs": 0.1495,
+            "ecmwf_aifs": 0.8499,
+            "noaa_gfs": 0.0006,
+            "open_meteo": 0.0
+          }
+        },
+        "non_monsoon": {
+          "dehradun": {
+            "ecmwf_ifs": 0.1576,
+            "ecmwf_aifs": 0.4629,
+            "noaa_gfs": 0.1866,
+            "open_meteo": 0.193
+          },
+          "delhi": {
+            "ecmwf_ifs": 0.1926,
+            "ecmwf_aifs": 0.6886,
+            "noaa_gfs": 0.0603,
+            "open_meteo": 0.0585
+          },
+          "patna": {
+            "ecmwf_ifs": 0.2114,
+            "ecmwf_aifs": 0.5474,
+            "noaa_gfs": 0.2412,
+            "open_meteo": 0.0
+          },
+          "bhopal": {
+            "ecmwf_ifs": 0.4992,
+            "ecmwf_aifs": 0.2542,
+            "noaa_gfs": 0.2466,
+            "open_meteo": 0.0
+          },
+          "mahabaleshwar": {
+            "ecmwf_ifs": 0.1594,
+            "ecmwf_aifs": 0.7435,
+            "noaa_gfs": 0.0523,
+            "open_meteo": 0.0448
+          },
+          "chennai": {
+            "ecmwf_ifs": 0.0,
+            "ecmwf_aifs": 0.7701,
+            "noaa_gfs": 0.0293,
+            "open_meteo": 0.2006
+          },
+          "bhubaneswar": {
+            "ecmwf_ifs": 0.0,
+            "ecmwf_aifs": 0.5787,
+            "noaa_gfs": 0.0484,
+            "open_meteo": 0.3729
+          },
+          "guwahati": {
+            "ecmwf_ifs": 0.1189,
+            "ecmwf_aifs": 0.4223,
+            "noaa_gfs": 0.2034,
+            "open_meteo": 0.2554
+          },
+          "jodhpur": {
+            "ecmwf_ifs": 0.3048,
+            "ecmwf_aifs": 0.3694,
+            "noaa_gfs": 0.3258,
+            "open_meteo": 0.0
+          },
+          "hyderabad": {
+            "ecmwf_ifs": 0.219,
+            "ecmwf_aifs": 0.447,
+            "noaa_gfs": 0.1741,
+            "open_meteo": 0.16
+          },
+          "mumbai": {
+            "ecmwf_ifs": 0.5254,
+            "ecmwf_aifs": 0.2735,
+            "noaa_gfs": 0.0316,
+            "open_meteo": 0.1694
+          },
+          "bengaluru": {
+            "ecmwf_ifs": 0.1649,
+            "ecmwf_aifs": 0.6239,
+            "noaa_gfs": 0.1696,
+            "open_meteo": 0.0416
+          }
+        }
+      },
+      "3": {
+        "monsoon": {
+          "dehradun": {
+            "ecmwf_ifs": 0.5551,
+            "ecmwf_aifs": 0.2009,
+            "noaa_gfs": 0.0915,
+            "open_meteo": 0.1525
+          },
+          "delhi": {
+            "ecmwf_ifs": 0.0,
+            "ecmwf_aifs": 0.3769,
+            "noaa_gfs": 0.2718,
+            "open_meteo": 0.3513
+          },
+          "patna": {
+            "ecmwf_ifs": 0.4875,
+            "ecmwf_aifs": 0.1548,
+            "noaa_gfs": 0.2064,
+            "open_meteo": 0.1512
+          },
+          "bhopal": {
+            "ecmwf_ifs": 0.0,
+            "ecmwf_aifs": 0.8767,
+            "noaa_gfs": 0.0089,
+            "open_meteo": 0.1144
+          },
+          "mahabaleshwar": {
+            "ecmwf_ifs": 0.2685,
+            "ecmwf_aifs": 0.7315,
+            "noaa_gfs": 0.0,
+            "open_meteo": 0.0
+          },
+          "chennai": {
+            "ecmwf_ifs": 0.0141,
+            "ecmwf_aifs": 0.803,
+            "noaa_gfs": 0.0754,
+            "open_meteo": 0.1075
+          },
+          "bhubaneswar": {
+            "ecmwf_ifs": 0.1676,
+            "ecmwf_aifs": 0.5336,
+            "noaa_gfs": 0.1239,
+            "open_meteo": 0.1749
+          },
+          "guwahati": {
+            "ecmwf_ifs": 0.3156,
+            "ecmwf_aifs": 0.4345,
+            "noaa_gfs": 0.1348,
+            "open_meteo": 0.1151
+          },
+          "jodhpur": {
+            "ecmwf_ifs": 0.0,
+            "ecmwf_aifs": 0.8655,
+            "noaa_gfs": 0.0964,
+            "open_meteo": 0.0381
+          },
+          "hyderabad": {
+            "ecmwf_ifs": 0.0474,
+            "ecmwf_aifs": 0.6023,
+            "noaa_gfs": 0.1538,
+            "open_meteo": 0.1964
+          },
+          "mumbai": {
+            "ecmwf_ifs": 0.4174,
+            "ecmwf_aifs": 0.3363,
+            "noaa_gfs": 0.0929,
+            "open_meteo": 0.1533
+          },
+          "bengaluru": {
+            "ecmwf_ifs": 0.1036,
+            "ecmwf_aifs": 0.7827,
+            "noaa_gfs": 0.1137,
+            "open_meteo": 0.0
+          }
+        },
+        "non_monsoon": {
+          "dehradun": {
+            "ecmwf_ifs": 0.0705,
+            "ecmwf_aifs": 0.5177,
+            "noaa_gfs": 0.2154,
+            "open_meteo": 0.1965
+          },
+          "delhi": {
+            "ecmwf_ifs": 0.1757,
+            "ecmwf_aifs": 0.4581,
+            "noaa_gfs": 0.2436,
+            "open_meteo": 0.1226
+          },
+          "patna": {
+            "ecmwf_ifs": 0.3653,
+            "ecmwf_aifs": 0.5499,
+            "noaa_gfs": 0.0117,
+            "open_meteo": 0.0732
+          },
+          "bhopal": {
+            "ecmwf_ifs": 0.4171,
+            "ecmwf_aifs": 0.371,
+            "noaa_gfs": 0.2119,
+            "open_meteo": 0.0
+          },
+          "mahabaleshwar": {
+            "ecmwf_ifs": 0.217,
+            "ecmwf_aifs": 0.6012,
+            "noaa_gfs": 0.1817,
+            "open_meteo": 0.0
+          },
+          "chennai": {
+            "ecmwf_ifs": 0.2023,
+            "ecmwf_aifs": 0.6279,
+            "noaa_gfs": 0.0,
+            "open_meteo": 0.1697
+          },
+          "bhubaneswar": {
+            "ecmwf_ifs": 0.2627,
+            "ecmwf_aifs": 0.4449,
+            "noaa_gfs": 0.2338,
+            "open_meteo": 0.0586
+          },
+          "guwahati": {
+            "ecmwf_ifs": 0.1819,
+            "ecmwf_aifs": 0.454,
+            "noaa_gfs": 0.2097,
+            "open_meteo": 0.1544
+          },
+          "jodhpur": {
+            "ecmwf_ifs": 0.4471,
+            "ecmwf_aifs": 0.2745,
+            "noaa_gfs": 0.2548,
+            "open_meteo": 0.0236
+          },
+          "hyderabad": {
+            "ecmwf_ifs": 0.3122,
+            "ecmwf_aifs": 0.4711,
+            "noaa_gfs": 0.1937,
+            "open_meteo": 0.023
+          },
+          "mumbai": {
+            "ecmwf_ifs": 0.2327,
+            "ecmwf_aifs": 0.0639,
+            "noaa_gfs": 0.3194,
+            "open_meteo": 0.384
+          },
+          "bengaluru": {
+            "ecmwf_ifs": 0.1428,
+            "ecmwf_aifs": 0.6098,
+            "noaa_gfs": 0.109,
+            "open_meteo": 0.1384
+          }
+        }
+      },
+      "5": {
+        "monsoon": {
+          "dehradun": {
+            "ecmwf_ifs": 0.3052,
+            "ecmwf_aifs": 0.0,
+            "noaa_gfs": 0.5953,
+            "open_meteo": 0.0995
+          },
+          "delhi": {
+            "ecmwf_ifs": 0.0,
+            "ecmwf_aifs": 0.3404,
+            "noaa_gfs": 0.3448,
+            "open_meteo": 0.3147
+          },
+          "patna": {
+            "ecmwf_ifs": 0.2973,
+            "ecmwf_aifs": 0.0544,
+            "noaa_gfs": 0.4061,
+            "open_meteo": 0.2423
+          },
+          "bhopal": {
+            "ecmwf_ifs": 0.1157,
+            "ecmwf_aifs": 0.5488,
+            "noaa_gfs": 0.2692,
+            "open_meteo": 0.0663
+          },
+          "mahabaleshwar": {
+            "ecmwf_ifs": 0.239,
+            "ecmwf_aifs": 0.761,
+            "noaa_gfs": 0.0,
+            "open_meteo": 0.0
+          },
+          "chennai": {
+            "ecmwf_ifs": 0.0639,
+            "ecmwf_aifs": 0.6341,
+            "noaa_gfs": 0.0444,
+            "open_meteo": 0.2577
+          },
+          "bhubaneswar": {
+            "ecmwf_ifs": 0.3743,
+            "ecmwf_aifs": 0.4326,
+            "noaa_gfs": 0.0863,
+            "open_meteo": 0.1069
+          },
+          "guwahati": {
+            "ecmwf_ifs": 0.2887,
+            "ecmwf_aifs": 0.2207,
+            "noaa_gfs": 0.4906,
+            "open_meteo": 0.0
+          },
+          "jodhpur": {
+            "ecmwf_ifs": 0.1236,
+            "ecmwf_aifs": 0.7031,
+            "noaa_gfs": 0.141,
+            "open_meteo": 0.0323
+          },
+          "hyderabad": {
+            "ecmwf_ifs": 0.0,
+            "ecmwf_aifs": 0.569,
+            "noaa_gfs": 0.3598,
+            "open_meteo": 0.0713
+          },
+          "mumbai": {
+            "ecmwf_ifs": 0.4711,
+            "ecmwf_aifs": 0.4367,
+            "noaa_gfs": 0.0365,
+            "open_meteo": 0.0557
+          },
+          "bengaluru": {
+            "ecmwf_ifs": 0.3074,
+            "ecmwf_aifs": 0.5484,
+            "noaa_gfs": 0.1362,
+            "open_meteo": 0.0079
+          }
+        },
+        "non_monsoon": {
+          "dehradun": {
+            "ecmwf_ifs": 0.3916,
+            "ecmwf_aifs": 0.4169,
+            "noaa_gfs": 0.1915,
+            "open_meteo": 0.0
+          },
+          "delhi": {
+            "ecmwf_ifs": 0.0,
+            "ecmwf_aifs": 0.6331,
+            "noaa_gfs": 0.3169,
+            "open_meteo": 0.0501
+          },
+          "patna": {
+            "ecmwf_ifs": 0.0573,
+            "ecmwf_aifs": 0.6697,
+            "noaa_gfs": 0.273,
+            "open_meteo": 0.0
+          },
+          "bhopal": {
+            "ecmwf_ifs": 0.3085,
+            "ecmwf_aifs": 0.2286,
+            "noaa_gfs": 0.4629,
+            "open_meteo": 0.0
+          },
+          "mahabaleshwar": {
+            "ecmwf_ifs": 0.0059,
+            "ecmwf_aifs": 0.7279,
+            "noaa_gfs": 0.2661,
+            "open_meteo": 0.0
+          },
+          "chennai": {
+            "ecmwf_ifs": 0.2644,
+            "ecmwf_aifs": 0.5736,
+            "noaa_gfs": 0.0027,
+            "open_meteo": 0.1593
+          },
+          "bhubaneswar": {
+            "ecmwf_ifs": 0.0,
+            "ecmwf_aifs": 0.4628,
+            "noaa_gfs": 0.193,
+            "open_meteo": 0.3442
+          },
+          "guwahati": {
+            "ecmwf_ifs": 0.0633,
+            "ecmwf_aifs": 0.5515,
+            "noaa_gfs": 0.3262,
+            "open_meteo": 0.059
+          },
+          "jodhpur": {
+            "ecmwf_ifs": 0.4639,
+            "ecmwf_aifs": 0.3044,
+            "noaa_gfs": 0.2317,
+            "open_meteo": 0.0
+          },
+          "hyderabad": {
+            "ecmwf_ifs": 0.0111,
+            "ecmwf_aifs": 0.5,
+            "noaa_gfs": 0.3371,
+            "open_meteo": 0.1519
+          },
+          "mumbai": {
+            "ecmwf_ifs": 0.0066,
+            "ecmwf_aifs": 0.3026,
+            "noaa_gfs": 0.5688,
+            "open_meteo": 0.122
+          },
+          "bengaluru": {
+            "ecmwf_ifs": 0.1905,
+            "ecmwf_aifs": 0.5715,
+            "noaa_gfs": 0.238,
+            "open_meteo": 0.0
+          }
+        }
+      }
+    },
+    "wind_speed_10m_max": {
+      "1": {
+        "monsoon": {
+          "dehradun": {
+            "ecmwf_ifs": 0.4737,
+            "ecmwf_aifs": 0.1642,
+            "noaa_gfs": 0.0227,
+            "open_meteo": 0.3394
+          },
+          "delhi": {
+            "ecmwf_ifs": 0.4384,
+            "ecmwf_aifs": 0.1551,
+            "noaa_gfs": 0.0509,
+            "open_meteo": 0.3556
+          },
+          "patna": {
+            "ecmwf_ifs": 0.5981,
+            "ecmwf_aifs": 0.0649,
+            "noaa_gfs": 0.1327,
+            "open_meteo": 0.2043
+          },
+          "bhopal": {
+            "ecmwf_ifs": 0.4152,
+            "ecmwf_aifs": 0.2915,
+            "noaa_gfs": 0.1233,
+            "open_meteo": 0.17
+          },
+          "mahabaleshwar": {
+            "ecmwf_ifs": 0.3799,
+            "ecmwf_aifs": 0.4123,
+            "noaa_gfs": 0.1182,
+            "open_meteo": 0.0895
+          },
+          "chennai": {
+            "ecmwf_ifs": 0.2869,
+            "ecmwf_aifs": 0.3943,
+            "noaa_gfs": 0.0249,
+            "open_meteo": 0.2939
+          },
+          "bhubaneswar": {
+            "ecmwf_ifs": 0.5489,
+            "ecmwf_aifs": 0.3047,
+            "noaa_gfs": 0.1463,
+            "open_meteo": 0.0
+          },
+          "guwahati": {
+            "ecmwf_ifs": 0.4372,
+            "ecmwf_aifs": 0.1351,
+            "noaa_gfs": 0.0891,
+            "open_meteo": 0.3387
+          },
+          "jodhpur": {
+            "ecmwf_ifs": 0.4569,
+            "ecmwf_aifs": 0.0792,
+            "noaa_gfs": 0.0,
+            "open_meteo": 0.4639
+          },
+          "hyderabad": {
+            "ecmwf_ifs": 0.2806,
+            "ecmwf_aifs": 0.0131,
+            "noaa_gfs": 0.0,
+            "open_meteo": 0.7063
+          },
+          "mumbai": {
+            "ecmwf_ifs": 0.5991,
+            "ecmwf_aifs": 0.1656,
+            "noaa_gfs": 0.1095,
+            "open_meteo": 0.1257
+          },
+          "bengaluru": {
+            "ecmwf_ifs": 0.1086,
+            "ecmwf_aifs": 0.3334,
+            "noaa_gfs": 0.1801,
+            "open_meteo": 0.3779
+          }
+        },
+        "non_monsoon": {
+          "dehradun": {
+            "ecmwf_ifs": 0.2735,
+            "ecmwf_aifs": 0.1243,
+            "noaa_gfs": 0.1349,
+            "open_meteo": 0.4673
+          },
+          "delhi": {
+            "ecmwf_ifs": 0.3312,
+            "ecmwf_aifs": 0.1691,
+            "noaa_gfs": 0.1075,
+            "open_meteo": 0.3923
+          },
+          "patna": {
+            "ecmwf_ifs": 0.3838,
+            "ecmwf_aifs": 0.2215,
+            "noaa_gfs": 0.1101,
+            "open_meteo": 0.2846
+          },
+          "bhopal": {
+            "ecmwf_ifs": 0.4117,
+            "ecmwf_aifs": 0.1601,
+            "noaa_gfs": 0.1403,
+            "open_meteo": 0.2879
+          },
+          "mahabaleshwar": {
+            "ecmwf_ifs": 0.2382,
+            "ecmwf_aifs": 0.392,
+            "noaa_gfs": 0.0482,
+            "open_meteo": 0.3217
+          },
+          "chennai": {
+            "ecmwf_ifs": 0.2949,
+            "ecmwf_aifs": 0.1603,
+            "noaa_gfs": 0.1113,
+            "open_meteo": 0.4335
+          },
+          "bhubaneswar": {
+            "ecmwf_ifs": 0.2744,
+            "ecmwf_aifs": 0.2454,
+            "noaa_gfs": 0.1236,
+            "open_meteo": 0.3565
+          },
+          "guwahati": {
+            "ecmwf_ifs": 0.4691,
+            "ecmwf_aifs": 0.146,
+            "noaa_gfs": 0.0752,
+            "open_meteo": 0.3097
+          },
+          "jodhpur": {
+            "ecmwf_ifs": 0.6781,
+            "ecmwf_aifs": 0.0368,
+            "noaa_gfs": 0.0747,
+            "open_meteo": 0.2104
+          },
+          "hyderabad": {
+            "ecmwf_ifs": 0.6241,
+            "ecmwf_aifs": 0.0,
+            "noaa_gfs": 0.017,
+            "open_meteo": 0.359
+          },
+          "mumbai": {
+            "ecmwf_ifs": 0.4938,
+            "ecmwf_aifs": 0.0,
+            "noaa_gfs": 0.0178,
+            "open_meteo": 0.4884
+          },
+          "bengaluru": {
+            "ecmwf_ifs": 0.3029,
+            "ecmwf_aifs": 0.2945,
+            "noaa_gfs": 0.1222,
+            "open_meteo": 0.2804
+          }
+        }
+      },
+      "3": {
+        "monsoon": {
+          "dehradun": {
+            "ecmwf_ifs": 0.4141,
+            "ecmwf_aifs": 0.2268,
+            "noaa_gfs": 0.0255,
+            "open_meteo": 0.3336
+          },
+          "delhi": {
+            "ecmwf_ifs": 0.2862,
+            "ecmwf_aifs": 0.2773,
+            "noaa_gfs": 0.0763,
+            "open_meteo": 0.3602
+          },
+          "patna": {
+            "ecmwf_ifs": 0.2339,
+            "ecmwf_aifs": 0.3083,
+            "noaa_gfs": 0.2413,
+            "open_meteo": 0.2165
+          },
+          "bhopal": {
+            "ecmwf_ifs": 0.0714,
+            "ecmwf_aifs": 0.5981,
+            "noaa_gfs": 0.1749,
+            "open_meteo": 0.1556
+          },
+          "mahabaleshwar": {
+            "ecmwf_ifs": 0.3815,
+            "ecmwf_aifs": 0.3947,
+            "noaa_gfs": 0.1435,
+            "open_meteo": 0.0803
+          },
+          "chennai": {
+            "ecmwf_ifs": 0.1553,
+            "ecmwf_aifs": 0.6417,
+            "noaa_gfs": 0.0,
+            "open_meteo": 0.2031
+          },
+          "bhubaneswar": {
+            "ecmwf_ifs": 0.4547,
+            "ecmwf_aifs": 0.3736,
+            "noaa_gfs": 0.1717,
+            "open_meteo": 0.0
+          },
+          "guwahati": {
+            "ecmwf_ifs": 0.2367,
+            "ecmwf_aifs": 0.2972,
+            "noaa_gfs": 0.1175,
+            "open_meteo": 0.3485
+          },
+          "jodhpur": {
+            "ecmwf_ifs": 0.4716,
+            "ecmwf_aifs": 0.1007,
+            "noaa_gfs": 0.0,
+            "open_meteo": 0.4277
+          },
+          "hyderabad": {
+            "ecmwf_ifs": 0.0,
+            "ecmwf_aifs": 0.2695,
+            "noaa_gfs": 0.0,
+            "open_meteo": 0.7305
+          },
+          "mumbai": {
+            "ecmwf_ifs": 0.4258,
+            "ecmwf_aifs": 0.4041,
+            "noaa_gfs": 0.0611,
+            "open_meteo": 0.109
+          },
+          "bengaluru": {
+            "ecmwf_ifs": 0.0,
+            "ecmwf_aifs": 0.4897,
+            "noaa_gfs": 0.1784,
+            "open_meteo": 0.332
+          }
+        },
+        "non_monsoon": {
+          "dehradun": {
+            "ecmwf_ifs": 0.1581,
+            "ecmwf_aifs": 0.2851,
+            "noaa_gfs": 0.071,
+            "open_meteo": 0.4858
+          },
+          "delhi": {
+            "ecmwf_ifs": 0.3979,
+            "ecmwf_aifs": 0.1817,
+            "noaa_gfs": 0.1253,
+            "open_meteo": 0.2951
+          },
+          "patna": {
+            "ecmwf_ifs": 0.382,
+            "ecmwf_aifs": 0.2041,
+            "noaa_gfs": 0.1062,
+            "open_meteo": 0.3077
+          },
+          "bhopal": {
+            "ecmwf_ifs": 0.2218,
+            "ecmwf_aifs": 0.2348,
+            "noaa_gfs": 0.1999,
+            "open_meteo": 0.3435
+          },
+          "mahabaleshwar": {
+            "ecmwf_ifs": 0.097,
+            "ecmwf_aifs": 0.4928,
+            "noaa_gfs": 0.0486,
+            "open_meteo": 0.3617
+          },
+          "chennai": {
+            "ecmwf_ifs": 0.0,
+            "ecmwf_aifs": 0.5048,
+            "noaa_gfs": 0.0873,
+            "open_meteo": 0.4079
+          },
+          "bhubaneswar": {
+            "ecmwf_ifs": 0.2343,
+            "ecmwf_aifs": 0.2958,
+            "noaa_gfs": 0.1678,
+            "open_meteo": 0.3021
+          },
+          "guwahati": {
+            "ecmwf_ifs": 0.3175,
+            "ecmwf_aifs": 0.3064,
+            "noaa_gfs": 0.0355,
+            "open_meteo": 0.3406
+          },
+          "jodhpur": {
+            "ecmwf_ifs": 0.6325,
+            "ecmwf_aifs": 0.0414,
+            "noaa_gfs": 0.0352,
+            "open_meteo": 0.2908
+          },
+          "hyderabad": {
+            "ecmwf_ifs": 0.6208,
+            "ecmwf_aifs": 0.0777,
+            "noaa_gfs": 0.0,
+            "open_meteo": 0.3014
+          },
+          "mumbai": {
+            "ecmwf_ifs": 0.5768,
+            "ecmwf_aifs": 0.0,
+            "noaa_gfs": 0.0,
+            "open_meteo": 0.4232
+          },
+          "bengaluru": {
+            "ecmwf_ifs": 0.3556,
+            "ecmwf_aifs": 0.3609,
+            "noaa_gfs": 0.1069,
+            "open_meteo": 0.1766
+          }
+        }
+      },
+      "5": {
+        "monsoon": {
+          "dehradun": {
+            "ecmwf_ifs": 0.2674,
+            "ecmwf_aifs": 0.3821,
+            "noaa_gfs": 0.0,
+            "open_meteo": 0.3505
+          },
+          "delhi": {
+            "ecmwf_ifs": 0.2628,
+            "ecmwf_aifs": 0.2917,
+            "noaa_gfs": 0.1759,
+            "open_meteo": 0.2696
+          },
+          "patna": {
+            "ecmwf_ifs": 0.2202,
+            "ecmwf_aifs": 0.3783,
+            "noaa_gfs": 0.2513,
+            "open_meteo": 0.1502
+          },
+          "bhopal": {
+            "ecmwf_ifs": 0.1466,
+            "ecmwf_aifs": 0.4352,
+            "noaa_gfs": 0.1759,
+            "open_meteo": 0.2423
+          },
+          "mahabaleshwar": {
+            "ecmwf_ifs": 0.3288,
+            "ecmwf_aifs": 0.4266,
+            "noaa_gfs": 0.0742,
+            "open_meteo": 0.1704
+          },
+          "chennai": {
+            "ecmwf_ifs": 0.1287,
+            "ecmwf_aifs": 0.5877,
+            "noaa_gfs": 0.0872,
+            "open_meteo": 0.1964
+          },
+          "bhubaneswar": {
+            "ecmwf_ifs": 0.5274,
+            "ecmwf_aifs": 0.2912,
+            "noaa_gfs": 0.1814,
+            "open_meteo": 0.0
+          },
+          "guwahati": {
+            "ecmwf_ifs": 0.3167,
+            "ecmwf_aifs": 0.2417,
+            "noaa_gfs": 0.0894,
+            "open_meteo": 0.3522
+          },
+          "jodhpur": {
+            "ecmwf_ifs": 0.3165,
+            "ecmwf_aifs": 0.2364,
+            "noaa_gfs": 0.0,
+            "open_meteo": 0.4471
+          },
+          "hyderabad": {
+            "ecmwf_ifs": 0.0,
+            "ecmwf_aifs": 0.2881,
+            "noaa_gfs": 0.0,
+            "open_meteo": 0.7119
+          },
+          "mumbai": {
+            "ecmwf_ifs": 0.4587,
+            "ecmwf_aifs": 0.4208,
+            "noaa_gfs": 0.0682,
+            "open_meteo": 0.0522
+          },
+          "bengaluru": {
+            "ecmwf_ifs": 0.0,
+            "ecmwf_aifs": 0.5077,
+            "noaa_gfs": 0.1858,
+            "open_meteo": 0.3065
+          }
+        },
+        "non_monsoon": {
+          "dehradun": {
+            "ecmwf_ifs": 0.0156,
+            "ecmwf_aifs": 0.3286,
+            "noaa_gfs": 0.1285,
+            "open_meteo": 0.5273
+          },
+          "delhi": {
+            "ecmwf_ifs": 0.4208,
+            "ecmwf_aifs": 0.1667,
+            "noaa_gfs": 0.1494,
+            "open_meteo": 0.2631
+          },
+          "patna": {
+            "ecmwf_ifs": 0.3014,
+            "ecmwf_aifs": 0.2619,
+            "noaa_gfs": 0.1109,
+            "open_meteo": 0.3257
+          },
+          "bhopal": {
+            "ecmwf_ifs": 0.1201,
+            "ecmwf_aifs": 0.2074,
+            "noaa_gfs": 0.2125,
+            "open_meteo": 0.4599
+          },
+          "mahabaleshwar": {
+            "ecmwf_ifs": 0.2826,
+            "ecmwf_aifs": 0.4106,
+            "noaa_gfs": 0.0691,
+            "open_meteo": 0.2376
+          },
+          "chennai": {
+            "ecmwf_ifs": 0.0,
+            "ecmwf_aifs": 0.4458,
+            "noaa_gfs": 0.0867,
+            "open_meteo": 0.4675
+          },
+          "bhubaneswar": {
+            "ecmwf_ifs": 0.1721,
+            "ecmwf_aifs": 0.3752,
+            "noaa_gfs": 0.2105,
+            "open_meteo": 0.2422
+          },
+          "guwahati": {
+            "ecmwf_ifs": 0.2509,
+            "ecmwf_aifs": 0.2799,
+            "noaa_gfs": 0.1166,
+            "open_meteo": 0.3526
+          },
+          "jodhpur": {
+            "ecmwf_ifs": 0.702,
+            "ecmwf_aifs": 0.1805,
+            "noaa_gfs": 0.0101,
+            "open_meteo": 0.1074
+          },
+          "hyderabad": {
+            "ecmwf_ifs": 0.1368,
+            "ecmwf_aifs": 0.2466,
+            "noaa_gfs": 0.0259,
+            "open_meteo": 0.5908
+          },
+          "mumbai": {
+            "ecmwf_ifs": 0.3954,
+            "ecmwf_aifs": 0.0783,
+            "noaa_gfs": 0.0879,
+            "open_meteo": 0.4383
+          },
+          "bengaluru": {
+            "ecmwf_ifs": 0.1962,
+            "ecmwf_aifs": 0.3741,
+            "noaa_gfs": 0.1796,
+            "open_meteo": 0.2501
+          }
+        }
+      }
+    }
+  }
+}

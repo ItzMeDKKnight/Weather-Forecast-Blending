@@ -1,0 +1,43 @@
+{
+  "probe_timestamp": "2026-10-03T07:25:05.844150+00:00",
+  "models": {
+    "ecmwf_ifs": {
+      "model_key": "ecmwf_ifs025",
+      "first_date": "2024-06-01",
+      "verified_lead_pattern": "<variable>_previous_day<lead>_ecmwf_ifs025",
+      "status": "active"
+    },
+    "ecmwf_aifs": {
+      "model_key": "ecmwf_aifs025_single",
+      "first_date": "2025-02-20",
+      "verified_lead_pattern": "<variable>_previous_day<lead>_ecmwf_aifs025_single",
+      "status": "active"
+    },
+    "noaa_gfs": {
+      "model_key": "gfs_global",
+      "first_date": "2024-06-01",
+      "verified_lead_pattern": "<variable>_previous_day<lead>_gfs_global",
+      "status": "active"
+    },
+    "open_meteo": {
+      "model_key": "best_match",
+      "first_date": "2024-06-01",
+      "verified_lead_pattern": "<variable>_previous_day<lead>_best_match",
+      "status": "active"
+    }
+  },
+  "ground_truth": {
+    "source": "ERA5",
+    "endpoint": "https://archive-api.open-meteo.com/v1/era5",
+    "status": "OK",
+    "caveat": "ERA5 reanalysis is used as proxy truth. Note: AIFS was trained on ERA5, which may favor it; ERA5 precipitation has higher uncertainty than temperature."
+  },
+  "common_training_window": {
+    "start": "2025-03-01",
+    "end": "2026-06-15"
+  },
+  "test_window": {
+    "start": "2026-06-16",
+    "end": "2026-09-15"
+  }
+}

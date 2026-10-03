@@ -1,0 +1,37 @@
+name: Daily Forecast Refresh
+
+on:
+  schedule:
+    # Run daily at 06:00 UTC (11:30 AM IST)
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install Pinned Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Execute Full Forecasting Pipeline & Leakage Audit
+        run: |
+          python -m src.run_all
+
+      - name: Commit and Push Updated Public JSON Artifacts Only
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          # Strictly commit only JSON artifacts in public/ (never cache or parquet)
+          git add public/*.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore(data): refresh forecast JSON artifacts [skip ci]" && git push)

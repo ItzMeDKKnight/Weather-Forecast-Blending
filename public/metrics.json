@@ -1,0 +1,509 @@
+{
+  "evaluation_window": {
+    "start": "2026-06-16",
+    "end": "2026-09-15"
+  },
+  "best_single_source_map": {
+    "temperature_2m_max": {
+      "1": "ecmwf_ifs",
+      "3": "ecmwf_ifs",
+      "5": "ecmwf_ifs"
+    },
+    "precipitation_sum": {
+      "1": "ecmwf_aifs",
+      "3": "ecmwf_aifs",
+      "5": "noaa_gfs"
+    },
+    "wind_speed_10m_max": {
+      "1": "ecmwf_ifs",
+      "3": "ecmwf_ifs",
+      "5": "ecmwf_ifs"
+    }
+  },
+  "results": {
+    "temperature_2m_max": {
+      "1": {
+        "best_single": {
+          "model": "ecmwf_ifs",
+          "metrics": {
+            "rmse": 1.094,
+            "mae": 0.825,
+            "bias": -0.15
+          }
+        },
+        "equal_weight": {
+          "metrics": {
+            "rmse": 1.069,
+            "mae": 0.811,
+            "bias": 0.394
+          }
+        },
+        "adaptive_blend": {
+          "metrics": {
+            "rmse": 0.893,
+            "mae": 0.688,
+            "bias": 0.196
+          }
+        },
+        "individual_sources": {
+          "ecmwf_ifs": {
+            "rmse": 1.094,
+            "mae": 0.825,
+            "bias": -0.15
+          },
+          "ecmwf_aifs": {
+            "rmse": 1.276,
+            "mae": 0.969,
+            "bias": -0.04
+          },
+          "noaa_gfs": {
+            "rmse": 3.022,
+            "mae": 2.358,
+            "bias": 1.786
+          },
+          "open_meteo": {
+            "rmse": 0.991,
+            "mae": 0.753,
+            "bias": -0.019
+          }
+        },
+        "improvement_over_best_single_pct": 18.37,
+        "improvement_over_equal_weight_pct": 16.46
+      },
+      "3": {
+        "best_single": {
+          "model": "ecmwf_ifs",
+          "metrics": {
+            "rmse": 1.404,
+            "mae": 1.065,
+            "bias": -0.123
+          }
+        },
+        "equal_weight": {
+          "metrics": {
+            "rmse": 1.29,
+            "mae": 0.955,
+            "bias": 0.267
+          }
+        },
+        "adaptive_blend": {
+          "metrics": {
+            "rmse": 1.088,
+            "mae": 0.827,
+            "bias": 0.134
+          }
+        },
+        "individual_sources": {
+          "ecmwf_ifs": {
+            "rmse": 1.404,
+            "mae": 1.065,
+            "bias": -0.123
+          },
+          "ecmwf_aifs": {
+            "rmse": 1.464,
+            "mae": 1.125,
+            "bias": -0.297
+          },
+          "noaa_gfs": {
+            "rmse": 3.161,
+            "mae": 2.44,
+            "bias": 1.499
+          },
+          "open_meteo": {
+            "rmse": 1.36,
+            "mae": 1.019,
+            "bias": -0.012
+          }
+        },
+        "improvement_over_best_single_pct": 22.51,
+        "improvement_over_equal_weight_pct": 15.66
+      },
+      "5": {
+        "best_single": {
+          "model": "ecmwf_ifs",
+          "metrics": {
+            "rmse": 1.638,
+            "mae": 1.209,
+            "bias": -0.06
+          }
+        },
+        "equal_weight": {
+          "metrics": {
+            "rmse": 1.462,
+            "mae": 1.083,
+            "bias": 0.227
+          }
+        },
+        "adaptive_blend": {
+          "metrics": {
+            "rmse": 1.252,
+            "mae": 0.949,
+            "bias": 0.104
+          }
+        },
+        "individual_sources": {
+          "ecmwf_ifs": {
+            "rmse": 1.638,
+            "mae": 1.209,
+            "bias": -0.06
+          },
+          "ecmwf_aifs": {
+            "rmse": 1.595,
+            "mae": 1.243,
+            "bias": -0.346
+          },
+          "noaa_gfs": {
+            "rmse": 3.158,
+            "mae": 2.413,
+            "bias": 1.475
+          },
+          "open_meteo": {
+            "rmse": 1.649,
+            "mae": 1.25,
+            "bias": -0.16
+          }
+        },
+        "improvement_over_best_single_pct": 23.57,
+        "improvement_over_equal_weight_pct": 14.36
+      }
+    },
+    "precipitation_sum": {
+      "1": {
+        "best_single": {
+          "model": "ecmwf_aifs",
+          "metrics": {
+            "rmse": 12.169,
+            "mae": 5.486,
+            "bias": -0.502,
+            "freq_bias_1mm": 1.072,
+            "freq_bias_10mm": 1.079
+          }
+        },
+        "equal_weight": {
+          "metrics": {
+            "rmse": 13.186,
+            "mae": 5.581,
+            "bias": -1.97,
+            "freq_bias_1mm": 0.978,
+            "freq_bias_10mm": 0.972
+          }
+        },
+        "adaptive_blend": {
+          "metrics": {
+            "rmse": 12.565,
+            "mae": 5.372,
+            "bias": -1.536,
+            "freq_bias_1mm": 1.03,
+            "freq_bias_10mm": 1.006
+          }
+        },
+        "individual_sources": {
+          "ecmwf_ifs": {
+            "rmse": 13.82,
+            "mae": 6.056,
+            "bias": -1.324,
+            "freq_bias_1mm": 0.998,
+            "freq_bias_10mm": 1.04
+          },
+          "ecmwf_aifs": {
+            "rmse": 12.169,
+            "mae": 5.486,
+            "bias": -0.502,
+            "freq_bias_1mm": 1.072,
+            "freq_bias_10mm": 1.079
+          },
+          "noaa_gfs": {
+            "rmse": 20.598,
+            "mae": 8.594,
+            "bias": -3.452,
+            "freq_bias_1mm": 0.704,
+            "freq_bias_10mm": 0.737
+          },
+          "open_meteo": {
+            "rmse": 12.793,
+            "mae": 5.76,
+            "bias": -0.041,
+            "freq_bias_1mm": 1.007,
+            "freq_bias_10mm": 1.051
+          }
+        },
+        "improvement_over_best_single_pct": -3.25,
+        "improvement_over_equal_weight_pct": 4.71
+      },
+      "3": {
+        "best_single": {
+          "model": "ecmwf_aifs",
+          "metrics": {
+            "rmse": 13.508,
+            "mae": 6.483,
+            "bias": 0.121,
+            "freq_bias_1mm": 1.092,
+            "freq_bias_10mm": 1.195
+          }
+        },
+        "equal_weight": {
+          "metrics": {
+            "rmse": 14.784,
+            "mae": 6.601,
+            "bias": -2.27,
+            "freq_bias_1mm": 0.997,
+            "freq_bias_10mm": 1.003
+          }
+        },
+        "adaptive_blend": {
+          "metrics": {
+            "rmse": 14.21,
+            "mae": 6.41,
+            "bias": -1.591,
+            "freq_bias_1mm": 1.048,
+            "freq_bias_10mm": 1.065
+          }
+        },
+        "individual_sources": {
+          "ecmwf_ifs": {
+            "rmse": 16.614,
+            "mae": 7.591,
+            "bias": -1.601,
+            "freq_bias_1mm": 0.994,
+            "freq_bias_10mm": 1.02
+          },
+          "ecmwf_aifs": {
+            "rmse": 13.508,
+            "mae": 6.483,
+            "bias": 0.121,
+            "freq_bias_1mm": 1.092,
+            "freq_bias_10mm": 1.195
+          },
+          "noaa_gfs": {
+            "rmse": 18.922,
+            "mae": 9.191,
+            "bias": -3.898,
+            "freq_bias_1mm": 0.71,
+            "freq_bias_10mm": 0.717
+          },
+          "open_meteo": {
+            "rmse": 15.734,
+            "mae": 7.278,
+            "bias": -0.482,
+            "freq_bias_1mm": 1.007,
+            "freq_bias_10mm": 1.045
+          }
+        },
+        "improvement_over_best_single_pct": -5.2,
+        "improvement_over_equal_weight_pct": 3.88
+      },
+      "5": {
+        "best_single": {
+          "model": "noaa_gfs",
+          "metrics": {
+            "rmse": 21.497,
+            "mae": 9.889,
+            "bias": -5.824,
+            "freq_bias_1mm": 0.684,
+            "freq_bias_10mm": 0.581
+          }
+        },
+        "equal_weight": {
+          "metrics": {
+            "rmse": 16.794,
+            "mae": 7.373,
+            "bias": -3.084,
+            "freq_bias_1mm": 0.997,
+            "freq_bias_10mm": 1.003
+          }
+        },
+        "adaptive_blend": {
+          "metrics": {
+            "rmse": 15.982,
+            "mae": 7.034,
+            "bias": -2.566,
+            "freq_bias_1mm": 1.026,
+            "freq_bias_10mm": 0.989
+          }
+        },
+        "individual_sources": {
+          "ecmwf_ifs": {
+            "rmse": 18.619,
+            "mae": 8.74,
+            "bias": -1.641,
+            "freq_bias_1mm": 0.979,
+            "freq_bias_10mm": 1.045
+          },
+          "ecmwf_aifs": {
+            "rmse": 15.413,
+            "mae": 7.199,
+            "bias": 0.022,
+            "freq_bias_1mm": 1.094,
+            "freq_bias_10mm": 1.283
+          },
+          "noaa_gfs": {
+            "rmse": 21.497,
+            "mae": 9.889,
+            "bias": -5.824,
+            "freq_bias_1mm": 0.684,
+            "freq_bias_10mm": 0.581
+          },
+          "open_meteo": {
+            "rmse": 17.387,
+            "mae": 8.169,
+            "bias": -1.002,
+            "freq_bias_1mm": 1.021,
+            "freq_bias_10mm": 1.017
+          }
+        },
+        "improvement_over_best_single_pct": 25.65,
+        "improvement_over_equal_weight_pct": 4.84
+      }
+    },
+    "wind_speed_10m_max": {
+      "1": {
+        "best_single": {
+          "model": "ecmwf_ifs",
+          "metrics": {
+            "rmse": 2.889,
+            "mae": 2.208,
+            "bias": -0.244
+          }
+        },
+        "equal_weight": {
+          "metrics": {
+            "rmse": 2.915,
+            "mae": 2.35,
+            "bias": 1.256
+          }
+        },
+        "adaptive_blend": {
+          "metrics": {
+            "rmse": 2.473,
+            "mae": 1.953,
+            "bias": 0.563
+          }
+        },
+        "individual_sources": {
+          "ecmwf_ifs": {
+            "rmse": 2.889,
+            "mae": 2.208,
+            "bias": -0.244
+          },
+          "ecmwf_aifs": {
+            "rmse": 3.47,
+            "mae": 2.758,
+            "bias": -0.999
+          },
+          "noaa_gfs": {
+            "rmse": 8.365,
+            "mae": 6.848,
+            "bias": 6.367
+          },
+          "open_meteo": {
+            "rmse": 2.485,
+            "mae": 1.828,
+            "bias": -0.099
+          }
+        },
+        "improvement_over_best_single_pct": 14.4,
+        "improvement_over_equal_weight_pct": 15.16
+      },
+      "3": {
+        "best_single": {
+          "model": "ecmwf_ifs",
+          "metrics": {
+            "rmse": 3.417,
+            "mae": 2.682,
+            "bias": 0.288
+          }
+        },
+        "equal_weight": {
+          "metrics": {
+            "rmse": 3.286,
+            "mae": 2.693,
+            "bias": 1.478
+          }
+        },
+        "adaptive_blend": {
+          "metrics": {
+            "rmse": 2.856,
+            "mae": 2.322,
+            "bias": 0.913
+          }
+        },
+        "individual_sources": {
+          "ecmwf_ifs": {
+            "rmse": 3.417,
+            "mae": 2.682,
+            "bias": 0.288
+          },
+          "ecmwf_aifs": {
+            "rmse": 3.661,
+            "mae": 2.888,
+            "bias": -1.121
+          },
+          "noaa_gfs": {
+            "rmse": 8.601,
+            "mae": 7.059,
+            "bias": 6.459
+          },
+          "open_meteo": {
+            "rmse": 2.913,
+            "mae": 2.21,
+            "bias": 0.286
+          }
+        },
+        "improvement_over_best_single_pct": 16.42,
+        "improvement_over_equal_weight_pct": 13.09
+      },
+      "5": {
+        "best_single": {
+          "model": "ecmwf_ifs",
+          "metrics": {
+            "rmse": 3.66,
+            "mae": 2.878,
+            "bias": 0.382
+          }
+        },
+        "equal_weight": {
+          "metrics": {
+            "rmse": 3.458,
+            "mae": 2.801,
+            "bias": 1.26
+          }
+        },
+        "adaptive_blend": {
+          "metrics": {
+            "rmse": 3.12,
+            "mae": 2.507,
+            "bias": 0.896
+          }
+        },
+        "individual_sources": {
+          "ecmwf_ifs": {
+            "rmse": 3.66,
+            "mae": 2.878,
+            "bias": 0.382
+          },
+          "ecmwf_aifs": {
+            "rmse": 3.966,
+            "mae": 3.112,
+            "bias": -1.092
+          },
+          "noaa_gfs": {
+            "rmse": 8.466,
+            "mae": 6.791,
+            "bias": 6.015
+          },
+          "open_meteo": {
+            "rmse": 3.217,
+            "mae": 2.47,
+            "bias": -0.264
+          }
+        },
+        "improvement_over_best_single_pct": 14.75,
+        "improvement_over_equal_weight_pct": 9.77
+      }
+    }
+  },
+  "honest_assessment": [
+    "At lead 1d for precipitation_sum, best single source (ecmwf_aifs) beat the blend by 3.3%. Reason: high local variability or overfitting on training regime.",
+    "At lead 3d for precipitation_sum, best single source (ecmwf_aifs) beat the blend by 5.2%. Reason: high local variability or overfitting on training regime."
+  ]
+}

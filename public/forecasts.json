@@ -1,0 +1,3787 @@
+{
+  "run_timestamp": "2026-10-03T07:25:29.044225+00:00",
+  "sources_used": [
+    "ecmwf_ifs",
+    "ecmwf_aifs",
+    "noaa_gfs",
+    "open_meteo"
+  ],
+  "extremes_skill": {
+    "heavy_rain": {
+      "pod": 0.493,
+      "far": 0.443,
+      "csi": 0.354,
+      "brier_score": 0.0157
+    },
+    "high_wind": {
+      "pod": 0.0,
+      "far": 0.0,
+      "csi": 0.0,
+      "brier_score": 0.0
+    },
+    "heatwave": {
+      "pod": 1.0,
+      "far": 0.7,
+      "csi": 0.3,
+      "brier_score": 0.0061
+    }
+  },
+  "points": {
+    "dehradun": {
+      "name": "Dehradun (Himalayan foothills)",
+      "lat": 30.3165,
+      "lon": 78.0322,
+      "terrain": "hill",
+      "forecasts": [
+        {
+          "date": "2026-10-03",
+          "lead_days": 1,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 28.3,
+              "sources": {
+                "ecmwf_ifs": 28.1,
+                "ecmwf_aifs": 28.1,
+                "noaa_gfs": 29.4,
+                "open_meteo": 28.4
+              },
+              "interval_10": 27.35,
+              "interval_50": 28.4,
+              "interval_90": 29.32,
+              "climatology": 28.2
+            },
+            "precipitation_sum": {
+              "blend": 0.01,
+              "sources": {
+                "ecmwf_ifs": 0.0,
+                "ecmwf_aifs": 0.0,
+                "noaa_gfs": 0.0,
+                "open_meteo": 0.4
+              },
+              "interval_10": 0.0,
+              "interval_50": 0.01,
+              "interval_90": 2.46
+            },
+            "wind_speed_10m_max": {
+              "blend": 6.65,
+              "sources": {
+                "ecmwf_ifs": 5.2,
+                "ecmwf_aifs": 5.1,
+                "noaa_gfs": 8.9,
+                "open_meteo": 6.5
+              },
+              "interval_10": 4.29,
+              "interval_50": 6.45,
+              "interval_90": 9.12
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.0,
+              "threshold": ">= 32.7 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        },
+        {
+          "date": "2026-10-04",
+          "lead_days": 2,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 28.11,
+              "sources": {
+                "ecmwf_ifs": 27.8,
+                "ecmwf_aifs": 28.0,
+                "noaa_gfs": 29.5,
+                "open_meteo": 28.2
+              },
+              "interval_10": 27.16,
+              "interval_50": 28.21,
+              "interval_90": 29.13,
+              "climatology": 27.89
+            },
+            "precipitation_sum": {
+              "blend": 0.07,
+              "sources": {
+                "ecmwf_ifs": 0.6,
+                "ecmwf_aifs": 0.0,
+                "noaa_gfs": 0.0,
+                "open_meteo": 0.5
+              },
+              "interval_10": 0.0,
+              "interval_50": 0.07,
+              "interval_90": 2.51
+            },
+            "wind_speed_10m_max": {
+              "blend": 6.81,
+              "sources": {
+                "ecmwf_ifs": 5.5,
+                "ecmwf_aifs": 4.8,
+                "noaa_gfs": 9.4,
+                "open_meteo": 6.6
+              },
+              "interval_10": 4.45,
+              "interval_50": 6.61,
+              "interval_90": 9.27
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.0,
+              "threshold": ">= 32.4 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        },
+        {
+          "date": "2026-10-05",
+          "lead_days": 3,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 28.07,
+              "sources": {
+                "ecmwf_ifs": 27.6,
+                "ecmwf_aifs": 28.0,
+                "noaa_gfs": 29.0,
+                "open_meteo": 27.9
+              },
+              "interval_10": 26.91,
+              "interval_50": 28.12,
+              "interval_90": 29.3,
+              "climatology": 27.55
+            },
+            "precipitation_sum": {
+              "blend": 1.42,
+              "sources": {
+                "ecmwf_ifs": 3.6,
+                "ecmwf_aifs": 1.2,
+                "noaa_gfs": 0.7,
+                "open_meteo": 2.5
+              },
+              "interval_10": 0.0,
+              "interval_50": 1.42,
+              "interval_90": 4.04
+            },
+            "wind_speed_10m_max": {
+              "blend": 7.09,
+              "sources": {
+                "ecmwf_ifs": 7.6,
+                "ecmwf_aifs": 4.8,
+                "noaa_gfs": 10.1,
+                "open_meteo": 5.8
+              },
+              "interval_10": 4.32,
+              "interval_50": 6.9,
+              "interval_90": 9.95
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.0,
+              "threshold": ">= 32.0 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        },
+        {
+          "date": "2026-10-06",
+          "lead_days": 4,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 26.69,
+              "sources": {
+                "ecmwf_ifs": 26.4,
+                "ecmwf_aifs": 26.7,
+                "noaa_gfs": 28.5,
+                "open_meteo": 25.8
+              },
+              "interval_10": 25.54,
+              "interval_50": 26.75,
+              "interval_90": 27.93,
+              "climatology": 27.34
+            },
+            "precipitation_sum": {
+              "blend": 6.86,
+              "sources": {
+                "ecmwf_ifs": 5.4,
+                "ecmwf_aifs": 5.4,
+                "noaa_gfs": 6.4,
+                "open_meteo": 13.0
+              },
+              "interval_10": 3.52,
+              "interval_50": 6.86,
+              "interval_90": 9.48
+            },
+            "wind_speed_10m_max": {
+              "blend": 9.33,
+              "sources": {
+                "ecmwf_ifs": 4.4,
+                "ecmwf_aifs": 4.9,
+                "noaa_gfs": 9.3,
+                "open_meteo": 11.5
+              },
+              "interval_10": 6.56,
+              "interval_50": 9.14,
+              "interval_90": 12.18
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.0,
+              "threshold": ">= 31.8 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        },
+        {
+          "date": "2026-10-07",
+          "lead_days": 5,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 26.06,
+              "sources": {
+                "ecmwf_ifs": 26.5,
+                "ecmwf_aifs": 25.1,
+                "noaa_gfs": 27.6,
+                "open_meteo": 25.4
+              },
+              "interval_10": 24.64,
+              "interval_50": 26.06,
+              "interval_90": 27.42,
+              "climatology": 27.2
+            },
+            "precipitation_sum": {
+              "blend": 7.5,
+              "sources": {
+                "ecmwf_ifs": 5.1,
+                "ecmwf_aifs": 6.0,
+                "noaa_gfs": 18.9,
+                "open_meteo": 2.4
+              },
+              "interval_10": 4.85,
+              "interval_50": 7.5,
+              "interval_90": 11.25
+            },
+            "wind_speed_10m_max": {
+              "blend": 7.79,
+              "sources": {
+                "ecmwf_ifs": 6.0,
+                "ecmwf_aifs": 4.9,
+                "noaa_gfs": 9.7,
+                "open_meteo": 7.7
+              },
+              "interval_10": 4.75,
+              "interval_50": 7.72,
+              "interval_90": 11.06
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.0,
+              "threshold": ">= 31.7 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        }
+      ]
+    },
+    "delhi": {
+      "name": "Delhi (Indo-Gangetic plain)",
+      "lat": 28.6139,
+      "lon": 77.209,
+      "terrain": "plains",
+      "forecasts": [
+        {
+          "date": "2026-10-03",
+          "lead_days": 1,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 35.65,
+              "sources": {
+                "ecmwf_ifs": 34.9,
+                "ecmwf_aifs": 35.6,
+                "noaa_gfs": 38.0,
+                "open_meteo": 35.0
+              },
+              "interval_10": 34.7,
+              "interval_50": 35.75,
+              "interval_90": 36.67,
+              "climatology": 32.76
+            },
+            "precipitation_sum": {
+              "blend": 0.0,
+              "sources": {
+                "ecmwf_ifs": 0.0,
+                "ecmwf_aifs": 0.0,
+                "noaa_gfs": 0.0,
+                "open_meteo": 0.0
+              },
+              "interval_10": 0.0,
+              "interval_50": 0.0,
+              "interval_90": 2.44
+            },
+            "wind_speed_10m_max": {
+              "blend": 10.28,
+              "sources": {
+                "ecmwf_ifs": 9.2,
+                "ecmwf_aifs": 7.6,
+                "noaa_gfs": 13.0,
+                "open_meteo": 10.3
+              },
+              "interval_10": 7.92,
+              "interval_50": 10.08,
+              "interval_90": 12.75
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        },
+        {
+          "date": "2026-10-04",
+          "lead_days": 2,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 35.69,
+              "sources": {
+                "ecmwf_ifs": 34.6,
+                "ecmwf_aifs": 35.6,
+                "noaa_gfs": 39.3,
+                "open_meteo": 34.9
+              },
+              "interval_10": 34.74,
+              "interval_50": 35.79,
+              "interval_90": 36.72,
+              "climatology": 32.23
+            },
+            "precipitation_sum": {
+              "blend": 0.0,
+              "sources": {
+                "ecmwf_ifs": 0.0,
+                "ecmwf_aifs": 0.0,
+                "noaa_gfs": 0.0,
+                "open_meteo": 0.0
+              },
+              "interval_10": 0.0,
+              "interval_50": 0.0,
+              "interval_90": 2.44
+            },
+            "wind_speed_10m_max": {
+              "blend": 11.86,
+              "sources": {
+                "ecmwf_ifs": 10.7,
+                "ecmwf_aifs": 11.3,
+                "noaa_gfs": 17.6,
+                "open_meteo": 10.2
+              },
+              "interval_10": 9.5,
+              "interval_50": 11.66,
+              "interval_90": 14.32
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        },
+        {
+          "date": "2026-10-05",
+          "lead_days": 3,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 35.52,
+              "sources": {
+                "ecmwf_ifs": 34.7,
+                "ecmwf_aifs": 35.2,
+                "noaa_gfs": 38.9,
+                "open_meteo": 34.9
+              },
+              "interval_10": 34.37,
+              "interval_50": 35.57,
+              "interval_90": 36.75,
+              "climatology": 31.69
+            },
+            "precipitation_sum": {
+              "blend": 0.0,
+              "sources": {
+                "ecmwf_ifs": 0.0,
+                "ecmwf_aifs": 0.0,
+                "noaa_gfs": 0.0,
+                "open_meteo": 0.0
+              },
+              "interval_10": 0.0,
+              "interval_50": 0.0,
+              "interval_90": 2.62
+            },
+            "wind_speed_10m_max": {
+              "blend": 12.48,
+              "sources": {
+                "ecmwf_ifs": 11.6,
+                "ecmwf_aifs": 14.7,
+                "noaa_gfs": 15.4,
+                "open_meteo": 9.9
+              },
+              "interval_10": 9.72,
+              "interval_50": 12.3,
+              "interval_90": 15.34
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        },
+        {
+          "date": "2026-10-06",
+          "lead_days": 4,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 35.35,
+              "sources": {
+                "ecmwf_ifs": 34.3,
+                "ecmwf_aifs": 35.2,
+                "noaa_gfs": 38.5,
+                "open_meteo": 34.9
+              },
+              "interval_10": 34.2,
+              "interval_50": 35.41,
+              "interval_90": 36.59,
+              "climatology": 31.37
+            },
+            "precipitation_sum": {
+              "blend": 0.0,
+              "sources": {
+                "ecmwf_ifs": 0.0,
+                "ecmwf_aifs": 0.0,
+                "noaa_gfs": 0.0,
+                "open_meteo": 0.0
+              },
+              "interval_10": 0.0,
+              "interval_50": 0.0,
+              "interval_90": 2.62
+            },
+            "wind_speed_10m_max": {
+              "blend": 11.35,
+              "sources": {
+                "ecmwf_ifs": 10.1,
+                "ecmwf_aifs": 9.4,
+                "noaa_gfs": 15.5,
+                "open_meteo": 11.3
+              },
+              "interval_10": 8.58,
+              "interval_50": 11.16,
+              "interval_90": 14.2
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        },
+        {
+          "date": "2026-10-07",
+          "lead_days": 5,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 33.44,
+              "sources": {
+                "ecmwf_ifs": 32.1,
+                "ecmwf_aifs": 33.6,
+                "noaa_gfs": 38.5,
+                "open_meteo": 32.8
+              },
+              "interval_10": 32.02,
+              "interval_50": 33.45,
+              "interval_90": 34.8,
+              "climatology": 31.09
+            },
+            "precipitation_sum": {
+              "blend": 0.0,
+              "sources": {
+                "ecmwf_ifs": 0.0,
+                "ecmwf_aifs": 0.0,
+                "noaa_gfs": 0.0,
+                "open_meteo": 0.3
+              },
+              "interval_10": 0.0,
+              "interval_50": 0.0,
+              "interval_90": 3.76
+            },
+            "wind_speed_10m_max": {
+              "blend": 10.1,
+              "sources": {
+                "ecmwf_ifs": 9.5,
+                "ecmwf_aifs": 8.4,
+                "noaa_gfs": 16.3,
+                "open_meteo": 8.0
+              },
+              "interval_10": 7.06,
+              "interval_50": 10.02,
+              "interval_90": 13.36
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        }
+      ]
+    },
+    "patna": {
+      "name": "Patna (Indo-Gangetic plain)",
+      "lat": 25.5941,
+      "lon": 85.1376,
+      "terrain": "plains",
+      "forecasts": [
+        {
+          "date": "2026-10-03",
+          "lead_days": 1,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 32.3,
+              "sources": {
+                "ecmwf_ifs": 31.4,
+                "ecmwf_aifs": 32.8,
+                "noaa_gfs": 34.3,
+                "open_meteo": 31.6
+              },
+              "interval_10": 31.35,
+              "interval_50": 32.4,
+              "interval_90": 33.32,
+              "climatology": 32.35
+            },
+            "precipitation_sum": {
+              "blend": 0.29,
+              "sources": {
+                "ecmwf_ifs": 0.3,
+                "ecmwf_aifs": 0.6,
+                "noaa_gfs": 0.0,
+                "open_meteo": 0.3
+              },
+              "interval_10": 0.0,
+              "interval_50": 0.29,
+              "interval_90": 2.73
+            },
+            "wind_speed_10m_max": {
+              "blend": 10.11,
+              "sources": {
+                "ecmwf_ifs": 8.8,
+                "ecmwf_aifs": 6.3,
+                "noaa_gfs": 15.9,
+                "open_meteo": 10.9
+              },
+              "interval_10": 7.76,
+              "interval_50": 9.91,
+              "interval_90": 12.58
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        },
+        {
+          "date": "2026-10-04",
+          "lead_days": 2,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 32.83,
+              "sources": {
+                "ecmwf_ifs": 31.7,
+                "ecmwf_aifs": 33.7,
+                "noaa_gfs": 34.0,
+                "open_meteo": 31.9
+              },
+              "interval_10": 31.88,
+              "interval_50": 32.93,
+              "interval_90": 33.85,
+              "climatology": 32.03
+            },
+            "precipitation_sum": {
+              "blend": 0.01,
+              "sources": {
+                "ecmwf_ifs": 0.3,
+                "ecmwf_aifs": 0.0,
+                "noaa_gfs": 0.0,
+                "open_meteo": 0.1
+              },
+              "interval_10": 0.0,
+              "interval_50": 0.01,
+              "interval_90": 2.46
+            },
+            "wind_speed_10m_max": {
+              "blend": 10.27,
+              "sources": {
+                "ecmwf_ifs": 10.2,
+                "ecmwf_aifs": 7.3,
+                "noaa_gfs": 13.8,
+                "open_meteo": 9.6
+              },
+              "interval_10": 7.91,
+              "interval_50": 10.07,
+              "interval_90": 12.74
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        },
+        {
+          "date": "2026-10-05",
+          "lead_days": 3,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 32.58,
+              "sources": {
+                "ecmwf_ifs": 30.8,
+                "ecmwf_aifs": 33.1,
+                "noaa_gfs": 34.2,
+                "open_meteo": 30.6
+              },
+              "interval_10": 31.43,
+              "interval_50": 32.63,
+              "interval_90": 33.81,
+              "climatology": 31.79
+            },
+            "precipitation_sum": {
+              "blend": 1.77,
+              "sources": {
+                "ecmwf_ifs": 1.2,
+                "ecmwf_aifs": 2.4,
+                "noaa_gfs": 0.0,
+                "open_meteo": 1.2
+              },
+              "interval_10": 0.0,
+              "interval_50": 1.77,
+              "interval_90": 4.39
+            },
+            "wind_speed_10m_max": {
+              "blend": 8.33,
+              "sources": {
+                "ecmwf_ifs": 7.5,
+                "ecmwf_aifs": 5.4,
+                "noaa_gfs": 11.5,
+                "open_meteo": 8.6
+              },
+              "interval_10": 5.57,
+              "interval_50": 8.15,
+              "interval_90": 11.19
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        },
+        {
+          "date": "2026-10-06",
+          "lead_days": 4,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 30.93,
+              "sources": {
+                "ecmwf_ifs": 29.6,
+                "ecmwf_aifs": 31.2,
+                "noaa_gfs": 34.4,
+                "open_meteo": 29.2
+              },
+              "interval_10": 29.78,
+              "interval_50": 30.99,
+              "interval_90": 32.17,
+              "climatology": 31.44
+            },
+            "precipitation_sum": {
+              "blend": 6.07,
+              "sources": {
+                "ecmwf_ifs": 5.4,
+                "ecmwf_aifs": 6.6,
+                "noaa_gfs": 0.9,
+                "open_meteo": 6.9
+              },
+              "interval_10": 2.73,
+              "interval_50": 6.07,
+              "interval_90": 8.69
+            },
+            "wind_speed_10m_max": {
+              "blend": 13.78,
+              "sources": {
+                "ecmwf_ifs": 17.3,
+                "ecmwf_aifs": 9.7,
+                "noaa_gfs": 12.0,
+                "open_meteo": 11.1
+              },
+              "interval_10": 11.01,
+              "interval_50": 13.59,
+              "interval_90": 16.63
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        },
+        {
+          "date": "2026-10-07",
+          "lead_days": 5,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 30.95,
+              "sources": {
+                "ecmwf_ifs": 29.1,
+                "ecmwf_aifs": 31.3,
+                "noaa_gfs": 34.5,
+                "open_meteo": 29.2
+              },
+              "interval_10": 29.53,
+              "interval_50": 30.96,
+              "interval_90": 32.32,
+              "climatology": 31.07
+            },
+            "precipitation_sum": {
+              "blend": 3.18,
+              "sources": {
+                "ecmwf_ifs": 6.3,
+                "ecmwf_aifs": 4.8,
+                "noaa_gfs": 0.4,
+                "open_meteo": 2.1
+              },
+              "interval_10": 0.54,
+              "interval_50": 3.18,
+              "interval_90": 6.94
+            },
+            "wind_speed_10m_max": {
+              "blend": 9.63,
+              "sources": {
+                "ecmwf_ifs": 8.0,
+                "ecmwf_aifs": 7.6,
+                "noaa_gfs": 10.7,
+                "open_meteo": 10.6
+              },
+              "interval_10": 6.59,
+              "interval_50": 9.55,
+              "interval_90": 12.89
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        }
+      ]
+    },
+    "bhopal": {
+      "name": "Bhopal (Central India)",
+      "lat": 23.2599,
+      "lon": 77.4126,
+      "terrain": "plains",
+      "forecasts": [
+        {
+          "date": "2026-10-03",
+          "lead_days": 1,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 32.84,
+              "sources": {
+                "ecmwf_ifs": 32.4,
+                "ecmwf_aifs": 33.2,
+                "noaa_gfs": 31.8,
+                "open_meteo": 32.9
+              },
+              "interval_10": 31.89,
+              "interval_50": 32.94,
+              "interval_90": 33.86,
+              "climatology": 29.85
+            },
+            "precipitation_sum": {
+              "blend": 0.0,
+              "sources": {
+                "ecmwf_ifs": 0.0,
+                "ecmwf_aifs": 0.0,
+                "noaa_gfs": 0.0,
+                "open_meteo": 0.0
+              },
+              "interval_10": 0.0,
+              "interval_50": 0.0,
+              "interval_90": 2.44
+            },
+            "wind_speed_10m_max": {
+              "blend": 7.7,
+              "sources": {
+                "ecmwf_ifs": 6.6,
+                "ecmwf_aifs": 7.6,
+                "noaa_gfs": 7.8,
+                "open_meteo": 8.5
+              },
+              "interval_10": 5.34,
+              "interval_50": 7.5,
+              "interval_90": 10.16
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        },
+        {
+          "date": "2026-10-04",
+          "lead_days": 2,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 32.64,
+              "sources": {
+                "ecmwf_ifs": 32.1,
+                "ecmwf_aifs": 33.5,
+                "noaa_gfs": 32.0,
+                "open_meteo": 32.5
+              },
+              "interval_10": 31.69,
+              "interval_50": 32.74,
+              "interval_90": 33.67,
+              "climatology": 29.66
+            },
+            "precipitation_sum": {
+              "blend": 0.0,
+              "sources": {
+                "ecmwf_ifs": 0.0,
+                "ecmwf_aifs": 0.0,
+                "noaa_gfs": 0.0,
+                "open_meteo": 0.0
+              },
+              "interval_10": 0.0,
+              "interval_50": 0.0,
+              "interval_90": 2.44
+            },
+            "wind_speed_10m_max": {
+              "blend": 10.08,
+              "sources": {
+                "ecmwf_ifs": 8.4,
+                "ecmwf_aifs": 9.3,
+                "noaa_gfs": 13.7,
+                "open_meteo": 10.4
+              },
+              "interval_10": 7.73,
+              "interval_50": 9.89,
+              "interval_90": 12.55
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        },
+        {
+          "date": "2026-10-05",
+          "lead_days": 3,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 32.5,
+              "sources": {
+                "ecmwf_ifs": 31.8,
+                "ecmwf_aifs": 33.3,
+                "noaa_gfs": 32.3,
+                "open_meteo": 32.4
+              },
+              "interval_10": 31.35,
+              "interval_50": 32.56,
+              "interval_90": 33.73,
+              "climatology": 29.69
+            },
+            "precipitation_sum": {
+              "blend": 0.0,
+              "sources": {
+                "ecmwf_ifs": 0.0,
+                "ecmwf_aifs": 0.0,
+                "noaa_gfs": 0.0,
+                "open_meteo": 0.0
+              },
+              "interval_10": 0.0,
+              "interval_50": 0.0,
+              "interval_90": 2.62
+            },
+            "wind_speed_10m_max": {
+              "blend": 11.14,
+              "sources": {
+                "ecmwf_ifs": 9.2,
+                "ecmwf_aifs": 8.7,
+                "noaa_gfs": 15.2,
+                "open_meteo": 11.5
+              },
+              "interval_10": 8.38,
+              "interval_50": 10.96,
+              "interval_90": 14.0
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        },
+        {
+          "date": "2026-10-06",
+          "lead_days": 4,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 32.53,
+              "sources": {
+                "ecmwf_ifs": 31.8,
+                "ecmwf_aifs": 33.3,
+                "noaa_gfs": 32.6,
+                "open_meteo": 32.5
+              },
+              "interval_10": 31.38,
+              "interval_50": 32.59,
+              "interval_90": 33.77,
+              "climatology": 29.89
+            },
+            "precipitation_sum": {
+              "blend": 0.0,
+              "sources": {
+                "ecmwf_ifs": 0.0,
+                "ecmwf_aifs": 0.0,
+                "noaa_gfs": 0.0,
+                "open_meteo": 0.0
+              },
+              "interval_10": 0.0,
+              "interval_50": 0.0,
+              "interval_90": 2.62
+            },
+            "wind_speed_10m_max": {
+              "blend": 9.79,
+              "sources": {
+                "ecmwf_ifs": 8.0,
+                "ecmwf_aifs": 6.3,
+                "noaa_gfs": 12.6,
+                "open_meteo": 11.5
+              },
+              "interval_10": 7.03,
+              "interval_50": 9.61,
+              "interval_90": 12.65
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        },
+        {
+          "date": "2026-10-07",
+          "lead_days": 5,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 33.05,
+              "sources": {
+                "ecmwf_ifs": 31.9,
+                "ecmwf_aifs": 33.7,
+                "noaa_gfs": 33.3,
+                "open_meteo": 32.7
+              },
+              "interval_10": 31.63,
+              "interval_50": 33.06,
+              "interval_90": 34.42,
+              "climatology": 29.96
+            },
+            "precipitation_sum": {
+              "blend": 0.0,
+              "sources": {
+                "ecmwf_ifs": 0.0,
+                "ecmwf_aifs": 0.0,
+                "noaa_gfs": 0.0,
+                "open_meteo": 0.0
+              },
+              "interval_10": 0.0,
+              "interval_50": 0.0,
+              "interval_90": 3.76
+            },
+            "wind_speed_10m_max": {
+              "blend": 9.8,
+              "sources": {
+                "ecmwf_ifs": 11.2,
+                "ecmwf_aifs": 6.5,
+                "noaa_gfs": 8.9,
+                "open_meteo": 11.2
+              },
+              "interval_10": 6.76,
+              "interval_50": 9.72,
+              "interval_90": 13.06
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        }
+      ]
+    },
+    "mahabaleshwar": {
+      "name": "Mahabaleshwar (Western Ghats)",
+      "lat": 17.9307,
+      "lon": 73.6477,
+      "terrain": "hill",
+      "forecasts": [
+        {
+          "date": "2026-10-03",
+          "lead_days": 1,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 25.42,
+              "sources": {
+                "ecmwf_ifs": 25.3,
+                "ecmwf_aifs": 28.1,
+                "noaa_gfs": 28.0,
+                "open_meteo": 25.4
+              },
+              "interval_10": 24.47,
+              "interval_50": 25.52,
+              "interval_90": 26.44,
+              "climatology": 21.37
+            },
+            "precipitation_sum": {
+              "blend": 0.57,
+              "sources": {
+                "ecmwf_ifs": 0.6,
+                "ecmwf_aifs": 0.6,
+                "noaa_gfs": 0.0,
+                "open_meteo": 1.7
+              },
+              "interval_10": 0.0,
+              "interval_50": 0.57,
+              "interval_90": 3.02
+            },
+            "wind_speed_10m_max": {
+              "blend": 10.78,
+              "sources": {
+                "ecmwf_ifs": 9.4,
+                "ecmwf_aifs": 8.7,
+                "noaa_gfs": 11.5,
+                "open_meteo": 10.7
+              },
+              "interval_10": 8.43,
+              "interval_50": 10.59,
+              "interval_90": 13.25
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.0,
+              "threshold": ">= 30.0 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        },
+        {
+          "date": "2026-10-04",
+          "lead_days": 2,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 25.57,
+              "sources": {
+                "ecmwf_ifs": 25.2,
+                "ecmwf_aifs": 28.7,
+                "noaa_gfs": 27.2,
+                "open_meteo": 26.1
+              },
+              "interval_10": 24.62,
+              "interval_50": 25.67,
+              "interval_90": 26.59,
+              "climatology": 21.49
+            },
+            "precipitation_sum": {
+              "blend": 0.04,
+              "sources": {
+                "ecmwf_ifs": 0.9,
+                "ecmwf_aifs": 0.0,
+                "noaa_gfs": 0.1,
+                "open_meteo": 0.5
+              },
+              "interval_10": 0.0,
+              "interval_50": 0.04,
+              "interval_90": 2.48
+            },
+            "wind_speed_10m_max": {
+              "blend": 8.89,
+              "sources": {
+                "ecmwf_ifs": 7.9,
+                "ecmwf_aifs": 6.6,
+                "noaa_gfs": 10.0,
+                "open_meteo": 8.7
+              },
+              "interval_10": 6.53,
+              "interval_50": 8.69,
+              "interval_90": 11.36
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.0,
+              "threshold": ">= 30.0 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        },
+        {
+          "date": "2026-10-05",
+          "lead_days": 3,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 24.81,
+              "sources": {
+                "ecmwf_ifs": 24.7,
+                "ecmwf_aifs": 28.4,
+                "noaa_gfs": 26.8,
+                "open_meteo": 25.0
+              },
+              "interval_10": 23.66,
+              "interval_50": 24.87,
+              "interval_90": 26.05,
+              "climatology": 21.95
+            },
+            "precipitation_sum": {
+              "blend": 0.96,
+              "sources": {
+                "ecmwf_ifs": 2.1,
+                "ecmwf_aifs": 0.6,
+                "noaa_gfs": 1.2,
+                "open_meteo": 2.8
+              },
+              "interval_10": 0.0,
+              "interval_50": 0.96,
+              "interval_90": 3.58
+            },
+            "wind_speed_10m_max": {
+              "blend": 9.27,
+              "sources": {
+                "ecmwf_ifs": 8.9,
+                "ecmwf_aifs": 6.9,
+                "noaa_gfs": 10.6,
+                "open_meteo": 8.7
+              },
+              "interval_10": 6.5,
+              "interval_50": 9.08,
+              "interval_90": 12.12
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.0,
+              "threshold": ">= 30.0 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        },
+        {
+          "date": "2026-10-06",
+          "lead_days": 4,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 25.14,
+              "sources": {
+                "ecmwf_ifs": 25.2,
+                "ecmwf_aifs": 28.0,
+                "noaa_gfs": 26.3,
+                "open_meteo": 25.2
+              },
+              "interval_10": 23.99,
+              "interval_50": 25.2,
+              "interval_90": 26.38,
+              "climatology": 22.37
+            },
+            "precipitation_sum": {
+              "blend": 1.36,
+              "sources": {
+                "ecmwf_ifs": 1.5,
+                "ecmwf_aifs": 1.2,
+                "noaa_gfs": 1.8,
+                "open_meteo": 2.1
+              },
+              "interval_10": 0.0,
+              "interval_50": 1.36,
+              "interval_90": 3.98
+            },
+            "wind_speed_10m_max": {
+              "blend": 6.16,
+              "sources": {
+                "ecmwf_ifs": 7.6,
+                "ecmwf_aifs": 3.6,
+                "noaa_gfs": 8.7,
+                "open_meteo": 5.2
+              },
+              "interval_10": 3.39,
+              "interval_50": 5.97,
+              "interval_90": 9.01
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.0,
+              "threshold": ">= 30.0 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        },
+        {
+          "date": "2026-10-07",
+          "lead_days": 5,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 26.23,
+              "sources": {
+                "ecmwf_ifs": 26.4,
+                "ecmwf_aifs": 29.0,
+                "noaa_gfs": 26.9,
+                "open_meteo": 26.7
+              },
+              "interval_10": 24.81,
+              "interval_50": 26.24,
+              "interval_90": 27.6,
+              "climatology": 22.71
+            },
+            "precipitation_sum": {
+              "blend": 0.32,
+              "sources": {
+                "ecmwf_ifs": 0.0,
+                "ecmwf_aifs": 0.6,
+                "noaa_gfs": 0.0,
+                "open_meteo": 0.0
+              },
+              "interval_10": 0.0,
+              "interval_50": 0.32,
+              "interval_90": 4.07
+            },
+            "wind_speed_10m_max": {
+              "blend": 11.47,
+              "sources": {
+                "ecmwf_ifs": 11.9,
+                "ecmwf_aifs": 8.9,
+                "noaa_gfs": 15.2,
+                "open_meteo": 10.2
+              },
+              "interval_10": 8.43,
+              "interval_50": 11.4,
+              "interval_90": 14.74
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.001,
+              "threshold": ">= 30.0 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        }
+      ]
+    },
+    "chennai": {
+      "name": "Chennai (East coast south)",
+      "lat": 13.0827,
+      "lon": 80.2707,
+      "terrain": "coastal",
+      "forecasts": [
+        {
+          "date": "2026-10-03",
+          "lead_days": 1,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 32.61,
+              "sources": {
+                "ecmwf_ifs": 32.1,
+                "ecmwf_aifs": 32.3,
+                "noaa_gfs": 34.3,
+                "open_meteo": 32.8
+              },
+              "interval_10": 31.66,
+              "interval_50": 32.71,
+              "interval_90": 33.63,
+              "climatology": 32.35
+            },
+            "precipitation_sum": {
+              "blend": 1.22,
+              "sources": {
+                "ecmwf_ifs": 1.2,
+                "ecmwf_aifs": 1.2,
+                "noaa_gfs": 0.0,
+                "open_meteo": 1.7
+              },
+              "interval_10": 0.0,
+              "interval_50": 1.22,
+              "interval_90": 3.66
+            },
+            "wind_speed_10m_max": {
+              "blend": 14.41,
+              "sources": {
+                "ecmwf_ifs": 13.8,
+                "ecmwf_aifs": 12.7,
+                "noaa_gfs": 22.1,
+                "open_meteo": 12.3
+              },
+              "interval_10": 12.05,
+              "interval_50": 14.21,
+              "interval_90": 16.88
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.0,
+              "threshold": ">= 37.0 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        },
+        {
+          "date": "2026-10-04",
+          "lead_days": 2,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 33.12,
+              "sources": {
+                "ecmwf_ifs": 33.1,
+                "ecmwf_aifs": 32.1,
+                "noaa_gfs": 35.1,
+                "open_meteo": 33.3
+              },
+              "interval_10": 32.16,
+              "interval_50": 33.21,
+              "interval_90": 34.14,
+              "climatology": 32.21
+            },
+            "precipitation_sum": {
+              "blend": 0.79,
+              "sources": {
+                "ecmwf_ifs": 0.6,
+                "ecmwf_aifs": 0.6,
+                "noaa_gfs": 0.0,
+                "open_meteo": 2.1
+              },
+              "interval_10": 0.0,
+              "interval_50": 0.79,
+              "interval_90": 3.23
+            },
+            "wind_speed_10m_max": {
+              "blend": 16.3,
+              "sources": {
+                "ecmwf_ifs": 15.6,
+                "ecmwf_aifs": 14.3,
+                "noaa_gfs": 25.0,
+                "open_meteo": 14.1
+              },
+              "interval_10": 13.94,
+              "interval_50": 16.1,
+              "interval_90": 18.77
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.0,
+              "threshold": ">= 37.0 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        },
+        {
+          "date": "2026-10-05",
+          "lead_days": 3,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 33.34,
+              "sources": {
+                "ecmwf_ifs": 33.0,
+                "ecmwf_aifs": 32.5,
+                "noaa_gfs": 35.6,
+                "open_meteo": 33.3
+              },
+              "interval_10": 32.18,
+              "interval_50": 33.39,
+              "interval_90": 34.57,
+              "climatology": 32.01
+            },
+            "precipitation_sum": {
+              "blend": 1.27,
+              "sources": {
+                "ecmwf_ifs": 2.7,
+                "ecmwf_aifs": 0.6,
+                "noaa_gfs": 1.0,
+                "open_meteo": 3.3
+              },
+              "interval_10": 0.0,
+              "interval_50": 1.27,
+              "interval_90": 3.89
+            },
+            "wind_speed_10m_max": {
+              "blend": 15.71,
+              "sources": {
+                "ecmwf_ifs": 10.8,
+                "ecmwf_aifs": 13.7,
+                "noaa_gfs": 24.0,
+                "open_meteo": 13.5
+              },
+              "interval_10": 12.94,
+              "interval_50": 15.52,
+              "interval_90": 18.56
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.0,
+              "threshold": ">= 37.0 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        },
+        {
+          "date": "2026-10-06",
+          "lead_days": 4,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 32.96,
+              "sources": {
+                "ecmwf_ifs": 32.4,
+                "ecmwf_aifs": 32.4,
+                "noaa_gfs": 34.8,
+                "open_meteo": 32.8
+              },
+              "interval_10": 31.81,
+              "interval_50": 33.02,
+              "interval_90": 34.2,
+              "climatology": 31.88
+            },
+            "precipitation_sum": {
+              "blend": 0.88,
+              "sources": {
+                "ecmwf_ifs": 0.6,
+                "ecmwf_aifs": 1.2,
+                "noaa_gfs": 1.0,
+                "open_meteo": 0.3
+              },
+              "interval_10": 0.0,
+              "interval_50": 0.88,
+              "interval_90": 3.5
+            },
+            "wind_speed_10m_max": {
+              "blend": 14.79,
+              "sources": {
+                "ecmwf_ifs": 13.2,
+                "ecmwf_aifs": 13.1,
+                "noaa_gfs": 21.2,
+                "open_meteo": 12.6
+              },
+              "interval_10": 12.03,
+              "interval_50": 14.61,
+              "interval_90": 17.65
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.0,
+              "threshold": ">= 37.0 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        },
+        {
+          "date": "2026-10-07",
+          "lead_days": 5,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 32.54,
+              "sources": {
+                "ecmwf_ifs": 32.0,
+                "ecmwf_aifs": 32.2,
+                "noaa_gfs": 33.7,
+                "open_meteo": 32.2
+              },
+              "interval_10": 31.12,
+              "interval_50": 32.55,
+              "interval_90": 33.91,
+              "climatology": 31.72
+            },
+            "precipitation_sum": {
+              "blend": 0.7,
+              "sources": {
+                "ecmwf_ifs": 0.6,
+                "ecmwf_aifs": 1.2,
+                "noaa_gfs": 0.2,
+                "open_meteo": 0.0
+              },
+              "interval_10": 0.0,
+              "interval_50": 0.7,
+              "interval_90": 4.45
+            },
+            "wind_speed_10m_max": {
+              "blend": 14.5,
+              "sources": {
+                "ecmwf_ifs": 13.7,
+                "ecmwf_aifs": 13.0,
+                "noaa_gfs": 21.4,
+                "open_meteo": 12.2
+              },
+              "interval_10": 11.47,
+              "interval_50": 14.43,
+              "interval_90": 17.77
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.0,
+              "threshold": ">= 37.0 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        }
+      ]
+    },
+    "bhubaneswar": {
+      "name": "Bhubaneswar (East coast central)",
+      "lat": 20.2961,
+      "lon": 85.8245,
+      "terrain": "coastal",
+      "forecasts": [
+        {
+          "date": "2026-10-03",
+          "lead_days": 1,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 33.28,
+              "sources": {
+                "ecmwf_ifs": 32.6,
+                "ecmwf_aifs": 34.1,
+                "noaa_gfs": 33.6,
+                "open_meteo": 32.8
+              },
+              "interval_10": 32.32,
+              "interval_50": 33.37,
+              "interval_90": 34.3,
+              "climatology": 30.8
+            },
+            "precipitation_sum": {
+              "blend": 0.03,
+              "sources": {
+                "ecmwf_ifs": 0.3,
+                "ecmwf_aifs": 0.0,
+                "noaa_gfs": 0.1,
+                "open_meteo": 0.2
+              },
+              "interval_10": 0.0,
+              "interval_50": 0.03,
+              "interval_90": 2.48
+            },
+            "wind_speed_10m_max": {
+              "blend": 11.22,
+              "sources": {
+                "ecmwf_ifs": 9.9,
+                "ecmwf_aifs": 9.4,
+                "noaa_gfs": 10.5,
+                "open_meteo": 12.3
+              },
+              "interval_10": 8.87,
+              "interval_50": 11.02,
+              "interval_90": 13.69
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.0,
+              "threshold": ">= 37.0 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        },
+        {
+          "date": "2026-10-04",
+          "lead_days": 2,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 33.67,
+              "sources": {
+                "ecmwf_ifs": 33.1,
+                "ecmwf_aifs": 34.6,
+                "noaa_gfs": 33.2,
+                "open_meteo": 33.1
+              },
+              "interval_10": 32.72,
+              "interval_50": 33.77,
+              "interval_90": 34.7,
+              "climatology": 31.01
+            },
+            "precipitation_sum": {
+              "blend": 0.0,
+              "sources": {
+                "ecmwf_ifs": 0.0,
+                "ecmwf_aifs": 0.0,
+                "noaa_gfs": 0.0,
+                "open_meteo": 0.0
+              },
+              "interval_10": 0.0,
+              "interval_50": 0.0,
+              "interval_90": 2.44
+            },
+            "wind_speed_10m_max": {
+              "blend": 10.4,
+              "sources": {
+                "ecmwf_ifs": 9.5,
+                "ecmwf_aifs": 9.0,
+                "noaa_gfs": 11.3,
+                "open_meteo": 10.3
+              },
+              "interval_10": 8.05,
+              "interval_50": 10.2,
+              "interval_90": 12.87
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.0,
+              "threshold": ">= 37.0 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        },
+        {
+          "date": "2026-10-05",
+          "lead_days": 3,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 34.25,
+              "sources": {
+                "ecmwf_ifs": 33.0,
+                "ecmwf_aifs": 34.8,
+                "noaa_gfs": 33.4,
+                "open_meteo": 33.2
+              },
+              "interval_10": 33.1,
+              "interval_50": 34.31,
+              "interval_90": 35.49,
+              "climatology": 31.11
+            },
+            "precipitation_sum": {
+              "blend": 0.0,
+              "sources": {
+                "ecmwf_ifs": 0.0,
+                "ecmwf_aifs": 0.0,
+                "noaa_gfs": 0.0,
+                "open_meteo": 0.0
+              },
+              "interval_10": 0.0,
+              "interval_50": 0.0,
+              "interval_90": 2.62
+            },
+            "wind_speed_10m_max": {
+              "blend": 9.41,
+              "sources": {
+                "ecmwf_ifs": 10.0,
+                "ecmwf_aifs": 7.6,
+                "noaa_gfs": 9.6,
+                "open_meteo": 9.6
+              },
+              "interval_10": 6.64,
+              "interval_50": 9.23,
+              "interval_90": 12.27
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.004,
+              "threshold": ">= 37.0 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        },
+        {
+          "date": "2026-10-06",
+          "lead_days": 4,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 34.45,
+              "sources": {
+                "ecmwf_ifs": 32.9,
+                "ecmwf_aifs": 35.0,
+                "noaa_gfs": 33.8,
+                "open_meteo": 33.3
+              },
+              "interval_10": 33.3,
+              "interval_50": 34.5,
+              "interval_90": 35.68,
+              "climatology": 31.16
+            },
+            "precipitation_sum": {
+              "blend": 0.02,
+              "sources": {
+                "ecmwf_ifs": 0.0,
+                "ecmwf_aifs": 0.0,
+                "noaa_gfs": 0.2,
+                "open_meteo": 0.4
+              },
+              "interval_10": 0.0,
+              "interval_50": 0.02,
+              "interval_90": 2.64
+            },
+            "wind_speed_10m_max": {
+              "blend": 7.97,
+              "sources": {
+                "ecmwf_ifs": 6.8,
+                "ecmwf_aifs": 6.6,
+                "noaa_gfs": 7.8,
+                "open_meteo": 9.3
+              },
+              "interval_10": 5.21,
+              "interval_50": 7.79,
+              "interval_90": 10.83
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.007,
+              "threshold": ">= 37.0 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        },
+        {
+          "date": "2026-10-07",
+          "lead_days": 5,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 33.8,
+              "sources": {
+                "ecmwf_ifs": 32.6,
+                "ecmwf_aifs": 34.0,
+                "noaa_gfs": 33.7,
+                "open_meteo": 32.9
+              },
+              "interval_10": 32.38,
+              "interval_50": 33.81,
+              "interval_90": 35.17,
+              "climatology": 31.15
+            },
+            "precipitation_sum": {
+              "blend": 0.81,
+              "sources": {
+                "ecmwf_ifs": 0.0,
+                "ecmwf_aifs": 1.8,
+                "noaa_gfs": 2.1,
+                "open_meteo": 0.0
+              },
+              "interval_10": 0.0,
+              "interval_50": 0.81,
+              "interval_90": 4.57
+            },
+            "wind_speed_10m_max": {
+              "blend": 8.53,
+              "sources": {
+                "ecmwf_ifs": 6.5,
+                "ecmwf_aifs": 6.3,
+                "noaa_gfs": 12.3,
+                "open_meteo": 9.5
+              },
+              "interval_10": 5.49,
+              "interval_50": 8.45,
+              "interval_90": 11.79
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.004,
+              "threshold": ">= 37.0 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        }
+      ]
+    },
+    "guwahati": {
+      "name": "Guwahati (Northeast valley)",
+      "lat": 26.1445,
+      "lon": 91.7362,
+      "terrain": "plains",
+      "forecasts": [
+        {
+          "date": "2026-10-03",
+          "lead_days": 1,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 32.57,
+              "sources": {
+                "ecmwf_ifs": 31.0,
+                "ecmwf_aifs": 32.8,
+                "noaa_gfs": 32.6,
+                "open_meteo": 32.4
+              },
+              "interval_10": 31.62,
+              "interval_50": 32.67,
+              "interval_90": 33.59,
+              "climatology": 31.17
+            },
+            "precipitation_sum": {
+              "blend": 0.24,
+              "sources": {
+                "ecmwf_ifs": 1.8,
+                "ecmwf_aifs": 0.6,
+                "noaa_gfs": 0.0,
+                "open_meteo": 0.0
+              },
+              "interval_10": 0.0,
+              "interval_50": 0.24,
+              "interval_90": 2.68
+            },
+            "wind_speed_10m_max": {
+              "blend": 15.81,
+              "sources": {
+                "ecmwf_ifs": 15.6,
+                "ecmwf_aifs": 15.5,
+                "noaa_gfs": 15.5,
+                "open_meteo": 14.5
+              },
+              "interval_10": 13.46,
+              "interval_50": 15.61,
+              "interval_90": 18.28
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        },
+        {
+          "date": "2026-10-04",
+          "lead_days": 2,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 31.13,
+              "sources": {
+                "ecmwf_ifs": 29.5,
+                "ecmwf_aifs": 31.3,
+                "noaa_gfs": 31.6,
+                "open_meteo": 31.0
+              },
+              "interval_10": 30.18,
+              "interval_50": 31.23,
+              "interval_90": 32.16,
+              "climatology": 30.73
+            },
+            "precipitation_sum": {
+              "blend": 3.69,
+              "sources": {
+                "ecmwf_ifs": 2.4,
+                "ecmwf_aifs": 4.8,
+                "noaa_gfs": 3.7,
+                "open_meteo": 2.7
+              },
+              "interval_10": 1.02,
+              "interval_50": 3.69,
+              "interval_90": 6.13
+            },
+            "wind_speed_10m_max": {
+              "blend": 11.0,
+              "sources": {
+                "ecmwf_ifs": 12.0,
+                "ecmwf_aifs": 5.9,
+                "noaa_gfs": 10.0,
+                "open_meteo": 10.3
+              },
+              "interval_10": 8.65,
+              "interval_50": 10.81,
+              "interval_90": 13.47
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        },
+        {
+          "date": "2026-10-05",
+          "lead_days": 3,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 30.12,
+              "sources": {
+                "ecmwf_ifs": 29.1,
+                "ecmwf_aifs": 30.1,
+                "noaa_gfs": 31.4,
+                "open_meteo": 29.2
+              },
+              "interval_10": 28.97,
+              "interval_50": 30.18,
+              "interval_90": 31.36,
+              "climatology": 30.62
+            },
+            "precipitation_sum": {
+              "blend": 5.52,
+              "sources": {
+                "ecmwf_ifs": 4.2,
+                "ecmwf_aifs": 6.6,
+                "noaa_gfs": 6.1,
+                "open_meteo": 3.6
+              },
+              "interval_10": 2.18,
+              "interval_50": 5.52,
+              "interval_90": 8.14
+            },
+            "wind_speed_10m_max": {
+              "blend": 11.06,
+              "sources": {
+                "ecmwf_ifs": 11.4,
+                "ecmwf_aifs": 9.0,
+                "noaa_gfs": 13.2,
+                "open_meteo": 9.2
+              },
+              "interval_10": 8.3,
+              "interval_50": 10.88,
+              "interval_90": 13.92
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        },
+        {
+          "date": "2026-10-06",
+          "lead_days": 4,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 31.92,
+              "sources": {
+                "ecmwf_ifs": 31.3,
+                "ecmwf_aifs": 31.9,
+                "noaa_gfs": 31.5,
+                "open_meteo": 31.4
+              },
+              "interval_10": 30.77,
+              "interval_50": 31.98,
+              "interval_90": 33.16,
+              "climatology": 30.52
+            },
+            "precipitation_sum": {
+              "blend": 0.79,
+              "sources": {
+                "ecmwf_ifs": 0.6,
+                "ecmwf_aifs": 1.8,
+                "noaa_gfs": 0.0,
+                "open_meteo": 0.8
+              },
+              "interval_10": 0.0,
+              "interval_50": 0.79,
+              "interval_90": 3.41
+            },
+            "wind_speed_10m_max": {
+              "blend": 10.4,
+              "sources": {
+                "ecmwf_ifs": 9.8,
+                "ecmwf_aifs": 9.0,
+                "noaa_gfs": 13.6,
+                "open_meteo": 8.7
+              },
+              "interval_10": 7.63,
+              "interval_50": 10.21,
+              "interval_90": 13.25
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        },
+        {
+          "date": "2026-10-07",
+          "lead_days": 5,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 32.37,
+              "sources": {
+                "ecmwf_ifs": 31.6,
+                "ecmwf_aifs": 32.3,
+                "noaa_gfs": 31.9,
+                "open_meteo": 31.7
+              },
+              "interval_10": 30.95,
+              "interval_50": 32.38,
+              "interval_90": 33.74,
+              "climatology": 30.41
+            },
+            "precipitation_sum": {
+              "blend": 2.33,
+              "sources": {
+                "ecmwf_ifs": 0.6,
+                "ecmwf_aifs": 2.4,
+                "noaa_gfs": 2.7,
+                "open_meteo": 2.1
+              },
+              "interval_10": 0.0,
+              "interval_50": 2.33,
+              "interval_90": 6.08
+            },
+            "wind_speed_10m_max": {
+              "blend": 9.33,
+              "sources": {
+                "ecmwf_ifs": 6.3,
+                "ecmwf_aifs": 6.4,
+                "noaa_gfs": 9.3,
+                "open_meteo": 12.1
+              },
+              "interval_10": 6.29,
+              "interval_50": 9.26,
+              "interval_90": 12.6
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        }
+      ]
+    },
+    "jodhpur": {
+      "name": "Jodhpur (Arid west)",
+      "lat": 26.2389,
+      "lon": 73.0243,
+      "terrain": "plains",
+      "forecasts": [
+        {
+          "date": "2026-10-03",
+          "lead_days": 1,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 37.1,
+              "sources": {
+                "ecmwf_ifs": 37.0,
+                "ecmwf_aifs": 36.8,
+                "noaa_gfs": 37.2,
+                "open_meteo": 37.1
+              },
+              "interval_10": 36.15,
+              "interval_50": 37.2,
+              "interval_90": 38.13,
+              "climatology": 32.89
+            },
+            "precipitation_sum": {
+              "blend": 0.0,
+              "sources": {
+                "ecmwf_ifs": 0.0,
+                "ecmwf_aifs": 0.0,
+                "noaa_gfs": 0.0,
+                "open_meteo": 0.0
+              },
+              "interval_10": 0.0,
+              "interval_50": 0.0,
+              "interval_90": 2.44
+            },
+            "wind_speed_10m_max": {
+              "blend": 13.56,
+              "sources": {
+                "ecmwf_ifs": 12.8,
+                "ecmwf_aifs": 12.0,
+                "noaa_gfs": 18.4,
+                "open_meteo": 13.1
+              },
+              "interval_10": 11.2,
+              "interval_50": 13.36,
+              "interval_90": 16.02
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        },
+        {
+          "date": "2026-10-04",
+          "lead_days": 2,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 36.83,
+              "sources": {
+                "ecmwf_ifs": 36.8,
+                "ecmwf_aifs": 36.2,
+                "noaa_gfs": 37.3,
+                "open_meteo": 36.9
+              },
+              "interval_10": 35.87,
+              "interval_50": 36.92,
+              "interval_90": 37.85,
+              "climatology": 32.71
+            },
+            "precipitation_sum": {
+              "blend": 0.0,
+              "sources": {
+                "ecmwf_ifs": 0.0,
+                "ecmwf_aifs": 0.0,
+                "noaa_gfs": 0.0,
+                "open_meteo": 0.0
+              },
+              "interval_10": 0.0,
+              "interval_50": 0.0,
+              "interval_90": 2.44
+            },
+            "wind_speed_10m_max": {
+              "blend": 17.7,
+              "sources": {
+                "ecmwf_ifs": 16.9,
+                "ecmwf_aifs": 16.8,
+                "noaa_gfs": 24.5,
+                "open_meteo": 16.6
+              },
+              "interval_10": 15.35,
+              "interval_50": 17.51,
+              "interval_90": 20.17
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        },
+        {
+          "date": "2026-10-05",
+          "lead_days": 3,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 35.67,
+              "sources": {
+                "ecmwf_ifs": 35.6,
+                "ecmwf_aifs": 35.1,
+                "noaa_gfs": 36.6,
+                "open_meteo": 35.5
+              },
+              "interval_10": 34.52,
+              "interval_50": 35.73,
+              "interval_90": 36.91,
+              "climatology": 32.46
+            },
+            "precipitation_sum": {
+              "blend": 0.0,
+              "sources": {
+                "ecmwf_ifs": 0.0,
+                "ecmwf_aifs": 0.0,
+                "noaa_gfs": 0.0,
+                "open_meteo": 0.0
+              },
+              "interval_10": 0.0,
+              "interval_50": 0.0,
+              "interval_90": 2.62
+            },
+            "wind_speed_10m_max": {
+              "blend": 16.4,
+              "sources": {
+                "ecmwf_ifs": 15.5,
+                "ecmwf_aifs": 16.6,
+                "noaa_gfs": 24.5,
+                "open_meteo": 15.3
+              },
+              "interval_10": 13.64,
+              "interval_50": 16.22,
+              "interval_90": 19.26
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        },
+        {
+          "date": "2026-10-06",
+          "lead_days": 4,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 35.27,
+              "sources": {
+                "ecmwf_ifs": 35.0,
+                "ecmwf_aifs": 34.8,
+                "noaa_gfs": 35.9,
+                "open_meteo": 35.4
+              },
+              "interval_10": 34.12,
+              "interval_50": 35.33,
+              "interval_90": 36.51,
+              "climatology": 32.27
+            },
+            "precipitation_sum": {
+              "blend": 0.0,
+              "sources": {
+                "ecmwf_ifs": 0.0,
+                "ecmwf_aifs": 0.0,
+                "noaa_gfs": 0.0,
+                "open_meteo": 0.0
+              },
+              "interval_10": 0.0,
+              "interval_50": 0.0,
+              "interval_90": 2.62
+            },
+            "wind_speed_10m_max": {
+              "blend": 13.29,
+              "sources": {
+                "ecmwf_ifs": 12.4,
+                "ecmwf_aifs": 12.1,
+                "noaa_gfs": 20.1,
+                "open_meteo": 12.5
+              },
+              "interval_10": 10.52,
+              "interval_50": 13.1,
+              "interval_90": 16.14
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        },
+        {
+          "date": "2026-10-07",
+          "lead_days": 5,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 35.52,
+              "sources": {
+                "ecmwf_ifs": 35.0,
+                "ecmwf_aifs": 35.3,
+                "noaa_gfs": 36.3,
+                "open_meteo": 35.1
+              },
+              "interval_10": 34.1,
+              "interval_50": 35.53,
+              "interval_90": 36.89,
+              "climatology": 32.17
+            },
+            "precipitation_sum": {
+              "blend": 0.0,
+              "sources": {
+                "ecmwf_ifs": 0.0,
+                "ecmwf_aifs": 0.0,
+                "noaa_gfs": 0.0,
+                "open_meteo": 0.0
+              },
+              "interval_10": 0.0,
+              "interval_50": 0.0,
+              "interval_90": 3.76
+            },
+            "wind_speed_10m_max": {
+              "blend": 12.58,
+              "sources": {
+                "ecmwf_ifs": 12.4,
+                "ecmwf_aifs": 8.9,
+                "noaa_gfs": 22.9,
+                "open_meteo": 11.5
+              },
+              "interval_10": 9.54,
+              "interval_50": 12.51,
+              "interval_90": 15.85
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        }
+      ]
+    },
+    "hyderabad": {
+      "name": "Hyderabad (Deccan interior)",
+      "lat": 17.385,
+      "lon": 78.4867,
+      "terrain": "plains",
+      "forecasts": [
+        {
+          "date": "2026-10-03",
+          "lead_days": 1,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 32.59,
+              "sources": {
+                "ecmwf_ifs": 32.1,
+                "ecmwf_aifs": 32.4,
+                "noaa_gfs": 32.8,
+                "open_meteo": 33.5
+              },
+              "interval_10": 31.64,
+              "interval_50": 32.69,
+              "interval_90": 33.61,
+              "climatology": 28.8
+            },
+            "precipitation_sum": {
+              "blend": 0.05,
+              "sources": {
+                "ecmwf_ifs": 0.0,
+                "ecmwf_aifs": 0.0,
+                "noaa_gfs": 0.4,
+                "open_meteo": 0.6
+              },
+              "interval_10": 0.0,
+              "interval_50": 0.05,
+              "interval_90": 2.5
+            },
+            "wind_speed_10m_max": {
+              "blend": 11.29,
+              "sources": {
+                "ecmwf_ifs": 10.7,
+                "ecmwf_aifs": 7.9,
+                "noaa_gfs": 11.3,
+                "open_meteo": 10.4
+              },
+              "interval_10": 8.94,
+              "interval_50": 11.1,
+              "interval_90": 13.76
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        },
+        {
+          "date": "2026-10-04",
+          "lead_days": 2,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 33.34,
+              "sources": {
+                "ecmwf_ifs": 32.6,
+                "ecmwf_aifs": 33.6,
+                "noaa_gfs": 33.1,
+                "open_meteo": 34.3
+              },
+              "interval_10": 32.39,
+              "interval_50": 33.44,
+              "interval_90": 34.36,
+              "climatology": 29.01
+            },
+            "precipitation_sum": {
+              "blend": 0.0,
+              "sources": {
+                "ecmwf_ifs": 0.0,
+                "ecmwf_aifs": 0.0,
+                "noaa_gfs": 0.0,
+                "open_meteo": 0.0
+              },
+              "interval_10": 0.0,
+              "interval_50": 0.0,
+              "interval_90": 2.44
+            },
+            "wind_speed_10m_max": {
+              "blend": 12.39,
+              "sources": {
+                "ecmwf_ifs": 11.9,
+                "ecmwf_aifs": 7.3,
+                "noaa_gfs": 13.0,
+                "open_meteo": 11.3
+              },
+              "interval_10": 10.04,
+              "interval_50": 12.2,
+              "interval_90": 14.86
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        },
+        {
+          "date": "2026-10-05",
+          "lead_days": 3,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 33.63,
+              "sources": {
+                "ecmwf_ifs": 32.7,
+                "ecmwf_aifs": 33.4,
+                "noaa_gfs": 33.4,
+                "open_meteo": 34.4
+              },
+              "interval_10": 32.48,
+              "interval_50": 33.69,
+              "interval_90": 34.87,
+              "climatology": 29.43
+            },
+            "precipitation_sum": {
+              "blend": 0.0,
+              "sources": {
+                "ecmwf_ifs": 0.0,
+                "ecmwf_aifs": 0.0,
+                "noaa_gfs": 0.0,
+                "open_meteo": 0.0
+              },
+              "interval_10": 0.0,
+              "interval_50": 0.0,
+              "interval_90": 2.62
+            },
+            "wind_speed_10m_max": {
+              "blend": 12.36,
+              "sources": {
+                "ecmwf_ifs": 10.5,
+                "ecmwf_aifs": 7.4,
+                "noaa_gfs": 18.7,
+                "open_meteo": 14.6
+              },
+              "interval_10": 9.59,
+              "interval_50": 12.17,
+              "interval_90": 15.21
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        },
+        {
+          "date": "2026-10-06",
+          "lead_days": 4,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 33.48,
+              "sources": {
+                "ecmwf_ifs": 32.5,
+                "ecmwf_aifs": 33.7,
+                "noaa_gfs": 32.7,
+                "open_meteo": 33.4
+              },
+              "interval_10": 32.33,
+              "interval_50": 33.54,
+              "interval_90": 34.72,
+              "climatology": 29.49
+            },
+            "precipitation_sum": {
+              "blend": 0.0,
+              "sources": {
+                "ecmwf_ifs": 0.0,
+                "ecmwf_aifs": 0.0,
+                "noaa_gfs": 0.0,
+                "open_meteo": 0.0
+              },
+              "interval_10": 0.0,
+              "interval_50": 0.0,
+              "interval_90": 2.62
+            },
+            "wind_speed_10m_max": {
+              "blend": 12.52,
+              "sources": {
+                "ecmwf_ifs": 11.5,
+                "ecmwf_aifs": 9.7,
+                "noaa_gfs": 16.6,
+                "open_meteo": 12.5
+              },
+              "interval_10": 9.76,
+              "interval_50": 12.34,
+              "interval_90": 15.38
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        },
+        {
+          "date": "2026-10-07",
+          "lead_days": 5,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 33.67,
+              "sources": {
+                "ecmwf_ifs": 32.9,
+                "ecmwf_aifs": 33.4,
+                "noaa_gfs": 33.1,
+                "open_meteo": 33.4
+              },
+              "interval_10": 32.25,
+              "interval_50": 33.67,
+              "interval_90": 35.03,
+              "climatology": 29.47
+            },
+            "precipitation_sum": {
+              "blend": 0.0,
+              "sources": {
+                "ecmwf_ifs": 0.0,
+                "ecmwf_aifs": 0.0,
+                "noaa_gfs": 0.0,
+                "open_meteo": 0.0
+              },
+              "interval_10": 0.0,
+              "interval_50": 0.0,
+              "interval_90": 3.76
+            },
+            "wind_speed_10m_max": {
+              "blend": 13.02,
+              "sources": {
+                "ecmwf_ifs": 12.5,
+                "ecmwf_aifs": 11.3,
+                "noaa_gfs": 18.1,
+                "open_meteo": 11.5
+              },
+              "interval_10": 9.98,
+              "interval_50": 12.95,
+              "interval_90": 16.29
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        }
+      ]
+    },
+    "mumbai": {
+      "name": "Mumbai (West coast metro)",
+      "lat": 19.076,
+      "lon": 72.8777,
+      "terrain": "coastal",
+      "forecasts": [
+        {
+          "date": "2026-10-03",
+          "lead_days": 1,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 35.66,
+              "sources": {
+                "ecmwf_ifs": 35.2,
+                "ecmwf_aifs": 34.4,
+                "noaa_gfs": 37.0,
+                "open_meteo": 36.6
+              },
+              "interval_10": 34.71,
+              "interval_50": 35.76,
+              "interval_90": 36.68,
+              "climatology": 28.87
+            },
+            "precipitation_sum": {
+              "blend": 0.0,
+              "sources": {
+                "ecmwf_ifs": 0.0,
+                "ecmwf_aifs": 0.0,
+                "noaa_gfs": 0.0,
+                "open_meteo": 0.0
+              },
+              "interval_10": 0.0,
+              "interval_50": 0.0,
+              "interval_90": 2.44
+            },
+            "wind_speed_10m_max": {
+              "blend": 9.86,
+              "sources": {
+                "ecmwf_ifs": 6.4,
+                "ecmwf_aifs": 12.5,
+                "noaa_gfs": 10.3,
+                "open_meteo": 11.7
+              },
+              "interval_10": 7.51,
+              "interval_50": 9.66,
+              "interval_90": 12.33
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.061,
+              "threshold": ">= 37.0 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        },
+        {
+          "date": "2026-10-04",
+          "lead_days": 2,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 34.87,
+              "sources": {
+                "ecmwf_ifs": 34.6,
+                "ecmwf_aifs": 33.6,
+                "noaa_gfs": 36.4,
+                "open_meteo": 35.6
+              },
+              "interval_10": 33.92,
+              "interval_50": 34.97,
+              "interval_90": 35.89,
+              "climatology": 29.19
+            },
+            "precipitation_sum": {
+              "blend": 0.0,
+              "sources": {
+                "ecmwf_ifs": 0.0,
+                "ecmwf_aifs": 0.0,
+                "noaa_gfs": 0.0,
+                "open_meteo": 0.0
+              },
+              "interval_10": 0.0,
+              "interval_50": 0.0,
+              "interval_90": 2.44
+            },
+            "wind_speed_10m_max": {
+              "blend": 12.87,
+              "sources": {
+                "ecmwf_ifs": 8.4,
+                "ecmwf_aifs": 13.3,
+                "noaa_gfs": 11.3,
+                "open_meteo": 15.8
+              },
+              "interval_10": 10.52,
+              "interval_50": 12.67,
+              "interval_90": 15.34
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.007,
+              "threshold": ">= 37.0 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        },
+        {
+          "date": "2026-10-05",
+          "lead_days": 3,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 33.4,
+              "sources": {
+                "ecmwf_ifs": 33.2,
+                "ecmwf_aifs": 32.6,
+                "noaa_gfs": 35.5,
+                "open_meteo": 33.6
+              },
+              "interval_10": 32.25,
+              "interval_50": 33.45,
+              "interval_90": 34.63,
+              "climatology": 29.62
+            },
+            "precipitation_sum": {
+              "blend": 0.0,
+              "sources": {
+                "ecmwf_ifs": 0.0,
+                "ecmwf_aifs": 0.0,
+                "noaa_gfs": 0.0,
+                "open_meteo": 0.0
+              },
+              "interval_10": 0.0,
+              "interval_50": 0.0,
+              "interval_90": 2.62
+            },
+            "wind_speed_10m_max": {
+              "blend": 14.45,
+              "sources": {
+                "ecmwf_ifs": 12.0,
+                "ecmwf_aifs": 14.2,
+                "noaa_gfs": 18.4,
+                "open_meteo": 15.8
+              },
+              "interval_10": 11.68,
+              "interval_50": 14.27,
+              "interval_90": 17.31
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.0,
+              "threshold": ">= 37.0 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        },
+        {
+          "date": "2026-10-06",
+          "lead_days": 4,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 32.54,
+              "sources": {
+                "ecmwf_ifs": 32.8,
+                "ecmwf_aifs": 31.7,
+                "noaa_gfs": 34.6,
+                "open_meteo": 32.3
+              },
+              "interval_10": 31.39,
+              "interval_50": 32.6,
+              "interval_90": 33.78,
+              "climatology": 30.15
+            },
+            "precipitation_sum": {
+              "blend": 0.3,
+              "sources": {
+                "ecmwf_ifs": 0.0,
+                "ecmwf_aifs": 0.0,
+                "noaa_gfs": 0.9,
+                "open_meteo": 0.4
+              },
+              "interval_10": 0.0,
+              "interval_50": 0.3,
+              "interval_90": 2.92
+            },
+            "wind_speed_10m_max": {
+              "blend": 14.49,
+              "sources": {
+                "ecmwf_ifs": 12.0,
+                "ecmwf_aifs": 13.2,
+                "noaa_gfs": 23.4,
+                "open_meteo": 15.9
+              },
+              "interval_10": 11.73,
+              "interval_50": 14.31,
+              "interval_90": 17.35
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.0,
+              "threshold": ">= 37.0 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        },
+        {
+          "date": "2026-10-07",
+          "lead_days": 5,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 34.11,
+              "sources": {
+                "ecmwf_ifs": 34.4,
+                "ecmwf_aifs": 32.5,
+                "noaa_gfs": 36.5,
+                "open_meteo": 35.2
+              },
+              "interval_10": 32.69,
+              "interval_50": 34.11,
+              "interval_90": 35.47,
+              "climatology": 30.61
+            },
+            "precipitation_sum": {
+              "blend": 0.01,
+              "sources": {
+                "ecmwf_ifs": 0.0,
+                "ecmwf_aifs": 0.0,
+                "noaa_gfs": 0.0,
+                "open_meteo": 0.6
+              },
+              "interval_10": 0.0,
+              "interval_50": 0.01,
+              "interval_90": 3.76
+            },
+            "wind_speed_10m_max": {
+              "blend": 11.6,
+              "sources": {
+                "ecmwf_ifs": 7.3,
+                "ecmwf_aifs": 10.5,
+                "noaa_gfs": 17.7,
+                "open_meteo": 13.3
+              },
+              "interval_10": 8.56,
+              "interval_50": 11.53,
+              "interval_90": 14.87
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.008,
+              "threshold": ">= 37.0 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        }
+      ]
+    },
+    "bengaluru": {
+      "name": "Bengaluru (South interior plateau)",
+      "lat": 12.9716,
+      "lon": 77.5946,
+      "terrain": "plains",
+      "forecasts": [
+        {
+          "date": "2026-10-03",
+          "lead_days": 1,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 29.0,
+              "sources": {
+                "ecmwf_ifs": 28.2,
+                "ecmwf_aifs": 29.8,
+                "noaa_gfs": 30.9,
+                "open_meteo": 29.1
+              },
+              "interval_10": 28.05,
+              "interval_50": 29.1,
+              "interval_90": 30.03,
+              "climatology": 27.86
+            },
+            "precipitation_sum": {
+              "blend": 0.01,
+              "sources": {
+                "ecmwf_ifs": 0.3,
+                "ecmwf_aifs": 0.0,
+                "noaa_gfs": 0.0,
+                "open_meteo": 0.3
+              },
+              "interval_10": 0.0,
+              "interval_50": 0.01,
+              "interval_90": 2.46
+            },
+            "wind_speed_10m_max": {
+              "blend": 10.41,
+              "sources": {
+                "ecmwf_ifs": 9.1,
+                "ecmwf_aifs": 8.6,
+                "noaa_gfs": 13.7,
+                "open_meteo": 10.4
+              },
+              "interval_10": 8.06,
+              "interval_50": 10.22,
+              "interval_90": 12.88
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        },
+        {
+          "date": "2026-10-04",
+          "lead_days": 2,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 29.62,
+              "sources": {
+                "ecmwf_ifs": 29.7,
+                "ecmwf_aifs": 29.4,
+                "noaa_gfs": 30.2,
+                "open_meteo": 30.1
+              },
+              "interval_10": 28.67,
+              "interval_50": 29.72,
+              "interval_90": 30.64,
+              "climatology": 27.87
+            },
+            "precipitation_sum": {
+              "blend": 2.96,
+              "sources": {
+                "ecmwf_ifs": 4.8,
+                "ecmwf_aifs": 3.6,
+                "noaa_gfs": 0.2,
+                "open_meteo": 5.7
+              },
+              "interval_10": 0.29,
+              "interval_50": 2.96,
+              "interval_90": 5.4
+            },
+            "wind_speed_10m_max": {
+              "blend": 9.63,
+              "sources": {
+                "ecmwf_ifs": 7.6,
+                "ecmwf_aifs": 8.1,
+                "noaa_gfs": 11.7,
+                "open_meteo": 10.6
+              },
+              "interval_10": 7.27,
+              "interval_50": 9.43,
+              "interval_90": 12.09
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        },
+        {
+          "date": "2026-10-05",
+          "lead_days": 3,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 28.59,
+              "sources": {
+                "ecmwf_ifs": 27.6,
+                "ecmwf_aifs": 28.5,
+                "noaa_gfs": 30.5,
+                "open_meteo": 28.5
+              },
+              "interval_10": 27.44,
+              "interval_50": 28.65,
+              "interval_90": 29.83,
+              "climatology": 27.95
+            },
+            "precipitation_sum": {
+              "blend": 11.69,
+              "sources": {
+                "ecmwf_ifs": 10.2,
+                "ecmwf_aifs": 10.2,
+                "noaa_gfs": 23.1,
+                "open_meteo": 12.6
+              },
+              "interval_10": 8.34,
+              "interval_50": 11.69,
+              "interval_90": 14.31
+            },
+            "wind_speed_10m_max": {
+              "blend": 6.36,
+              "sources": {
+                "ecmwf_ifs": 5.4,
+                "ecmwf_aifs": 2.9,
+                "noaa_gfs": 13.7,
+                "open_meteo": 7.3
+              },
+              "interval_10": 3.59,
+              "interval_50": 6.17,
+              "interval_90": 9.21
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        },
+        {
+          "date": "2026-10-06",
+          "lead_days": 4,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 27.05,
+              "sources": {
+                "ecmwf_ifs": 27.1,
+                "ecmwf_aifs": 28.2,
+                "noaa_gfs": 24.1,
+                "open_meteo": 28.0
+              },
+              "interval_10": 25.9,
+              "interval_50": 27.11,
+              "interval_90": 28.28,
+              "climatology": 27.93
+            },
+            "precipitation_sum": {
+              "blend": 9.98,
+              "sources": {
+                "ecmwf_ifs": 6.9,
+                "ecmwf_aifs": 9.6,
+                "noaa_gfs": 13.3,
+                "open_meteo": 12.9
+              },
+              "interval_10": 6.64,
+              "interval_50": 9.98,
+              "interval_90": 12.6
+            },
+            "wind_speed_10m_max": {
+              "blend": 9.58,
+              "sources": {
+                "ecmwf_ifs": 12.3,
+                "ecmwf_aifs": 5.5,
+                "noaa_gfs": 10.6,
+                "open_meteo": 8.2
+              },
+              "interval_10": 6.81,
+              "interval_50": 9.39,
+              "interval_90": 12.43
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        },
+        {
+          "date": "2026-10-07",
+          "lead_days": 5,
+          "season": "non_monsoon",
+          "variables": {
+            "temperature_2m_max": {
+              "blend": 28.62,
+              "sources": {
+                "ecmwf_ifs": 28.4,
+                "ecmwf_aifs": 28.9,
+                "noaa_gfs": 28.2,
+                "open_meteo": 28.0
+              },
+              "interval_10": 27.2,
+              "interval_50": 28.63,
+              "interval_90": 29.99,
+              "climatology": 27.91
+            },
+            "precipitation_sum": {
+              "blend": 2.02,
+              "sources": {
+                "ecmwf_ifs": 1.5,
+                "ecmwf_aifs": 1.2,
+                "noaa_gfs": 5.6,
+                "open_meteo": 0.0
+              },
+              "interval_10": 0.0,
+              "interval_50": 2.02,
+              "interval_90": 5.78
+            },
+            "wind_speed_10m_max": {
+              "blend": 10.84,
+              "sources": {
+                "ecmwf_ifs": 10.2,
+                "ecmwf_aifs": 9.0,
+                "noaa_gfs": 16.1,
+                "open_meteo": 9.0
+              },
+              "interval_10": 7.8,
+              "interval_50": 10.77,
+              "interval_90": 14.1
+            }
+          },
+          "extreme_risks": {
+            "heavy_rain": {
+              "probability": 0.0,
+              "threshold": ">= 64.5 mm",
+              "level": "LOW"
+            },
+            "heatwave": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 C (norm + 4.5 C)",
+              "level": "LOW"
+            },
+            "high_wind": {
+              "probability": 0.0,
+              "threshold": ">= 40.0 km/h",
+              "level": "LOW"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
